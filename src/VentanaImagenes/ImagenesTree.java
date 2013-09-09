@@ -8,7 +8,6 @@ import Entidades.Caratula;
 import Parser.CaratulaParser;
 import Parser.ReporteXMlCaratula;
 import Recursos.IDCNombre;
-import helper.Mensajes;
 import helper.RutaParaIDC;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public final class ImagenesTree extends JFrame {
   //
   private boolean isDirectorio;
   private boolean escrituraErrores;
-  private boolean isEjercicio;
+  private boolean ejercicio;
 //
   private String rutaProcesada;
   private String idc;
@@ -81,7 +80,7 @@ public final class ImagenesTree extends JFrame {
       DefaultMutableTreeNode idece = new DefaultMutableTreeNode(contenidoIDC, true);
       raiz.add(idece);
       // TODO refactor this
-      mapeo = new MapeoReporte(isDirectorio, rutaProcesada, idece, isEjercicio, imgFileSystem);
+      mapeo = new MapeoReporte(isDirectorio, rutaProcesada, idece, isEjercicio(), imgFileSystem);
       contenidoIDC.setCampos(mapeo.getCampoString());
       idcnombre = mapeo.getIdcnombre();
       //TODO refactor this 2
@@ -125,7 +124,17 @@ public final class ImagenesTree extends JFrame {
 
   private void setEjercicio(ReporteXMlCaratula reporte) {
     SetEjercicio setEjercicio =
-            new SetEjercicio(reporte, sede, isEjercicio, escrituraErrores,
+            new SetEjercicio(reporte, sede, ejercicio, escrituraErrores,
             rutaProcesada);
+    setIsEjercicio(setEjercicio.isEjercicio());
+
+  }
+
+  public boolean isEjercicio() {
+    return ejercicio;
+  }
+
+  public void setIsEjercicio(boolean isEjercicio) {
+    this.ejercicio = isEjercicio;
   }
 }
