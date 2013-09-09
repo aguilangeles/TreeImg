@@ -8,7 +8,7 @@ import InternalFrame.InputRuta;
 import InternalFrame.SoloIDCFrame;
 import Recursos.FilesNames;
 import Recursos.IDCNombre;
-import helper.ContarImagenes;
+import helper.GetQuantityImagesInFileSystem;
 import helper.Mensajes;
 import java.io.File;
 import java.io.FileFilter;
@@ -60,7 +60,7 @@ public class WorkerIDC extends SwingWorker<Void, Integer> {
   protected Void doInBackground() {
     String name = "";
     int totalImagenes;
-    ContarImagenes ci;
+    GetQuantityImagesInFileSystem ci;
     int contador = 0;
 
     File[] dirs = file.listFiles(fileFilter);
@@ -73,14 +73,14 @@ public class WorkerIDC extends SwingWorker<Void, Integer> {
         if (path.endsWith("Carat.xml"))
           {
           contador++;
-          ci = new ContarImagenes(path, contador);
+          ci = new GetQuantityImagesInFileSystem(path, contador);
                 informacion.setText("Procesando imagen "+ contador);
           String reemplazo = path.replace("#", "%23");
           totalImagenes = (ci.getListaFileSystem().get(contador));
           imagenes = new ImagenesTree(isDirectorio, root, reemplazo, totalImagenes);//borrar todo lo de Escritor txt
           IDCNombre idcnombre = imagenes.getIdcnombre();
           List<FilesNames> lista = idcnombre.getListaFiles();
-          List<String> listaFiles = ci.getFilenames();
+          List<String> listaFiles = ci.getFilenameList();
           for (FilesNames flm : lista)
             {
             String nombrefl = flm.toString();

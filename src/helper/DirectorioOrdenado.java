@@ -13,21 +13,18 @@ import java.util.TreeMap;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Devuelve un sorted map, que permitira visualizar un mapa ordenado ascendentemente.
  * @author MUTNPROD003
  */
 public class DirectorioOrdenado {
-
   private SortedMap sortedMap;
-  private String ruta;
   private static int sede;
 
   public DirectorioOrdenado(String ruta) {
-    this.ruta = ruta;
-    sortedMap = directorio();
+    sortedMap = getDirectorio(ruta);
   }
 
-  private SortedMap directorio() {
+  private SortedMap getDirectorio(String ruta) {
     SortedMap sortedMap1 = new TreeMap();
     int numeroSublote = 0;
     File carpeta = new File(ruta);

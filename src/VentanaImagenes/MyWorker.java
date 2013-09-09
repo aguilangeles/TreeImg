@@ -8,17 +8,14 @@ import InternalFrame.InputRuta;
 import InternalFrame.VentanaPrincipal;
 import Recursos.FilesNames;
 import Recursos.IDCNombre;
-import helper.ContarImagenes;
+import helper.GetQuantityImagesInFileSystem;
 import helper.DirectorioOrdenado;
 import helper.Mensajes;
 import helper.Porcentaje;
 import java.io.File;
 import java.io.FileFilter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.SortedMap;
 import javax.swing.JButton;
@@ -26,7 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.tree.DefaultMutableTreeNode;
-import txt.Escritor;
 
 /**
  *
@@ -42,7 +38,6 @@ public class MyWorker extends SwingWorker<Void, Integer> {
   private JButton botonVolumen;
   private String camposVolumen;
   private Porcentaje porcentaje;
-  private String rutaInput;
   private String noImagen;
   private File file;
   private FileFilter fileFilter;
@@ -55,18 +50,19 @@ public class MyWorker extends SwingWorker<Void, Integer> {
   private Mensajes mensaje;
   private String txtUbicacion;
   private JLabel informacion;
+  private static DirectorioOrdenado directorio;
 
   public MyWorker(boolean valor, VentanaPrincipal principal, InputRuta input, DefaultMutableTreeNode root, String rutaInput, File dir, FileFilter fileFilter, JButton botonVolumen, String noImagen, javax.swing.JLabel informacion) {
     this.isDirectorio = valor;
     this.principal = principal;
     this.frameInput = input;
     this.raizArbol = root;
-    this.rutaInput = rutaInput;
     this.file = dir;
     this.fileFilter = fileFilter;
     this.botonVolumen = botonVolumen;
     this.noImagen = noImagen;
     this.informacion = informacion;
+    directorio = new DirectorioOrdenado(rutaInput);
   }
 
   public MyWorker() {
@@ -74,20 +70,18 @@ public class MyWorker extends SwingWorker<Void, Integer> {
 
   @Override
   protected Void doInBackground() throws Exception {
-    DirectorioOrdenado dir = new DirectorioOrdenado(rutaInput);
-    int sede = dir.getSede();
-    SortedMap mapa = dir.getSortedMap();
-    int tf = 0;
-    Iterator it = mapa.keySet().iterator();
     int p = 0;
     int totFS = 0;
+    int sede = directorio.getSede();
+    SortedMap mapa = directorio.getSortedMap();
+    Iterator it = mapa.keySet().iterator();
     while (it.hasNext())
       {
       Object key = it.next();
       String rutaProcesada = (String) mapa.get(key);
       informacion.setText(rutaProcesada);
       int r = (Integer) key;
-      ContarImagenes ci = new ContarImagenes(rutaProcesada, r);
+      GetQuantityImagesInFileSystem ci = new GetQuantityImagesInFileSystem(rutaProcesada, r);
       for (Map.Entry l : ci.getListaFileSystem().entrySet())
         {
         p = (Integer) l.getValue();
@@ -97,7 +91,7 @@ public class MyWorker extends SwingWorker<Void, Integer> {
       imagenes = new ImagenesTree(isDirectorio, raizArbol, rutaProcesada, escribioTXT, sede, p);
       idcnombre = imagenes.getIdcnombre();
       List<FilesNames> lista = idcnombre.getListaFiles();
-      List<String> listaF = ci.getFilenames();
+      List<String> listaF = ci.getFilenameList();
       for (FilesNames flm : lista)
         {
         String nombrefln = flm.toString();
@@ -170,7 +164,6 @@ public class MyWorker extends SwingWorker<Void, Integer> {
 //    fecha = format.format(date);
 //    return fecha;
 //  }
-
   @Override
   protected void done() {
     if (!isCancelled())
