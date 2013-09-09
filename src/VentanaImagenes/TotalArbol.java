@@ -4,7 +4,7 @@
  */
 package VentanaImagenes;
 /**
- *
+ * Muestra la sumatoria de los campos del arbol
  * @author MUTNPROD003
  */
 public class TotalArbol {

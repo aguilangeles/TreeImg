@@ -13,8 +13,7 @@ import helper.Porcentaje;
  */
 public class SetTotalArbol {
 
-  private ImagenesTree imagenesTree;
-  private int papeles,
+  private static int papeles,
           papValidos,
           papInvalidos,
           anversos,
@@ -24,31 +23,18 @@ public class SetTotalArbol {
           camposValidos,
           camposInvalidos,
           camposIB;
-  private float validosPorcentaje;
-  private String rutaProcesada, camposVolumen;
+  private static float validosPorcentaje;
+  private String rutaProcesada;
+//  private static String camposVolumen;
 
-  public SetTotalArbol(ImagenesTree imagenesTree, int papeles, int papValidos, int papInvalidos, int anversos, int reversos, int imagenes, int campos, int camposValidos, int camposInvalidos, int camposIB, float validosPorcentaje, String rutaProcesada) {
-    this.imagenesTree = imagenesTree;
-    this.papeles = papeles;
-    this.papValidos = papValidos;
-    this.papInvalidos = papInvalidos;
-    this.anversos = anversos;
-    this.reversos = reversos;
-    this.imagenes = imagenes;
-    this.campos = campos;
-    this.camposValidos = camposValidos;
-    this.camposInvalidos = camposInvalidos;
-    this.camposIB = camposIB;
-    this.validosPorcentaje = validosPorcentaje;
-    this.rutaProcesada = rutaProcesada;
-    setTotalArbol(rutaProcesada);
-//    setCamposVolumen(totalImgInFileSystem);
+  public SetTotalArbol(ImagenesTree imagen, String rutaString) {
+    setTotalArbol(imagen, rutaString);
   }
 
-  private void setTotalArbol(String rutaProcesada) {
+  private void setTotalArbol(ImagenesTree imagen, String rutaProcesada) {
     try
       {
-      for (TotalArbol l : imagenesTree.getLista())
+      for (TotalArbol l : imagen.getLista())
         {
         papeles += l.getPapeles();
         papValidos += l.getP_validos();
@@ -72,11 +58,14 @@ public class SetTotalArbol {
       }//fin try catch
   }
 
-  public void setCamposVolumen(int totalImgInFileSystem) {
+  public SetTotalArbol() {
+  }
+
+  public String setCamposVolumen(int totalImgInFileSystem) {
     Porcentaje validos = new Porcentaje(camposValidos, campos);
     Porcentaje invalido = new Porcentaje(camposInvalidos, campos);
     Porcentaje invalidoDB = new Porcentaje(camposIB, campos);
-    camposVolumen = imagenes
+    String ret = imagenes
             + ", " + totalImgInFileSystem
             + ", " + anversos
             + ", " + reversos
@@ -92,9 +81,9 @@ public class SetTotalArbol {
             + ", " + invalido
             + ", " + invalidoDB
             + "\n";
+    return ret;
   }
 
-  public String getCamposVolumen() {
-    return camposVolumen;
-  }
+
+
 }

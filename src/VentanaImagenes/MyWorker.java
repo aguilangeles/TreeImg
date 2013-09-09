@@ -41,9 +41,9 @@ public class MyWorker extends SwingWorker<Void, Integer> {
   private String noImagen;
   private File file;
   private FileFilter fileFilter;
-  private int img = 0, papeles = 0, ppV = 0, ppI = 0, an = 0, rev = 0, cm = 0,
-          cmV = 0, cmI = 0, cmIB = 0;
-  private float validosPorcentaje;
+//  private int img = 0, papeles = 0, ppV = 0, ppI = 0, an = 0, rev = 0, cm = 0,
+//          cmV = 0, cmI = 0, cmIB = 0;
+//  private float validosPorcentaje;
   private String noFilename;
   private ImagenesTree imagenes;
   private IDCNombre idcnombre;
@@ -52,6 +52,7 @@ public class MyWorker extends SwingWorker<Void, Integer> {
   private JLabel informacion;
   private static DirectorioOrdenado directorio;
   private static int totalEnFileSys;
+  private SetTotalArbol setTotalArbol;
 
   public MyWorker(boolean valor, VentanaPrincipal principal, InputRuta input, DefaultMutableTreeNode root, String rutaInput, File dir, FileFilter fileFilter, JButton botonVolumen, String noImagen, javax.swing.JLabel informacion) {
     this.isDirectorio = valor;
@@ -105,52 +106,9 @@ public class MyWorker extends SwingWorker<Void, Integer> {
           mensaje = new Mensajes(ruta, "El sistema no puede encontrar el archivo");
           }
         }
-
-      try
-        {
-        for (TotalArbol l : imagenes.getLista())
-          {
-          papeles += l.getPapeles();
-          ppV += l.getP_validos();
-          ppI += l.getP_invalidos();
-          float porcentajeVlidos = 0;
-          porcentajeVlidos += (float) ppV * 100 / (float) papeles;
-          boolean isNan = Float.isNaN(porcentajeVlidos);
-          validosPorcentaje = (!isNan) ? porcentajeVlidos : 0;
-          an += l.getAnversos();
-          rev += l.getReversos();
-          img += l.getImagenes();
-          cm += l.getCampos();
-          cmV += l.getC_valid();
-          cmI += l.getC_invalid();
-          cmIB += l.getC_invalidDB();
-          }
-        } catch (Exception l)
-        {
-        String ruta = rutaProcesada.replace("/Carat.xml", "");
-        mensaje = new Mensajes(ruta, "El xml 'Meta' no se encuentra");
-        }
+      setTotalesArbol(rutaProcesada);
       }
-
-    Porcentaje validos = new Porcentaje(cmV, cm);
-    Porcentaje invalido = new Porcentaje(cmI, cm);
-    Porcentaje invalidoDB = new Porcentaje(cmIB, cm);
-    camposVolumen = img
-            + ", " + getTotalEnFileSys()
-            + ", " + an
-            + ", " + rev
-            + ", " + papeles
-            + ", " + ppV
-            + ", " + ppI
-            + ", " + validosPorcentaje
-            + ", " + cm
-            + ", " + cmV
-            + ", " + cmI
-            + ", " + cmIB
-            + ", " + validos
-            + ", " + invalido
-            + ", " + invalidoDB
-            + "\n";
+    setCamposVolumen(getTotalEnFileSys());
     return null;
 
   }
@@ -163,20 +121,12 @@ public class MyWorker extends SwingWorker<Void, Integer> {
     return camposVolumen;
   }
 
-//  private String fecha() {
-//    String fecha = "";
-//    SimpleDateFormat format = new SimpleDateFormat("dd'-'MM'-'yyyy HH:mm", Locale.ENGLISH);
-//    Date date = new Date();
-//    fecha = format.format(date);
-//    return fecha;
-//  }
   @Override
   protected void done() {
     if (!isCancelled())
       {
       escribioTXT = imagenes.isEscrituraErrores();
       botonVolumen.setEnabled(true);
-
       String finalizo = "La construcción del Arbol ha finalizado";
       String aceptar = "Aceptar para mostrar la Ventana Principal\n";
       String advertencia = (escribioTXT) ? "Datos de errores en: \n" + mensaje.getUbicacion() : "";
@@ -186,5 +136,13 @@ public class MyWorker extends SwingWorker<Void, Integer> {
       frameInput.dispose();
       principal.setVisible(true);
       }
+  }
+
+  private void setTotalesArbol(String rutaProcesada) {
+    setTotalArbol = new SetTotalArbol(imagenes, rutaProcesada);
+  }
+
+  private void setCamposVolumen(int total) {
+    camposVolumen = (setTotalArbol.setCamposVolumen(total));
   }
 }
