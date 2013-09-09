@@ -5,7 +5,6 @@
 package Parser;
 
 import Entidades.Caratula;
-import Entidades.Metadato;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

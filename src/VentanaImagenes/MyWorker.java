@@ -70,8 +70,8 @@ public class MyWorker extends SwingWorker<Void, Integer> {
 
   @Override
   protected Void doInBackground() throws Exception {
-    int p = 0;
-    int totFS = 0;
+    int imgFileSys = 0;
+    int totalImgInFileSystem = 0;
     int sede = directorio.getSede();
     SortedMap mapa = directorio.getSortedMap();
     Iterator it = mapa.keySet().iterator();
@@ -80,18 +80,17 @@ public class MyWorker extends SwingWorker<Void, Integer> {
       Object key = it.next();
       String rutaProcesada = (String) mapa.get(key);
       informacion.setText(rutaProcesada);
-      int r = (Integer) key;
-      GetQuantityImagesInFileSystem ci = new GetQuantityImagesInFileSystem(rutaProcesada, r);
-      for (Map.Entry l : ci.getListaFileSystem().entrySet())
+      int rutaKey = (Integer) key;
+      GetQuantityImagesInFileSystem cantidadImg = new GetQuantityImagesInFileSystem(rutaProcesada, rutaKey);
+      for (Map.Entry map : cantidadImg.getListaFileSystem().entrySet())
         {
-        p = (Integer) l.getValue();
-        totFS += p;
+        imgFileSys = (Integer) map.getValue();
         }
 
-      imagenes = new ImagenesTree(isDirectorio, raizArbol, rutaProcesada, escribioTXT, sede, p);
+      imagenes = new ImagenesTree(isDirectorio, raizArbol, rutaProcesada, escribioTXT, sede, imgFileSys);
       idcnombre = imagenes.getIdcnombre();
       List<FilesNames> lista = idcnombre.getListaFiles();
-      List<String> listaF = ci.getFilenameList();
+      List<String> listaF = cantidadImg.getFilenameList();
       for (FilesNames flm : lista)
         {
         String nombrefln = flm.toString();
@@ -134,7 +133,7 @@ public class MyWorker extends SwingWorker<Void, Integer> {
     Porcentaje invalido = new Porcentaje(cmI, cm);
     Porcentaje invalidoDB = new Porcentaje(cmIB, cm);
     camposVolumen = img
-            + ", " + totFS
+            + ", " + totalImgInFileSystem
             + ", " + an
             + ", " + rev
             + ", " + papeles
