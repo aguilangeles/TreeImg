@@ -40,6 +40,7 @@ public class InputRuta extends javax.swing.JFrame {
     jTextField1 = new javax.swing.JTextField();
     jButton1 = new javax.swing.JButton();
     checkIDC = new javax.swing.JCheckBox();
+    informacion = new javax.swing.JLabel();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("Arbol de Imagenes");
@@ -63,6 +64,9 @@ public class InputRuta extends javax.swing.JFrame {
 
     checkIDC.setText("Es un IDC");
 
+    informacion.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+    informacion.setBorder(javax.swing.BorderFactory.createTitledBorder("Información de proceso"));
+
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
@@ -70,15 +74,17 @@ public class InputRuta extends javax.swing.JFrame {
       .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
       .addGroup(jPanel1Layout.createSequentialGroup()
         .addContainerGap()
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-          .addGroup(jPanel1Layout.createSequentialGroup()
-            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
-            .addContainerGap())
-          .addGroup(jPanel1Layout.createSequentialGroup()
+        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
             .addComponent(checkIDC)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(20, 20, 20))))
+            .addGap(20, 20, 20))
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+              .addComponent(informacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE))
+            .addContainerGap())))
     );
     jPanel1Layout.setVerticalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,7 +97,9 @@ public class InputRuta extends javax.swing.JFrame {
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(checkIDC)
           .addComponent(jButton1))
-        .addContainerGap(23, Short.MAX_VALUE))
+        .addGap(18, 18, 18)
+        .addComponent(informacion, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -107,8 +115,8 @@ public class InputRuta extends javax.swing.JFrame {
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addContainerGap()
-        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addContainerGap())
     );
 
     pack();
@@ -128,8 +136,7 @@ public class InputRuta extends javax.swing.JFrame {
     if (file.exists())
       {
       isFile = true;
-      principal = new VentanaPrincipal(isFile, this, ruta, file, fileFilter);
-      jTextField1.setText("El proceso de contrucción  puede demorarse unos minutos");
+      principal = new VentanaPrincipal(isFile, this, ruta, file, fileFilter, informacion);
       jButton1.setEnabled(false);
       } else
       {
@@ -149,7 +156,8 @@ public class InputRuta extends javax.swing.JFrame {
     };
     if (folder.exists())
       {
-      secundario = new SoloIDCFrame(isFile, this, ruta, folder, filefilter);
+      secundario = new SoloIDCFrame(isFile, this, ruta, folder, filefilter, informacion);
+      //encontrar que mostrar aca
       jTextField1.setText("El proceso puede demorarse unos minutos");
       jButton1.setEnabled(false);
       isFile = false;
@@ -222,6 +230,7 @@ public class InputRuta extends javax.swing.JFrame {
 //    }
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JCheckBox checkIDC;
+  private javax.swing.JLabel informacion;
   private javax.swing.JButton jButton1;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JPanel jPanel1;

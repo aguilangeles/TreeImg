@@ -19,6 +19,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileFilter;
+import javax.swing.JLabel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -31,17 +32,18 @@ import javax.swing.tree.TreePath;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
+  private InputRuta input;
+  private MyWorker nuevoMapa;
+  private DefaultMutableTreeNode root;
+  private DefaultTreeModel model;
+  private String rutaInput;
+  private File file;
+  private FileFilter fileFilter;
+  private boolean isDirectorio;
+  private int zoomImage;
+  private JLabel informacion;
 
-    private InputRuta input;
-    private MyWorker nuevoMapa;
-    private DefaultMutableTreeNode root;
-    private DefaultTreeModel model;
-    private String rutaInput;
-    private File file;
-    private FileFilter fileFilter;
-    private boolean isDirectorio;
-    private int zoomImage;
-             ;
+  ;
 
     /**
      * Creates new form VentanaPrincipal
@@ -51,114 +53,122 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param file
      * @param fileFilter
      */
-    public VentanaPrincipal(boolean isDirectorio, InputRuta in, String rutaInput, File file, FileFilter fileFilter) {
-        this.isDirectorio = isDirectorio;
-        this.input = in;
-        this.rutaInput = rutaInput;
-        this.file = file;
-        this.fileFilter = fileFilter;
-        this.zoomImage=50;
-        initComponents();
-        crearElArbol();
-    }
+    public VentanaPrincipal(boolean isDirectorio, InputRuta in, String rutaInput, File file, FileFilter fileFilter, JLabel informacion) {
+    this.isDirectorio = isDirectorio;
+    this.input = in;
+    this.rutaInput = rutaInput;
+    this.file = file;
+    this.fileFilter = fileFilter;
+    this.zoomImage = 50;
+    this.informacion = informacion;
+    initComponents();
+    crearElArbol();
+  }
 
-    public VentanaPrincipal() {
-        initComponents();
-    }
+  public VentanaPrincipal() {
+    initComponents();
+  }
 
-    private void crearElArbol() {
-        root = new DefaultMutableTreeNode(rutaInput, true);
-        model = new DefaultTreeModel(root);
-        jTree1.setModel(model);
-        this.nuevoMapa = new MyWorker(isDirectorio, this, this.input, this.root,
-                this.rutaInput, this.file, this.fileFilter, this.volumen, null);
-        this.nuevoMapa.execute();
+  private void crearElArbol() {
+    root = new DefaultMutableTreeNode(rutaInput, true);
+    model = new DefaultTreeModel(root);
+    jTree1.setModel(model);
+    this.nuevoMapa = new MyWorker(isDirectorio, this, this.input, this.root,
+            this.rutaInput, this.file, this.fileFilter, this.volumen, null, informacion);
+    this.nuevoMapa.execute();
 
-        KeyListener kl = new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                myKeyEvt(e, "keyTyped");
+    KeyListener kl = new KeyAdapter() {
+      @Override
+      public void keyTyped(KeyEvent e) {
+        myKeyEvt(e, "keyTyped");
+      }
+
+      @Override
+      public void keyReleased(KeyEvent e) {
+        myKeyEvt(e, "keyReleased");
+      }
+
+      @Override
+      public void keyPressed(KeyEvent e) {
+        myKeyEvt(e, "keyPressed");
+      }
+
+      private void myKeyEvt(KeyEvent e, String text) {
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_KP_DOWN || key == KeyEvent.VK_DOWN)
+          {
+          mostrarInformacion();
+          } else if (key == KeyEvent.VK_KP_UP || key == KeyEvent.VK_UP)
+          {
+          mostrarInformacion();
+          }
+      }
+    };
+    jTree1.addKeyListener(kl);
+    MouseListener ml = new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        mostrarInformacion();
+      }
+    };
+    jTree1.addMouseListener(ml);
+  }
+
+  private void mostrarInformacion() {
+    TreePath selpath = jTree1.getSelectionPath();
+    if (selpath != null)
+      {
+      DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
+      if (nodoSeleccionado.toString().contains("#"))
+        {
+        ContenidoTablaIDC contenido = (ContenidoTablaIDC) nodoSeleccionado.getUserObject();
+        tablaIDC tableIDC = new tablaIDC(tablaIDC, contenido.getCampos());
+        tablaMetadata tablaM = new tablaMetadata(tablaMetadata1, "");
+        } else if (nodoSeleccionado.toString().endsWith(".tif"))
+        {
+        Tif tif = (Tif) nodoSeleccionado.getUserObject();
+        String imagen = tif.getRuta();
+        if (imagen != null)
+          {
+          try
+            {
+            final ImageComponent imageCmp = new ImageComponent(imagen, 2. * getZoomImage() / jSlider1.getMaximum(), scrollImage);
+            scrollImage.getViewport().add(imageCmp);
+            jSlider1.setValue(zoomImage);
+            jSlider1.addChangeListener(new ChangeListener() {
+              @Override
+              public void stateChanged(ChangeEvent e) {
+                setZoomImage(jSlider1.getValue());
+                imageCmp.setZoom(2. * getZoomImage() / jSlider1.getMaximum(), scrollImage);
+              }
+            });
+            } catch (Exception ex)
+            {
+            String mensaje = ex.getMessage().toString();
+            ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mensaje, scrollImage, jSlider1, zoomImage, tablaMetadata1);
+
             }
+          }//
+        tablaMetadata tablaM = new tablaMetadata(tablaMetadata1, tif.getMetadata());
 
-            @Override
-            public void keyReleased(KeyEvent e) {
-                myKeyEvt(e, "keyReleased");
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                myKeyEvt(e, "keyPressed");
-            }
-
-            private void myKeyEvt(KeyEvent e, String text) {
-                int key = e.getKeyCode();
-                if (key == KeyEvent.VK_KP_DOWN || key == KeyEvent.VK_DOWN) {
-                    mostrarInformacion();
-                } else if (key == KeyEvent.VK_KP_UP || key == KeyEvent.VK_UP) {
-                    mostrarInformacion();
-                }
-            }
-        };
-        jTree1.addKeyListener(kl);
-        MouseListener ml = new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                mostrarInformacion();
-            }
-        };
-        jTree1.addMouseListener(ml);
-    }
-
-    private void mostrarInformacion() {
-        TreePath selpath = jTree1.getSelectionPath();
-        if (selpath != null) {
-            DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
-            if (nodoSeleccionado.toString().contains("#")) {
-                ContenidoTablaIDC contenido = (ContenidoTablaIDC) nodoSeleccionado.getUserObject();
-                tablaIDC tableIDC = new tablaIDC(tablaIDC, contenido.getCampos());
-                tablaMetadata tablaM = new tablaMetadata(tablaMetadata1, "");
-            } else if (nodoSeleccionado.toString().endsWith(".tif")) {
-                Tif tif = (Tif) nodoSeleccionado.getUserObject();
-                String imagen = tif.getRuta();
-                if (imagen != null) {
-                    try {
-                        final ImageComponent imageCmp = new ImageComponent(imagen, 2. * getZoomImage() / jSlider1.getMaximum(), scrollImage);
-                        scrollImage.getViewport().add(imageCmp);
-                        jSlider1.setValue(zoomImage);
-                        jSlider1.addChangeListener(new ChangeListener() {
-                            @Override
-                            public void stateChanged(ChangeEvent e) {
-                                setZoomImage(jSlider1.getValue());
-                                imageCmp.setZoom(2. * getZoomImage() / jSlider1.getMaximum(), scrollImage);
-                            }
-                        });
-                    } catch (Exception ex) {
-                        String mensaje = ex.getMessage().toString();
-                        ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mensaje, scrollImage, jSlider1, zoomImage, tablaMetadata1);
-
-                    }
-                }//
-                tablaMetadata tablaM = new tablaMetadata(tablaMetadata1, tif.getMetadata());
-
-            }
         }
-    }
+      }
+  }
 
-    public int getZoomImage() {
-        return zoomImage;
-    }
+  public int getZoomImage() {
+    return zoomImage;
+  }
 
-    public void setZoomImage(int zoomImage) {
-        this.zoomImage = zoomImage;
-    }
+  public void setZoomImage(int zoomImage) {
+    this.zoomImage = zoomImage;
+  }
 
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
+  /**
+   * This method is called from within the constructor to initialize the form.
+   * WARNING: Do NOT modify this code. The content of this method is always
+   * regenerated by the Form Editor.
+   */
+  @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -438,16 +448,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.exit(0);
+      System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void volumenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volumenActionPerformed
-        String campos = nuevoMapa.getCampos();
-        new Volumenes(campos).setVisible(true);
+      String campos = nuevoMapa.getCampos();
+      new Volumenes(campos).setVisible(true);
     }//GEN-LAST:event_volumenActionPerformed
-    /**
-     * @param args the command line arguments
-     */
+  /**
+   * @param args the command line arguments
+   */
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

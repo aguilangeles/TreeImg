@@ -18,6 +18,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileFilter;
+import javax.swing.JLabel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -39,11 +40,12 @@ public class SoloIDCFrame extends javax.swing.JFrame {
     private File file;
     private FileFilter fileFilter;
     private int zoomImagen;
+    private JLabel informacion;
 
     /**
      * Creates new form VentanaPrincipal
      */
-    public SoloIDCFrame(boolean isDirectorio, InputRuta out, String rutaInput, File dir, FileFilter fileFilter) {
+    public SoloIDCFrame(boolean isDirectorio, InputRuta out, String rutaInput, File dir, FileFilter fileFilter, JLabel informacion) {
         super("Árbol de Imágenes_IDC V_1.0.02");
         this.isDirectorio = isDirectorio;
         this.input = out;
@@ -51,6 +53,7 @@ public class SoloIDCFrame extends javax.swing.JFrame {
         this.file = dir;
         this.fileFilter = fileFilter;
         this.zoomImagen=50;
+        this.informacion=informacion;
         initComponents();
         crearElArbol();
     }
@@ -63,7 +66,7 @@ public class SoloIDCFrame extends javax.swing.JFrame {
         root = new DefaultMutableTreeNode(rutaInput, true);
         model = new DefaultTreeModel(root);
         jTree1.setModel(model);
-        this.idc = new WorkerIDC(isDirectorio, this, this.input, this.root, this.rutaInput, this.file, this.fileFilter);
+        this.idc = new WorkerIDC(isDirectorio, this, this.input, this.root, this.rutaInput, this.file, this.fileFilter, informacion);
         this.idc.execute();
         KeyListener kl = new KeyAdapter() {
             @Override
