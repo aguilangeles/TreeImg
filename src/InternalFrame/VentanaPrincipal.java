@@ -76,47 +76,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     this.nuevoMapa = new MyWorker(isDirectorio, this, this.input, this.root,
             this.rutaInput, this.file, this.fileFilter, this.volumen, null, informacion);
     this.nuevoMapa.execute();
-
-    KeyListener kl = new KeyAdapter() {
-      @Override
-      public void keyTyped(KeyEvent e) {
-        myKeyEvt(e, "keyTyped");
-      }
-
-      @Override
-      public void keyReleased(KeyEvent e) {
-        myKeyEvt(e, "keyReleased");
-      }
-
-      @Override
-      public void keyPressed(KeyEvent e) {
-        myKeyEvt(e, "keyPressed");
-      }
-
-      private void myKeyEvt(KeyEvent e, String text) {
-        int key = e.getKeyCode();
-        if (key == KeyEvent.VK_KP_DOWN || key == KeyEvent.VK_DOWN)
-          {
-          mostrarInformacion();
-          } else if (key == KeyEvent.VK_KP_UP || key == KeyEvent.VK_UP)
-          {
-          mostrarInformacion();
-          }
-      }
-    };
-    jTree1.addKeyListener(kl);
-    MouseListener ml = new MouseAdapter() {
-      @Override
-      public void mousePressed(MouseEvent e) {
-        mostrarInformacion();
-      }
-    };
-    jTree1.addMouseListener(ml);
+    setEventFromJTree();
   }
 
   private void mostrarInformacion() {
-    TreePath selpath = jTree1.getSelectionPath();
-    if (selpath != null)
+    TreePath treePath = jTree1.getSelectionPath();
+    if (treePath != null)
       {
       DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
       if (nodoSeleccionado.toString().contains("#"))
@@ -513,4 +478,42 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable tablaVolumen1;
     private javax.swing.JButton volumen;
     // End of variables declaration//GEN-END:variables
+
+  private void setEventFromJTree() {
+    KeyListener kl = new KeyAdapter() {
+      @Override
+      public void keyTyped(KeyEvent e) {
+        myKeyEvt(e, "keyTyped");
+      }
+
+      @Override
+      public void keyReleased(KeyEvent e) {
+        myKeyEvt(e, "keyReleased");
+      }
+
+      @Override
+      public void keyPressed(KeyEvent e) {
+        myKeyEvt(e, "keyPressed");
+      }
+
+      private void myKeyEvt(KeyEvent e, String text) {
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_KP_DOWN || key == KeyEvent.VK_DOWN)
+          {
+          mostrarInformacion();
+          } else if (key == KeyEvent.VK_KP_UP || key == KeyEvent.VK_UP)
+          {
+          mostrarInformacion();
+          }
+      }
+    };
+    jTree1.addKeyListener(kl);
+    MouseListener ml = new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        mostrarInformacion();
+      }
+    };
+    jTree1.addMouseListener(ml);
+  }
 }

@@ -30,9 +30,10 @@ public class tablaIDC extends JFrame {
     private void crearTabla() {
         DefaultTableModel modeloTabla = modeloDeTabla();
         tablaIDC.setModel(modeloTabla);
+        tablaIDC.getColumnModel().getColumn(0).setPreferredWidth(100);
+
 
     }
-
     private DefaultTableModel modeloDeTabla() {
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
@@ -42,11 +43,13 @@ public class tablaIDC extends JFrame {
         };
         modelo.addColumn("Nombre");
         modelo.addColumn("Valor");
+
         cargarInfo(modelo);
         return modelo;
     }
 
     private void cargarInfo(DefaultTableModel modelo) {
+      //cambiar los titulos , ahora pueden ser mas extensos
         String titulos = "Estado, Imágenes, Imágenes File System, "
                 + "Anversos, Reversos, Papeles, Pp Válidos, Pp Inválidos, % Pp Válidos, Campos, "
                 + "Cmp Valid, Cmp Invalid, Cmp InvalidDB, "

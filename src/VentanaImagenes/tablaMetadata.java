@@ -15,52 +15,54 @@ import javax.swing.table.TableColumn;
  */
 public class tablaMetadata extends JFrame {
 
-    private JTable tablaMetada;
-    private String metadata;
+  private JTable tablaMetada;
+  private String metadata;
 
-    public tablaMetadata(JTable tablaMetada, String metadata) {
-        this.tablaMetada = tablaMetada;
-        this.metadata = metadata;
+  public tablaMetadata(JTable tablaMetada, String metadata) {
+    this.tablaMetada = tablaMetada;
+    this.metadata = metadata;
+    cargarTabla();
+  }
 
-        cargarTabla();
-    }
+  private void cargarTabla() {
 
-    private void cargarTabla() {
+    DefaultTableModel modeloTabla = modeloDeTabla();
+    tablaMetada.setModel(modeloTabla);
+    tablaMetada.getColumnModel().getColumn(0).setPreferredWidth(70);
+    tablaMetada.getColumnModel().getColumn(1).setPreferredWidth(200);
+    tablaMetada.getColumnModel().getColumn(2).setPreferredWidth(70);
+  }
 
-        DefaultTableModel modeloTabla = modeloDeTabla();
-        TableColumn columna = tablaMetada.getColumn("Valor");
-        columna.setPreferredWidth(180);
-        tablaMetada.setModel(modeloTabla);
-    }
+  private DefaultTableModel modeloDeTabla() {
+    DefaultTableModel modelo = new DefaultTableModel() {
+      @Override
+      public boolean isCellEditable(int fila, int columna) {
+        return false;
+      }
+    };
 
-    private DefaultTableModel modeloDeTabla() {
-        DefaultTableModel modelo = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int fila, int columna) {
-                return false;
-            }
-        };
+    modelo.addColumn("Nombre");
+    modelo.addColumn("Valor");
+    modelo.addColumn("Estado");
 
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Valor");
-        modelo.addColumn("Estado");
-        cargarInformacion(modelo);
-        return modelo;
-    }
+    cargarInformacion(modelo);
 
-    private void cargarInformacion(DefaultTableModel modelo) {
+    return modelo;
+  }
 
-        String[] filas = metadata.split("\n");
-        for (int o = 0; o < filas.length; o++) {
-            String fila = filas[o];
-            String[] columnas = fila.split(", ");
-            modelo.addRow(columnas);
-        }
+  private void cargarInformacion(DefaultTableModel modelo) {
 
-    }
+    String[] filas = metadata.split("\n");
+    for (int o = 0; o < filas.length; o++)
+      {
+      String fila = filas[o];
+      String[] columnas = fila.split(", ");
+      modelo.addRow(columnas);
+      }
 
-    public void setMetadata(String metadata) {
-        this.metadata = metadata;
-    }
+  }
 
+  public void setMetadata(String metadata) {
+    this.metadata = metadata;
+  }
 }
