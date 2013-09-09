@@ -95,6 +95,7 @@ public final class MapeoReporte {
         int imagenes = xmlMapeo.getCantidadImagenes();
         String faces = faceMapeo.toString();
         int totalPapeles = (!isEjercicio) ? xmlMapeo.cantidadPapeles() : 0;
+        System.out.println(totalPapeles);
         try {
             Metadata metadata = new Metadata(ruta, status, imagenes, imagFileSystem, faces, totalPapeles, idc);
             campoString = metadata.getEstadisticasPapelesyCampos();
