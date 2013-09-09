@@ -74,7 +74,7 @@ public class MyWorker extends SwingWorker<Void, Integer> {
 
   @Override
   protected Void doInBackground() throws Exception {
-    DirectorioOrdenado dir = new DirectorioOrdenado(rutaInput, file, fileFilter);
+    DirectorioOrdenado dir = new DirectorioOrdenado(rutaInput);
     int sede = dir.getSede();
     SortedMap mapa = dir.getSortedMap();
     int tf = 0;
@@ -85,7 +85,6 @@ public class MyWorker extends SwingWorker<Void, Integer> {
       {
       Object key = it.next();
       String rutaProcesada = (String) mapa.get(key);
-      System.out.println(rutaProcesada);
       informacion.setText(rutaProcesada);
       int r = (Integer) key;
       ContarImagenes ci = new ContarImagenes(rutaProcesada, r);
@@ -164,13 +163,13 @@ public class MyWorker extends SwingWorker<Void, Integer> {
     return camposVolumen;
   }
 
-  private String fecha() {
-    String fecha = "";
-    SimpleDateFormat format = new SimpleDateFormat("dd'-'MM'-'yyyy HH:mm", Locale.ENGLISH);
-    Date date = new Date();
-    fecha = format.format(date);
-    return fecha;
-  }
+//  private String fecha() {
+//    String fecha = "";
+//    SimpleDateFormat format = new SimpleDateFormat("dd'-'MM'-'yyyy HH:mm", Locale.ENGLISH);
+//    Date date = new Date();
+//    fecha = format.format(date);
+//    return fecha;
+//  }
 
   @Override
   protected void done() {
