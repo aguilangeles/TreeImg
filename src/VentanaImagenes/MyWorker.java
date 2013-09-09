@@ -51,6 +51,7 @@ public class MyWorker extends SwingWorker<Void, Integer> {
   private String txtUbicacion;
   private JLabel informacion;
   private static DirectorioOrdenado directorio;
+  private SetTotalArbol setTotalArbol;
 
   public MyWorker(boolean valor, VentanaPrincipal principal, InputRuta input, DefaultMutableTreeNode root, String rutaInput, File dir, FileFilter fileFilter, JButton botonVolumen, String noImagen, javax.swing.JLabel informacion) {
     this.isDirectorio = valor;
@@ -86,7 +87,6 @@ public class MyWorker extends SwingWorker<Void, Integer> {
         {
         imgFileSys = (Integer) map.getValue();
         }
-
       imagenes = new ImagenesTree(isDirectorio, raizArbol, rutaProcesada, escribioTXT, sede, imgFileSys);
       idcnombre = imagenes.getIdcnombre();
       List<FilesNames> lista = idcnombre.getListaFiles();
@@ -102,52 +102,9 @@ public class MyWorker extends SwingWorker<Void, Integer> {
           mensaje = new Mensajes(ruta, "El sistema no puede encontrar el archivo");
           }
         }
-
-      try
-        {
-        for (TotalArbol l : imagenes.getLista())
-          {
-          papeles += l.getPapeles();
-          ppV += l.getP_validos();
-          ppI += l.getP_invalidos();
-          float porcentajeVlidos = 0;
-          porcentajeVlidos += (float) ppV * 100 / (float) papeles;
-          boolean isNan = Float.isNaN(porcentajeVlidos);
-          validosPorcentaje = (!isNan) ? porcentajeVlidos : 0;
-          an += l.getAnversos();
-          rev += l.getReversos();
-          img += l.getImagenes();
-          cm += l.getCampos();
-          cmV += l.getC_valid();
-          cmI += l.getC_invalid();
-          cmIB += l.getC_invalidDB();
-          }
-        } catch (Exception l)
-        {
-        String ruta = rutaProcesada.replace("/Carat.xml", "");
-        mensaje = new Mensajes(ruta, "El xml 'Meta' no se encuentra");
-        }
+      setTotalArbol(rutaProcesada);
       }
-
-    Porcentaje validos = new Porcentaje(cmV, cm);
-    Porcentaje invalido = new Porcentaje(cmI, cm);
-    Porcentaje invalidoDB = new Porcentaje(cmIB, cm);
-    camposVolumen = img
-            + ", " + totalImgInFileSystem
-            + ", " + an
-            + ", " + rev
-            + ", " + papeles
-            + ", " + ppV
-            + ", " + ppI
-            + ", " + validosPorcentaje
-            + ", " + cm
-            + ", " + cmV
-            + ", " + cmI
-            + ", " + cmIB
-            + ", " + validos
-            + ", " + invalido
-            + ", " + invalidoDB
-            + "\n";
+    camposVolumen = setCamposVolumen(totalImgInFileSystem);
     return null;
 
   }
@@ -156,13 +113,6 @@ public class MyWorker extends SwingWorker<Void, Integer> {
     return camposVolumen;
   }
 
-//  private String fecha() {
-//    String fecha = "";
-//    SimpleDateFormat format = new SimpleDateFormat("dd'-'MM'-'yyyy HH:mm", Locale.ENGLISH);
-//    Date date = new Date();
-//    fecha = format.format(date);
-//    return fecha;
-//  }
   @Override
   protected void done() {
     if (!isCancelled())
@@ -179,5 +129,35 @@ public class MyWorker extends SwingWorker<Void, Integer> {
       frameInput.dispose();
       principal.setVisible(true);
       }
+  }
+
+  private void setTotalArbol(String rutaProcesada) {
+    setTotalArbol =
+            new SetTotalArbol(imagenes, papeles, ppV, ppI, an, rev, img, cm,
+            cmV, cmI, cmIB, validosPorcentaje, rutaProcesada);
+  }
+
+  private String setCamposVolumen(int totalImgInFileSystem) {
+    Porcentaje validos = new Porcentaje(cmV, cm);
+    Porcentaje invalido = new Porcentaje(cmI, cm);
+    Porcentaje invalidoDB = new Porcentaje(cmIB, cm);
+    String ret = img
+            + ", " + totalImgInFileSystem
+            + ", " + an
+            + ", " + rev
+            + ", " + papeles
+            + ", " + ppV
+            + ", " + ppI
+            + ", " + validosPorcentaje
+            + ", " + cm
+            + ", " + cmV
+            + ", " + cmI
+            + ", " + cmIB
+            + ", " + validos
+            + ", " + invalido
+            + ", " + invalidoDB
+            + "\n";
+    return ret;
+//    new SetCamposVolumen(camposVolumen, img, an, rev, papeles, ppV, ppI, cm, cmV, cmI, cmIB, validosPorcentaje, totalImgInFileSystem);
   }
 }

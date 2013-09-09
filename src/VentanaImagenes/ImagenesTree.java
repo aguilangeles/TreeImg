@@ -77,13 +77,14 @@ public final class ImagenesTree extends JFrame {
         }
       listaTotales = new ArrayList();
       RutaParaIDC rutaIdc = new RutaParaIDC(isDirectorio, idc, raiz.toString());
-      ContenidoTablaIDC contenido = new ContenidoTablaIDC(rutaIdc.getRutaIdc(), idc);
-      DefaultMutableTreeNode idece = new DefaultMutableTreeNode(contenido, true);
+      ContenidoTablaIDC contenidoIDC = new ContenidoTablaIDC(rutaIdc.getRutaIdc(), idc);
+      DefaultMutableTreeNode idece = new DefaultMutableTreeNode(contenidoIDC, true);
       raiz.add(idece);
+      // TODO refactor this
       mapeo = new MapeoReporte(isDirectorio, rutaProcesada, idece, isEjercicio, imgFileSystem);
-      contenido.setCampos(mapeo.getCampoString());
+      contenidoIDC.setCampos(mapeo.getCampoString());
       idcnombre = mapeo.getIdcnombre();
-
+      //TODO refactor this 2
       TotalArbol arbol = new TotalArbol(mapeo.toString());
       listaTotales.add(arbol);
 
@@ -124,6 +125,7 @@ public final class ImagenesTree extends JFrame {
 
   private void setEjercicio(ReporteXMlCaratula reporte) {
     SetEjercicio setEjercicio =
-            new SetEjercicio(reporte, sede, isEjercicio, escrituraErrores, rutaProcesada);
+            new SetEjercicio(reporte, sede, isEjercicio, escrituraErrores,
+            rutaProcesada);
   }
 }

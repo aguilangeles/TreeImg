@@ -74,7 +74,7 @@ public class WorkerIDC extends SwingWorker<Void, Integer> {
           {
           contador++;
           ci = new GetQuantityImagesInFileSystem(path, contador);
-                informacion.setText("Procesando imagen "+ contador);
+          informacion.setText("Procesando imagen " + contador);
           String reemplazo = path.replace("#", "%23");
           totalImagenes = (ci.getListaFileSystem().get(contador));
           imagenes = new ImagenesTree(isDirectorio, root, reemplazo, totalImagenes);//borrar todo lo de Escritor txt
@@ -86,26 +86,22 @@ public class WorkerIDC extends SwingWorker<Void, Integer> {
             String nombrefl = flm.toString();
             if (!listaFiles.contains(nombrefl))
               {
-              try
                 {
                 String noFile = nombrefl;
                 imagenes.setEscrituraErrores(true);
                 String ruta = reemplazo.replace("Carat.xml", "Imagenes/") + noFile;
                 mensajes = new Mensajes(ruta, "El sistema no encontro el archivo en el Idc ");
-                } catch (IOException ex)
-                {
-                Logger.getLogger(WorkerIDC.class.getName()).log(Level.SEVERE, null, ex);
                 }
               }
             }
+          } else
+          {
+          System.out.println("!");
+
           }
         }
-      } else
-      {
-      System.out.println("!");
-
       }
-    return null;
+        return null;
   }
 
   public String getCampos() {

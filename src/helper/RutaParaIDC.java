@@ -6,7 +6,6 @@ package helper;
 
 
 import java.io.File;
-import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 /**
