@@ -5,7 +5,7 @@
 package helper;
 
 import VentanaImagenes.ImageComponent;
-import VentanaImagenes.tablaMetadata;
+import VentanaImagenes.SetTablaMetadata;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,7 +46,7 @@ public final class ImagenNoEncontrada {
           imageCmp.setZoom(2. * getZoomImage() / jSlider1.getMaximum(), scrollImage);
         }
       });
-      tablaMetadata tablaM = new tablaMetadata(tablaMetadata1, "");
+      SetTablaMetadata tablaM = new SetTablaMetadata(tablaMetadata1, "");
       } catch (IOException ex)
       {
       Logger.getLogger(ImagenNoEncontrada.class.getName()).log(Level.SEVERE, null, ex);

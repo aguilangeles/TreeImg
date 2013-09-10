@@ -12,18 +12,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author maria
  */
-public class tablaIDC extends JFrame {
+public class setTablaForIDC extends JFrame {
 
     private JTable tablaIDC;
     private String campos;
 
-    public tablaIDC(JTable tablaIDC, String campos) {
+    public setTablaForIDC(JTable tablaIDC, String campos) {
         this.tablaIDC = tablaIDC;
         this.campos = campos;
         crearTabla();
     }
 
-    public tablaIDC() {
+    public setTablaForIDC() {
     }
 
 

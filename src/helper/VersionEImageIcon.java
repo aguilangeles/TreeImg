@@ -29,13 +29,7 @@ public final class VersionEImageIcon extends JFrame {
     //cambia la version y permite un mensaje, y la vimagen
     setImagenIcon(frame);
     frame.setTitle(mensaje + " " + VERSION);
-//    setBackGnd(frame);
   }
-
-//  public void setBackGnd(JFrame frame) {
-//    Color color = new Color(200, 245, 245);
-//    frame.setBackground(color);
-//  }
 
   public Color newColor() {
     Color color = new Color(200, 245, 245);

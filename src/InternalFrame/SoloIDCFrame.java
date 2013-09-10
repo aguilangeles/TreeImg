@@ -7,8 +7,8 @@ package InternalFrame;
 import VentanaImagenes.ImageComponent;
 import Entidades.Tif;
 import VentanaImagenes.WorkerIDC;
-import VentanaImagenes.tablaIDC;
-import VentanaImagenes.tablaMetadata;
+import VentanaImagenes.setTablaForIDC;
+import VentanaImagenes.SetTablaMetadata;
 import helper.ImagenNoEncontrada;
 import helper.MensajeTxt;
 import helper.VersionEImageIcon;
@@ -119,7 +119,7 @@ public class SoloIDCFrame extends javax.swing.JFrame {
       DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
       if (nodoSeleccionado.toString().contains("#"))
         {
-        tablaMetadata tablaVacia = new tablaMetadata(tablaMetadata1, "");
+        SetTablaMetadata tablaVacia = new SetTablaMetadata(tablaMetadata1, "");
         } else if (nodoSeleccionado.toString().endsWith(".tif"))
         {
         Tif tif = (Tif) nodoSeleccionado.getUserObject();
@@ -139,7 +139,7 @@ public class SoloIDCFrame extends javax.swing.JFrame {
                 imageCmp.setZoom(2. * zoomImagen / jSlider1.getMaximum(), scrollImage);
               }
             });
-            tablaIDC idc = new tablaIDC(tablaIDC, tif.getCampos());
+            setTablaForIDC idc = new setTablaForIDC(tablaIDC, tif.getCampos());
             } catch (Exception ex)
             {
             String exception = ex.getMessage().toString();
@@ -149,7 +149,7 @@ public class SoloIDCFrame extends javax.swing.JFrame {
             ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mstxt, scrollImage, jSlider1, zoomImagen, tablaMetadata1);
             }
           }
-        tablaMetadata tablaM = new tablaMetadata(tablaMetadata1, tif.getMetadata());
+        SetTablaMetadata tablaM = new SetTablaMetadata(tablaMetadata1, tif.getMetadata());
         }
       }
 

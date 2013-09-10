@@ -12,12 +12,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author maria
  */
-public class tablaMetadata extends JFrame {
+public class SetTablaMetadata extends JFrame {
 
   private JTable tablaMetada;
   private String metadata;
 
-  public tablaMetadata(JTable tablaMetada, String metadata) {
+  public SetTablaMetadata(JTable tablaMetada, String metadata) {
     this.tablaMetada = tablaMetada;
     this.metadata = metadata;
     cargarTabla();
@@ -43,14 +43,11 @@ public class tablaMetadata extends JFrame {
     modelo.addColumn("Nombre");
     modelo.addColumn("Valor");
     modelo.addColumn("Estado");
-
     cargarInformacion(modelo);
-
     return modelo;
   }
 
   private void cargarInformacion(DefaultTableModel modelo) {
-
     String[] filas = metadata.split("\n");
     for (int o = 0; o < filas.length; o++)
       {
@@ -58,7 +55,6 @@ public class tablaMetadata extends JFrame {
       String[] columnas = fila.split(", ");
       modelo.addRow(columnas);
       }
-
   }
 
   public void setMetadata(String metadata) {

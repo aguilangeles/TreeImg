@@ -8,8 +8,8 @@ import Entidades.ContenidoTablaIDC;
 import VentanaImagenes.ImageComponent;
 import VentanaImagenes.MyWorker;
 import Entidades.Tif;
-import VentanaImagenes.tablaIDC;
-import VentanaImagenes.tablaMetadata;
+import VentanaImagenes.setTablaForIDC;
+import VentanaImagenes.SetTablaMetadata;
 import helper.ImagenNoEncontrada;
 import helper.MensajeTxt;
 import helper.VersionEImageIcon;
@@ -91,8 +91,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
       if (nodoSeleccionado.toString().contains("#"))
         {
         ContenidoTablaIDC contenido = (ContenidoTablaIDC) nodoSeleccionado.getUserObject();
-        tablaIDC tableIDC = new tablaIDC(tablaIDC, contenido.getCampos());
-        tablaMetadata tablaM = new tablaMetadata(tablaMetadata1, "");
+        setTablaForIDC idcTable = new setTablaForIDC(tablaIDC, contenido.getCampos());
         } else if (nodoSeleccionado.toString().endsWith(".tif"))
         {
         Tif tif = (Tif) nodoSeleccionado.getUserObject();
@@ -120,8 +119,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mstxt, scrollImage, jSlider1, zoomImage, tablaMetadata1);
             }
           }//
-        tablaMetadata tablaM = new tablaMetadata(tablaMetadata1, tif.getMetadata());
-
+        SetTablaMetadata tablaM = new SetTablaMetadata(tablaMetadata1, tif.getMetadata());
         }
       }
   }
