@@ -9,7 +9,6 @@ import java.util.List;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import Parser.MapeoList;
 
 
 /**
@@ -67,7 +66,8 @@ public class XmlMapeo {
         int ret = 0;
         int idPapel = 0;
         for (MapeoList ml : this.mapeoListCollection) {
-            if (ml instanceof MapeoList && (idPapel != ml.getIdPapel()) && ml.getFace().equalsIgnoreCase("anverso")) {
+            if (ml instanceof MapeoList && (idPapel != ml.getIdPapel())
+                    && ml.getFace().equalsIgnoreCase("anverso")) {
                 idPapel = ml.getIdPapel();
                 ret++;
             }
