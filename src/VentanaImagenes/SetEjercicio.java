@@ -5,7 +5,7 @@
 package VentanaImagenes;
 
 import Caratula.xml.ReporteXMlCaratula;
-import helper.Mensajes;
+import helper.WriteMessage;
 
 /**
  * detecta si es un ejercicio de gendarmeria,
@@ -36,7 +36,7 @@ public class SetEjercicio {
         {
         escrituraErrores = true;
         String ruta = rutaProcesada.replace("/Carat.xml", "");
-        Mensajes mensaje = new Mensajes(ruta, "Tipo de documento: EJERCICIO");
+        WriteMessage mensaje = new WriteMessage(ruta, "Tipo de documento: EJERCICIO");
         }
       }
   }

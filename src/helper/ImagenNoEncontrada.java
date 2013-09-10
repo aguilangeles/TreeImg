@@ -7,9 +7,6 @@ package helper;
 import VentanaImagenes.ImageComponent;
 import VentanaImagenes.tablaMetadata;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JScrollPane;
@@ -61,14 +58,8 @@ public final class ImagenNoEncontrada {
   }
 
   private void escribirLog() {
-    try
-      {
-      Escritor escritor = new Escritor("noImagen.txt");
-      escritor.salida(mensaje);
-      } catch (IOException ex)
-      {
-      Logger.getLogger(ImagenNoEncontrada.class.getName()).log(Level.SEVERE, null, ex);
-      }
+    Escritor escritor = new Escritor("noImagen.txt");
+    escritor.salida(mensaje);
   }
 
   public int getZoomImage() {

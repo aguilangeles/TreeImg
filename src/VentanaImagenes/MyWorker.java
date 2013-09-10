@@ -10,7 +10,7 @@ import Entidades.FilesNames;
 import Entidades.IDCNombre;
 import helper.GetQuantityImagesInFileSystem;
 import helper.DirectorioOrdenado;
-import helper.Mensajes;
+import helper.WriteMessage;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +34,7 @@ public class MyWorker extends SwingWorker<Void, Integer> {
   //
   private static boolean escribioTXT;
   private static String noFilename;
-  private static Mensajes mensaje;
+  private static WriteMessage mensaje;
   private static SetTotalArbol setTotalArbol;
   private static String camposVolumen;
   private static DirectorioOrdenado directorio;
@@ -125,7 +125,7 @@ public class MyWorker extends SwingWorker<Void, Integer> {
         noFilename = (nombrefln);
         imagenesTree.setEscrituraErrores(true);
         String ruta = rutaProcesada.replace("Carat.xml", "Imagenes") + "/" + noFilename;
-        mensaje = new Mensajes(ruta, "El sistema no puede encontrar el archivo");
+        mensaje = new WriteMessage(ruta, "El sistema no puede encontrar el archivo");
         }
       }
   }

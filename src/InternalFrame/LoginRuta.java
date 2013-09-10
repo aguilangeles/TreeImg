@@ -4,6 +4,7 @@
  */
 package InternalFrame;
 
+import helper.VersionEImageIcon;
 import java.io.File;
 import java.io.FileFilter;
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ public class LoginRuta extends javax.swing.JFrame {
    */
   public LoginRuta() {
     initComponents();
+    VersionEImageIcon versionEImageIcon = new VersionEImageIcon(this);
     jButton1.setEnabled(true);
   }
 

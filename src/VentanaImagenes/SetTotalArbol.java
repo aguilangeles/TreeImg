@@ -4,7 +4,7 @@
  */
 package VentanaImagenes;
 
-import helper.Mensajes;
+import helper.WriteMessage;
 import helper.Porcentaje;
 
 /**
@@ -54,7 +54,7 @@ public class SetTotalArbol {
       } catch (Exception l)
       {
       String ruta = rutaProcesada.replace("/Carat.xml", "");
-      Mensajes mensaje = new Mensajes(ruta, "El xml 'Meta' no se encuentra");
+      WriteMessage mensaje = new WriteMessage(ruta, "El xml 'Meta' no se encuentra");
       }//fin try catch
   }
 

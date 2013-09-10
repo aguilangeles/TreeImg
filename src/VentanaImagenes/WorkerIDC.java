@@ -9,7 +9,7 @@ import InternalFrame.SoloIDCFrame;
 import Entidades.FilesNames;
 import Entidades.IDCNombre;
 import helper.GetQuantityImagesInFileSystem;
-import helper.Mensajes;
+import helper.WriteMessage;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class WorkerIDC extends SwingWorker<Void, Integer> {
   private String path;
   private ImagenesTree imagenes;
   private int sede;
-  private Mensajes mensajes;
+  private WriteMessage mensajes;
   private JLabel informacion;
 
   public WorkerIDC(boolean isDirectorio, SoloIDCFrame secundario, LoginRuta input, DefaultMutableTreeNode root, String rutaInput, File dir, FileFilter fileFilter, JLabel informacion) {
@@ -90,7 +90,7 @@ public class WorkerIDC extends SwingWorker<Void, Integer> {
                 String noFile = nombrefl;
                 imagenes.setEscrituraErrores(true);
                 String ruta = reemplazo.replace("Carat.xml", "Imagenes/") + noFile;
-                mensajes = new Mensajes(ruta, "El sistema no encontro el archivo en el Idc ");
+                mensajes = new WriteMessage(ruta, "El sistema no encontro el archivo en el Idc ");
                 }
               }
             }

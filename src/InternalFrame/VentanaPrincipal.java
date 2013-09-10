@@ -12,6 +12,7 @@ import VentanaImagenes.tablaIDC;
 import VentanaImagenes.tablaMetadata;
 import helper.ImagenNoEncontrada;
 import helper.MensajeTxt;
+import helper.VersionEImageIcon;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -63,6 +64,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     this.zoomImage = 50;
     this.informacion = informacion;
     initComponents();
+    VersionEImageIcon vi = new VersionEImageIcon(this, "Ventana Principal");
+    PanelPrincipal.setBackground(vi.newColor());
     crearElArbol();
   }
 
@@ -183,6 +186,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     PanelPrincipal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
     panelArbol.setBorder(javax.swing.BorderFactory.createTitledBorder("Árbol de Imágenes"));
+    panelArbol.setOpaque(false);
 
     jScrollPane1.setViewportView(jTree1);
 
@@ -240,6 +244,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     );
 
     panelTablas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+    panelTablas.setOpaque(false);
 
     jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     jLabel3.setText("Información del IDC");

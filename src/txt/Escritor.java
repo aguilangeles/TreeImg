@@ -49,7 +49,6 @@ public class Escritor {
           {
           JOptionPane.showMessageDialog(null, e.getMessage(), "Error al cerrar archivo txt", JOptionPane.ERROR_MESSAGE);
           }
-
         }
       }
   }
