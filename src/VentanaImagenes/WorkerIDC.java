@@ -4,7 +4,7 @@
  */
 package VentanaImagenes;
 
-import InternalFrame.InputRuta;
+import InternalFrame.LoginRuta;
 import InternalFrame.SoloIDCFrame;
 import Recursos.FilesNames;
 import Recursos.IDCNombre;
@@ -30,7 +30,7 @@ public class WorkerIDC extends SwingWorker<Void, Integer> {
 
   private boolean isDirectorio;
   private SoloIDCFrame secundario;
-  private InputRuta input;
+  private LoginRuta input;
   private String campos;
   private DefaultMutableTreeNode root;
   private String rutaInput;
@@ -42,7 +42,7 @@ public class WorkerIDC extends SwingWorker<Void, Integer> {
   private Mensajes mensajes;
   private JLabel informacion;
 
-  public WorkerIDC(boolean isDirectorio, SoloIDCFrame secundario, InputRuta input, DefaultMutableTreeNode root, String rutaInput, File dir, FileFilter fileFilter, JLabel informacion) {
+  public WorkerIDC(boolean isDirectorio, SoloIDCFrame secundario, LoginRuta input, DefaultMutableTreeNode root, String rutaInput, File dir, FileFilter fileFilter, JLabel informacion) {
     this.isDirectorio = isDirectorio;
     this.secundario = secundario;
     this.input = input;

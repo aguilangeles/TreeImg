@@ -4,7 +4,7 @@
  */
 package VentanaImagenes;
 
-import InternalFrame.InputRuta;
+import InternalFrame.LoginRuta;
 import InternalFrame.VentanaPrincipal;
 import Recursos.FilesNames;
 import Recursos.IDCNombre;
@@ -30,41 +30,28 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public class MyWorker extends SwingWorker<Void, Integer> {
 
-  private boolean escribioTXT;
+  private LoginRuta logRuta;
+  private JLabel informacion;
+  private VentanaPrincipal principal;
   private DefaultMutableTreeNode raizArbol;
   private boolean isDirectorio;
-  private VentanaPrincipal principal;
-  private InputRuta frameInput;
-  private JButton botonVolumen;
-  private String camposVolumen;
-  private Porcentaje porcentaje;
-  private String noImagen;
-  private File file;
-  private FileFilter fileFilter;
-//  private int img = 0, papeles = 0, ppV = 0, ppI = 0, an = 0, rev = 0, cm = 0,
-//          cmV = 0, cmI = 0, cmIB = 0;
-//  private float validosPorcentaje;
-  private String noFilename;
-  //private IDCNombre idcnombre;
-  private Mensajes mensaje;
-  private String txtUbicacion;
-  private JLabel informacion;
+  //
+  private static boolean escribioTXT;
+  private static String noFilename;
+  private static Mensajes mensaje;
+  private static SetTotalArbol setTotalArbol;
+  private static String camposVolumen;
   private static DirectorioOrdenado directorio;
   private static int totalEnFileSys;
   private static ImagenesTree imagenesTree;
-  private SetTotalArbol setTotalArbol;
 
-  public MyWorker(boolean valor, VentanaPrincipal principal, InputRuta input, DefaultMutableTreeNode root, String rutaInput, File dir, FileFilter fileFilter, JButton botonVolumen, String noImagen, javax.swing.JLabel informacion) {
-    this.isDirectorio = valor;
+  public MyWorker(LoginRuta logRuta, JLabel informacion, VentanaPrincipal principal, DefaultMutableTreeNode root, boolean idrectorio, String path) {
+    this.isDirectorio = idrectorio;
     this.principal = principal;
-    this.frameInput = input;
+    this.logRuta = logRuta;
     this.raizArbol = root;
-    this.file = dir;
-    this.fileFilter = fileFilter;
-    this.botonVolumen = botonVolumen;
-    this.noImagen = noImagen;
     this.informacion = informacion;
-    directorio = new DirectorioOrdenado(rutaInput);
+    directorio = new DirectorioOrdenado(path);
   }
 
   public MyWorker() {
@@ -80,18 +67,18 @@ public class MyWorker extends SwingWorker<Void, Integer> {
     while (it.hasNext())
       {
       Object key = it.next();
-      String rutaProcesada = (String) mapa.get(key);
-      informacion.setText(rutaProcesada);
+      String newPath = (String) mapa.get(key);
+      informacion.setText(newPath);
       int rutaKey = (Integer) key;
-      GetQuantityImagesInFileSystem cantidadImg = new GetQuantityImagesInFileSystem(rutaProcesada, rutaKey);
-      for (Map.Entry map : cantidadImg.getListaFileSystem().entrySet())
+      GetQuantityImagesInFileSystem quantity = new GetQuantityImagesInFileSystem(newPath, rutaKey);
+      for (Map.Entry map : quantity.getListaFileSystem().entrySet())
         {
         imgFileSys = (Integer) map.getValue();
         totalEnFileSys += imgFileSys;
         }
-      imagenesTree = new ImagenesTree(isDirectorio, raizArbol, rutaProcesada, escribioTXT, idSede, imgFileSys);
-      setListaFiles(cantidadImg, rutaProcesada);
-      setTotalesArbol(rutaProcesada);
+      imagenesTree = new ImagenesTree(isDirectorio, raizArbol, newPath, escribioTXT, idSede, imgFileSys);
+      setListaFiles(quantity, newPath);
+      setTotalesArbol(newPath);
       }
     setCamposVolumen(getTotalEnFileSys());
     return null;
@@ -110,14 +97,14 @@ public class MyWorker extends SwingWorker<Void, Integer> {
     if (!isCancelled())
       {
       escribioTXT = imagenesTree.isEscrituraErrores();
-      botonVolumen.setEnabled(true);
+      //botonVolumen.setEnabled(true);
       String finalizo = "La construcción del Arbol ha finalizado";
       String aceptar = "Aceptar para mostrar la Ventana Principal\n";
       String advertencia = (escribioTXT) ? "Datos de errores en: \n" + mensaje.getUbicacion() : "";
       JOptionPane.showMessageDialog(null, finalizo + "\n" + advertencia + "\n" + aceptar, "Proceso finalizado", JOptionPane.INFORMATION_MESSAGE);
       //TODO cambiar por un : version 1.0.03
 //            JOptionPane.showConfirmDialog(principal, flag);
-      frameInput.dispose();
+      logRuta.dispose();
       principal.setVisible(true);
       }
   }

@@ -12,16 +12,16 @@ import javax.swing.JOptionPane;
  *
  * @author MUTNPROD003
  */
-public class InputRuta extends javax.swing.JFrame {
+public class LoginRuta extends javax.swing.JFrame {
 
   private VentanaPrincipal principal;
   private SoloIDCFrame secundario;
   private boolean isFile;
 
   /**
-   * Creates new form InputRuta
+   * Creates new form LoginRuta
    */
-  public InputRuta() {
+  public LoginRuta() {
     initComponents();
     jButton1.setEnabled(true);
   }
@@ -212,20 +212,20 @@ public class InputRuta extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(InputRuta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(LoginRuta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(InputRuta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(LoginRuta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(InputRuta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(LoginRuta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(InputRuta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(LoginRuta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new InputRuta().setVisible(true);
+//                new LoginRuta().setVisible(true);
 //            }
 //        });
 //    }

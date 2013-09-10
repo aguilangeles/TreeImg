@@ -69,7 +69,8 @@ public final class ImagenesTree extends JFrame {
       DefaultMutableTreeNode idece = new DefaultMutableTreeNode(contenidoIDC, true);
       raiz.add(idece);
       // TODO refactor this
-      mapeo = new MapeoReporte(isDirectorio, rutaProcesada, idece, isEjercicio(), imgFileSystem);
+
+      mapeo = new MapeoReporte(isDirectorio, rutaProcesada, idece, isEjercicio(), imgFileSystem);//primer refactor
       contenidoIDC.setCampos(mapeo.getCampoString());
       idcnombre = mapeo.getIdcnombre();
       //TODO refactor this 2

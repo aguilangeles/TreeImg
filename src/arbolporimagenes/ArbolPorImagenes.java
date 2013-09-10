@@ -4,7 +4,7 @@
  */
 package arbolporimagenes;
 
-import InternalFrame.InputRuta;
+import InternalFrame.LoginRuta;
 
 /**
  *
@@ -19,7 +19,7 @@ public class ArbolPorImagenes {
            java.awt.EventQueue.invokeLater(new Runnable() {
                @Override
             public void run() {
-                new InputRuta().setVisible(true);
+                new LoginRuta().setVisible(true);
             }
         });
     }

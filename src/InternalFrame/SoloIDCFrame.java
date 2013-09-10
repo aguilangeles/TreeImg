@@ -32,7 +32,7 @@ import javax.swing.tree.TreePath;
 public class SoloIDCFrame extends javax.swing.JFrame {
 
     private boolean isDirectorio;
-    private InputRuta input;
+    private LoginRuta input;
     private WorkerIDC idc;
     private DefaultMutableTreeNode root;
     private DefaultTreeModel model;
@@ -45,7 +45,7 @@ public class SoloIDCFrame extends javax.swing.JFrame {
     /**
      * Creates new form VentanaPrincipal
      */
-    public SoloIDCFrame(boolean isDirectorio, InputRuta out, String rutaInput, File dir, FileFilter fileFilter, JLabel informacion) {
+    public SoloIDCFrame(boolean isDirectorio, LoginRuta out, String rutaInput, File dir, FileFilter fileFilter, JLabel informacion) {
         super("Árbol de Imágenes_IDC V_1.0.02");
         this.isDirectorio = isDirectorio;
         this.input = out;
