@@ -5,7 +5,7 @@
 package InternalFrame;
 
 import VentanaImagenes.ImageComponent;
-import VentanaImagenes.Tif;
+import Entidades.Tif;
 import VentanaImagenes.WorkerIDC;
 import VentanaImagenes.tablaIDC;
 import VentanaImagenes.tablaMetadata;

@@ -1,4 +1,4 @@
-package helper;
+package org.enhydra.xml;
 
 /**
  * User: fabricio

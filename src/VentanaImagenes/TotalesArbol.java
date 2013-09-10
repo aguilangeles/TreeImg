@@ -9,7 +9,7 @@ package VentanaImagenes;
  *
  * @author MUTNPROD003
  */
-public class TotalArbol {
+public class TotalesArbol {
 
   private int papeles;
   private int p_validos;
@@ -22,7 +22,7 @@ public class TotalArbol {
   private int c_invalid;
   private int c_invalidDB;
 
-  public TotalArbol(String total) {
+  public TotalesArbol(String total) {
     iterarString(total);
   }
 

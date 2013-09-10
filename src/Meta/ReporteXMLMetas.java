@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entidades;
+package Meta;
 
 import Entidades.Campo;
-import Entidades.Image;
-import Entidades.Meta;
+import Entidades.Campo;
+import Meta.Meta;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

@@ -4,11 +4,12 @@
  */
 package VentanaImagenes;
 
+import Entidades.ContenidoTablaIDC;
 import Entidades.Caratula;
-import Parser.CaratulaParser;
-import Parser.ReporteXMlCaratula;
-import Recursos.IDCNombre;
-import helper.RutaParaIDC;
+import Entidades.CaratulaParser;
+import Entidades.ReporteXMlCaratula;
+import Entidades.IDCNombre;
+import Entidades.RutaParaIDC;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public final class ImagenesTree extends JFrame {
   //
   private int sede;
   private int imgFileSystem;
-  private List<TotalArbol> listaTotales = new ArrayList<>();
+  private List<TotalesArbol> listaTotales = new ArrayList<>();
 
   public ImagenesTree(boolean directorio, DefaultMutableTreeNode root,
           String rutaProcesada, boolean escribio, int sede, int imagFileSystem) {
@@ -60,7 +61,7 @@ public final class ImagenesTree extends JFrame {
     mostrarIDC(rutaProcesada);
   }
 
-  private List<TotalArbol> mostrarIDC(String rutaProcesada) {
+  private List<TotalesArbol> mostrarIDC(String rutaProcesada) {
     try
       {
       setParser(rutaProcesada);
@@ -74,8 +75,8 @@ public final class ImagenesTree extends JFrame {
       contenidoIDC.setCampos(mapeo.getCampoString());
       idcnombre = mapeo.getIdcnombre();
       //TODO refactor this 2
-      TotalArbol arbol = new TotalArbol(mapeo.toString());
-      listaTotales.add(arbol);
+      TotalesArbol totales = new TotalesArbol(mapeo.toString());
+      listaTotales.add(totales);
 
       } catch (SAXException ex)
       {
@@ -96,7 +97,7 @@ public final class ImagenesTree extends JFrame {
     return listaTotales;
   }
 
-  public List<TotalArbol> getLista() {
+  public List<TotalesArbol> getLista() {
     return listaTotales;
   }
 

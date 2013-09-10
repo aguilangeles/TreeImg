@@ -6,8 +6,8 @@ package VentanaImagenes;
 
 import InternalFrame.LoginRuta;
 import InternalFrame.SoloIDCFrame;
-import Recursos.FilesNames;
-import Recursos.IDCNombre;
+import Entidades.FilesNames;
+import Entidades.IDCNombre;
 import helper.GetQuantityImagesInFileSystem;
 import helper.Mensajes;
 import java.io.File;

@@ -34,7 +34,7 @@ public class SetTotalArbol {
   private void setTotalArbol(ImagenesTree imagen, String rutaProcesada) {
     try
       {
-      for (TotalArbol l : imagen.getLista())
+      for (TotalesArbol l : imagen.getLista())
         {
         papeles += l.getPapeles();
         papValidos += l.getP_validos();

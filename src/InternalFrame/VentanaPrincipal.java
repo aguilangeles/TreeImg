@@ -4,10 +4,10 @@
  */
 package InternalFrame;
 
-import VentanaImagenes.ContenidoTablaIDC;
+import Entidades.ContenidoTablaIDC;
 import VentanaImagenes.ImageComponent;
 import VentanaImagenes.MyWorker;
-import VentanaImagenes.Tif;
+import Entidades.Tif;
 import VentanaImagenes.tablaIDC;
 import VentanaImagenes.tablaMetadata;
 import helper.ImagenNoEncontrada;

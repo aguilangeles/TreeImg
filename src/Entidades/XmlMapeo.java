@@ -1,6 +1,6 @@
 package Entidades;
 
-import helper.XmlHelper;
+import org.enhydra.xml.XmlHelper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

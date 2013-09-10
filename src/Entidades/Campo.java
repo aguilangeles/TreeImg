@@ -1,6 +1,6 @@
 package Entidades;
 
-import helper.XmlHelper;
+import org.enhydra.xml.XmlHelper;
 import org.w3c.dom.Node;
 
 /**

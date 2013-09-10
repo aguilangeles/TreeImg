@@ -4,7 +4,7 @@ import Entidades.ReporteXMLMapeo;
 import Entidades.MapeoList;
 import Entidades.XmlMapeo;
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
-import helper.XmlHelper;
+import org.enhydra.xml.XmlHelper;
 import java.io.IOException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;

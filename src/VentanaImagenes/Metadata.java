@@ -5,9 +5,9 @@
 package VentanaImagenes;
 
 import Entidades.XmlMapeo;
-import Parser.MetaParser;
-import Parser.ReporteXMLMapeo;
-import Parser.ReporteXMLMetas;
+import Meta.MetaParser;
+import Entidades.ReporteXMLMapeo;
+import Meta.ReporteXMLMetas;
 import java.io.IOException;
 import org.xml.sax.SAXException;
 

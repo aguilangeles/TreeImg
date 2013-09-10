@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Recursos;
+package Entidades;
 
+import Entidades.FilesNames;
 import java.util.List;
 
 /**

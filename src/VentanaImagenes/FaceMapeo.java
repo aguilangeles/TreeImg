@@ -4,7 +4,7 @@
  */
 package VentanaImagenes;
 
-import Parser.ReporteXMLMapeo;
+import Entidades.ReporteXMLMapeo;
 import java.util.List;
 
 /**

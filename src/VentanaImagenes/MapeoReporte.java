@@ -4,12 +4,13 @@
  */
 package VentanaImagenes;
 
+import Entidades.Tif;
 import Entidades.XmlMapeo;
-import Parser.MapeoList;
-import Parser.ReporteXMLMapeo;
-import Parser.XmlMapeoParser;
-import Recursos.FilesNames;
-import Recursos.IDCNombre;
+import Entidades.MapeoList;
+import Entidades.ReporteXMLMapeo;
+import Entidades.XmlMapeoParser;
+import Entidades.FilesNames;
+import Entidades.IDCNombre;
 import helper.RutaParaImagenes;
 import java.io.IOException;
 import java.util.ArrayList;
