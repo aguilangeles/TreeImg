@@ -45,13 +45,13 @@ public class MyWorker extends SwingWorker<Void, Integer> {
 //          cmV = 0, cmI = 0, cmIB = 0;
 //  private float validosPorcentaje;
   private String noFilename;
-  private ImagenesTree imagenes;
-  private IDCNombre idcnombre;
+  //private IDCNombre idcnombre;
   private Mensajes mensaje;
   private String txtUbicacion;
   private JLabel informacion;
   private static DirectorioOrdenado directorio;
   private static int totalEnFileSys;
+  private static ImagenesTree imagenesTree;
   private SetTotalArbol setTotalArbol;
 
   public MyWorker(boolean valor, VentanaPrincipal principal, InputRuta input, DefaultMutableTreeNode root, String rutaInput, File dir, FileFilter fileFilter, JButton botonVolumen, String noImagen, javax.swing.JLabel informacion) {
@@ -73,9 +73,8 @@ public class MyWorker extends SwingWorker<Void, Integer> {
   @Override
   protected Void doInBackground() throws Exception {
     int imgFileSys = 0;
-    int totFS = 0;
     int totalImgInFileSystem = 0;
-    int sede = directorio.getSede();
+    int idSede = directorio.getSede();
     SortedMap mapa = directorio.getSortedMap();
     Iterator it = mapa.keySet().iterator();
     while (it.hasNext())
@@ -90,27 +89,12 @@ public class MyWorker extends SwingWorker<Void, Integer> {
         imgFileSys = (Integer) map.getValue();
         totalEnFileSys += imgFileSys;
         }
-
-      imagenes = new ImagenesTree(isDirectorio, raizArbol, rutaProcesada, escribioTXT, sede, imgFileSys);
-      idcnombre = imagenes.getIdcnombre();
-      List<FilesNames> lista = idcnombre.getListaFiles();
-      List<String> listaF = cantidadImg.getFilenameList();
-      for (FilesNames flm : lista)
-        {
-        String nombrefln = flm.toString();
-        if (!listaF.contains(nombrefln))
-          {
-          noFilename = (nombrefln);
-          imagenes.setEscrituraErrores(true);
-          String ruta = rutaProcesada.replace("Carat.xml", "Imagenes") + "/" + noFilename;
-          mensaje = new Mensajes(ruta, "El sistema no puede encontrar el archivo");
-          }
-        }
+      imagenesTree = new ImagenesTree(isDirectorio, raizArbol, rutaProcesada, escribioTXT, idSede, imgFileSys);
+      setListaFiles(cantidadImg, rutaProcesada);
       setTotalesArbol(rutaProcesada);
       }
     setCamposVolumen(getTotalEnFileSys());
     return null;
-
   }
 
   public static int getTotalEnFileSys() {
@@ -125,7 +109,7 @@ public class MyWorker extends SwingWorker<Void, Integer> {
   protected void done() {
     if (!isCancelled())
       {
-      escribioTXT = imagenes.isEscrituraErrores();
+      escribioTXT = imagenesTree.isEscrituraErrores();
       botonVolumen.setEnabled(true);
       String finalizo = "La construcción del Arbol ha finalizado";
       String aceptar = "Aceptar para mostrar la Ventana Principal\n";
@@ -139,10 +123,27 @@ public class MyWorker extends SwingWorker<Void, Integer> {
   }
 
   private void setTotalesArbol(String rutaProcesada) {
-    setTotalArbol = new SetTotalArbol(imagenes, rutaProcesada);
+    setTotalArbol = new SetTotalArbol(imagenesTree, rutaProcesada);
   }
 
   private void setCamposVolumen(int total) {
     camposVolumen = (setTotalArbol.setCamposVolumen(total));
+  }
+
+  private void setListaFiles(GetQuantityImagesInFileSystem cantidadImg, String rutaProcesada) {
+    IDCNombre idcnombre = imagenesTree.getIdcnombre();
+    List<FilesNames> listaFiles = idcnombre.getListaFiles();
+    List<String> listaFilenames = cantidadImg.getFilenameList();
+    for (FilesNames flm : listaFiles)
+      {
+      String nombrefln = flm.toString();
+      if (!listaFilenames.contains(nombrefln))
+        {
+        noFilename = (nombrefln);
+        imagenesTree.setEscrituraErrores(true);
+        String ruta = rutaProcesada.replace("Carat.xml", "Imagenes") + "/" + noFilename;
+        mensaje = new Mensajes(ruta, "El sistema no puede encontrar el archivo");
+        }
+      }
   }
 }

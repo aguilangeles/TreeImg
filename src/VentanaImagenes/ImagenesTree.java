@@ -27,7 +27,6 @@ import org.xml.sax.SAXException;
 public final class ImagenesTree extends JFrame {
 
   private DefaultMutableTreeNode raiz;
-  private List<TotalArbol> listaTotales;
   private MapeoReporte mapeo;
   private IDCNombre idcnombre;
   //
@@ -40,6 +39,7 @@ public final class ImagenesTree extends JFrame {
   //
   private int sede;
   private int imgFileSystem;
+  private List<TotalArbol> listaTotales = new ArrayList<>();
 
   public ImagenesTree(boolean directorio, DefaultMutableTreeNode root,
           String rutaProcesada, boolean escribio, int sede, int imagFileSystem) {
@@ -49,34 +49,23 @@ public final class ImagenesTree extends JFrame {
     this.escrituraErrores = escribio;
     this.sede = sede;
     this.imgFileSystem = imagFileSystem;
-    mostrarIDC();
+    mostrarIDC(rutaProcesada);
   }
 
   public ImagenesTree(boolean directorio, DefaultMutableTreeNode raiz, String rutaProcesada, int imgFileSystem) {
     this.isDirectorio = directorio;
     this.raiz = raiz;
-    this.rutaProcesada = rutaProcesada;
+    //this.rutaProcesada = rutaProcesada;
     this.imgFileSystem = imgFileSystem;
-    mostrarIDC();
+    mostrarIDC(rutaProcesada);
   }
 
-  private List<TotalArbol> mostrarIDC() {
+  private List<TotalArbol> mostrarIDC(String rutaProcesada) {
     try
       {
-      CaratulaParser caratulaParser = new CaratulaParser(rutaProcesada);
-      ReporteXMlCaratula reporte = caratulaParser.getReporte();
-      NamedNodeMap caratulaNodeMap = caratulaParser.getCaratulas();
-      for (int a = 0; a < caratulaNodeMap.getLength(); a++)
-        {
-        Node caratulaNode = caratulaNodeMap.item(a);
-        NodeList caratulaChildren = caratulaNode.getChildNodes();
-        Caratula caratula = new Caratula(caratulaChildren);
-        idc = caratula.getIdIDC();
-        setEjercicio(reporte);
-        }
-      listaTotales = new ArrayList();
-      RutaParaIDC rutaIdc = new RutaParaIDC(isDirectorio, idc, raiz.toString());
-      ContenidoTablaIDC contenidoIDC = new ContenidoTablaIDC(rutaIdc.getRutaIdc(), idc);
+      setParser(rutaProcesada);
+      RutaParaIDC rutaIdc = new RutaParaIDC(isDirectorio, idc, raiz.toString());//ok
+      ContenidoTablaIDC contenidoIDC = new ContenidoTablaIDC(rutaIdc.getRutaIdc(), idc);//ok
       DefaultMutableTreeNode idece = new DefaultMutableTreeNode(contenidoIDC, true);
       raiz.add(idece);
       // TODO refactor this
@@ -136,5 +125,19 @@ public final class ImagenesTree extends JFrame {
 
   public void setIsEjercicio(boolean isEjercicio) {
     this.ejercicio = isEjercicio;
+  }
+
+  private void setParser(String rutaProcesada) throws IOException, SAXException {
+    CaratulaParser caratulaParser = new CaratulaParser(rutaProcesada);
+    ReporteXMlCaratula reporte = caratulaParser.getReporte();
+    NamedNodeMap caratulaNodeMap = caratulaParser.getCaratulas();
+    for (int a = 0; a < caratulaNodeMap.getLength(); a++)
+      {
+      Node caratulaNode = caratulaNodeMap.item(a);
+      NodeList caratulaChildren = caratulaNode.getChildNodes();
+      Caratula caratula = new Caratula(caratulaChildren);
+      idc = caratula.getIdIDC();
+      setEjercicio(reporte);
+      }
   }
 }
