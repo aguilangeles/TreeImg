@@ -99,9 +99,7 @@ public final class MapeoReporte {
       Metadata metadata = new Metadata(ruta, imagFileSystem, idc, xmlMapeo, isEjercicio, reporteMapeo);
       campoString = metadata.getEstadisticasPapelesyCampos();
       estadoMeta = metadata.getEstadoyMetadata(filename);
-      String campos = metadata.getDatos_Campos_Meta();
-      datosCampos = campos;
-//      datosCampos = totalPapeles + ", " + imagenes + ", " + faces + ", " + campos;
+      datosCampos = metadata.getDatos_Campos_Meta();
 
       } catch (IOException em)
       {

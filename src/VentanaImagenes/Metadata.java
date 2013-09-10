@@ -41,7 +41,7 @@ public class Metadata {
       int getStatusInvalidDB = reporteMeta.getCampoStatus("InvalidDB");
       int validMeta = reporteMeta.getCantidadValidMeta();
       int invalidMeta = reporteMeta.getCantidadInvalidMeta();
-      datosCamposMeta(camposSize, getStatusValid, getStatusInvalid, getStatusInvalidDB, validMeta, invalidMeta, totalPapeles, imagenes, faces);
+      this.datos_Campos_Meta = datosCamposMeta(camposSize, getStatusValid, getStatusInvalid, getStatusInvalidDB, validMeta, invalidMeta, totalPapeles, imagenes, faces);
       } else
       {
       this.reporteMeta = null;
@@ -79,23 +79,13 @@ public class Metadata {
 
   }
 
-  private void datosCamposMeta(int camposSize, int getStatusValid, int getStatusInvalid, int getStatusInvalidDB, int validMeta, int invalidMeta, int totalPapeles, int imagenes, String faces) {
-    Porcentaje porcentajeValid = new Porcentaje(getStatusValid, camposSize);
-    Porcentaje porcentajeINValid = new Porcentaje(getStatusInvalid, camposSize);
-    Porcentaje porcentajeINValidDB = new Porcentaje(getStatusInvalidDB, camposSize);
-    datos_Campos_Meta = totalPapeles
-            + ", " + imagenes
-            + ", " + faces
-            + ", " + validMeta
-            + ", " + invalidMeta
-            + ", " + camposSize
-            + ", " + getStatusValid
-            + ", " + getStatusInvalid
-            + ", " + getStatusInvalidDB
-            + ", " + porcentajeValid
-            + ", " + porcentajeINValid
-            + ", " + porcentajeINValidDB
-            + "\n";
+  private String datosCamposMeta(int camposSize, int getStatusValid, int getStatusInvalid,
+          int getStatusInvalidDB, int validMeta, int invalidMeta, int totalPapeles,
+          int imagenes, String faces) {
+    String campos = new GetCamposFromMetadata(camposSize, getStatusValid,
+            getStatusInvalid, getStatusInvalidDB, validMeta, invalidMeta,
+            totalPapeles, imagenes, faces).toString();
+    return campos;
   }
 //////////////////////////////////////////
 
