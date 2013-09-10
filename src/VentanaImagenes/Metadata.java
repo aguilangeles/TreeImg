@@ -8,7 +8,6 @@ import Entidades.XmlMapeo;
 import Parser.MetaParser;
 import Parser.ReporteXMLMapeo;
 import Parser.ReporteXMLMetas;
-import helper.Porcentaje;
 import java.io.IOException;
 import org.xml.sax.SAXException;
 
@@ -24,8 +23,8 @@ public class Metadata {
   private ReporteXMLMetas reporteMeta;
   private String datos_Campos_Meta;
 
-  public Metadata(String nombre, int imagenesFileSystem, String idce, XmlMapeo xmlMapeo, boolean isEjercicio, ReporteXMLMapeo reporteMapeo) throws SAXException, IOException {
-
+  public Metadata(XmlMapeo xmlMapeo, ReporteXMLMapeo reporteMapeo, String nombre,
+          int imagenesFileSystem, String idce, boolean isEjercicio) throws SAXException, IOException {
     String status = xmlMapeo.getStatus();
     int imagenes = xmlMapeo.getCantidadImagenes();
     String faces = new FaceMapeo(reporteMapeo).toString();

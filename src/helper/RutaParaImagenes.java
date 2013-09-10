@@ -10,7 +10,7 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 /**
- *
+ * discrimina la  ruta segun la sede
  * @author MUTNPROD003
  */
 public class RutaParaImagenes {

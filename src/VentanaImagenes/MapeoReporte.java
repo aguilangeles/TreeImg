@@ -49,7 +49,7 @@ public final class MapeoReporte {
   }
 
   public void setReporte() {
-    ArrayList<FilesNames> listaFiles = new ArrayList<>();
+    ArrayList<FilesNames> filenameList = new ArrayList<>();
     try
       {
       DefaultMutableTreeNode nodoFileName = null;
@@ -60,28 +60,32 @@ public final class MapeoReporte {
       xmlMapeo.setMapeoLists(mapeoParser.getMapeoLists());
       NamedNodeMap mapeoNamedNode = mapeoParser.getMapeoLists();
       ReporteXMLMapeo reporteMapeo = mapeoParser.getReporte();
-
+//
       for (int e = 0; e < mapeoNamedNode.getLength(); e++)
         {
         Node mapeoListNode = mapeoNamedNode.item(e);
         NodeList mapeoChildren = mapeoListNode.getChildNodes();
         MapeoList mapeoList = new MapeoList(mapeoChildren);
+
         String idc = xmlMapeo.getIdIDC();
         String filename = mapeoList.getFileName();
         int orden = mapeoList.getOrder();
         String tipoFace = mapeoList.getFace();
+
         getMedatado(xmlMapeo, idc, filename, reporteMapeo);
         //
-        RutaParaImagenes rutaImagen = new RutaParaImagenes(isDirectorio, filename, nodo.getPath());
-        String tablaMetadata = "Orden, " + orden + "\n" + "Face, " + tipoFace + ", \n" + estadoMeta;
+        RutaParaImagenes rutaImagen = new RutaParaImagenes(isDirectorio, filename, nodo.getPath());//ok
+        //
+        String tablaMetadata = getInfoForTablaMetadata(orden, tipoFace, estadoMeta);
+
         FilesNames files = new FilesNames(filename, orden, tipoFace, estadoMeta);
-        listaFiles.add(files);
-        idcnombre = new IDCNombre(idc, listaFiles);
-        Tif tif = new Tif(rutaImagen.getRuta(), filename, tablaMetadata, campoString);
+        filenameList.add(files);
+        idcnombre = new IDCNombre(idc, filenameList);
+
+        Tif tif = new Tif(rutaImagen.getRuta(), filename, tablaMetadata, campoString);//
         nodoFileName = new DefaultMutableTreeNode(tif, false);
         nodo.add(nodoFileName);
         }
-
       } catch (IOException ex)
       {
       JOptionPane.showMessageDialog(null, ex.getMessage() + "\n MAPEO REPORT");
@@ -92,11 +96,16 @@ public final class MapeoReporte {
     totalesVolumen += datosCampos;
   }
 
+  private String getInfoForTablaMetadata(int orden, String tfaces, String estadoMeta) {
+    String ret = "Orden, " + orden + "\n" + "Face, " + tfaces + ", \n" + estadoMeta;
+    return ret;
+  }
+
   private void getMedatado(XmlMapeo xmlMapeo, String idc, String filename, ReporteXMLMapeo reporteMapeo)
           throws SAXException, IOException {
     try
       {
-      Metadata metadata = new Metadata(ruta, imagFileSystem, idc, xmlMapeo, isEjercicio, reporteMapeo);
+      Metadata metadata = new Metadata(xmlMapeo, reporteMapeo, ruta, imagFileSystem, idc, isEjercicio);
       campoString = metadata.getEstadisticasPapelesyCampos();
       estadoMeta = metadata.getEstadoyMetadata(filename);
       datosCampos = metadata.getDatos_Campos_Meta();

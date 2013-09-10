@@ -4,9 +4,6 @@
  */
 package Recursos;
 
-import Entidades.Campo;
-import java.util.List;
-
 /**
  *
  * @author MUTNPROD003
