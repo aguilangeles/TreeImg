@@ -41,53 +41,17 @@ public class Metadata {
       int getStatusInvalidDB = reporteMeta.getCampoStatus("InvalidDB");
       int validMeta = reporteMeta.getCantidadValidMeta();
       int invalidMeta = reporteMeta.getCantidadInvalidMeta();
-      this.datos_Campos_Meta = datosCamposMeta(camposSize, getStatusValid, getStatusInvalid, getStatusInvalidDB, validMeta, invalidMeta, totalPapeles, imagenes, faces);
+      this.datos_Campos_Meta =
+              new GetCamposFromMetadata(camposSize, getStatusValid,
+              getStatusInvalid, getStatusInvalidDB, validMeta, invalidMeta,
+              totalPapeles, imagenes, faces).toString();
       } else
       {
       this.reporteMeta = null;
       }
-    estadisticaPapelesYCampos(reporteMeta, status, imagenes, imagenesFileSystem, faces, totalPapeles, idce);
+    this.estadisticasPapelesyCampos = new GetEstadisticasPapelesYCampos(reporteMeta, status,
+            imagenes, imagenesFileSystem, faces, totalPapeles, idce).toString();
   }
-
-  private void estadisticaPapelesYCampos(ReporteXMLMetas reporteMeta, String statusMap,
-          int imagenes, int imagenesFileSystem, String face, int papeles, String idce) {
-    int papelesValidos = reporteMeta.getCantidadValidMeta();
-    int size = reporteMeta.getCantidadCamposXIDC(idce);
-    int validos = reporteMeta.getCampoStatusPorIDC("Valid", idce);
-    int INvalidos = reporteMeta.getCampoStatusPorIDC("Invalid", idce);
-    int InvalidDB = reporteMeta.getCampoStatusPorIDC("InvalidDB", idce);
-    Porcentaje pValidos = new Porcentaje(validos, size);
-    Porcentaje pInvalidos = new Porcentaje(INvalidos, size);
-    Porcentaje pInvalidosDB = new Porcentaje(InvalidDB, size);
-    Porcentaje porValidos = new Porcentaje(papelesValidos, papeles);
-    estadisticasPapelesyCampos = statusMap
-            + ", " + imagenes
-            + ", " + imagenesFileSystem
-            + ", " + face
-            + ", " + papeles
-            + ", " + papelesValidos
-            + ", " + reporteMeta.getCantidadInvalidMeta()
-            + ", " + porValidos
-            + ", " + size
-            + ", " + validos
-            + ", " + INvalidos
-            + ", " + InvalidDB
-            + ", " + pValidos
-            + ", " + pInvalidos
-            + ", " + pInvalidosDB
-            + "\n";
-
-  }
-
-  private String datosCamposMeta(int camposSize, int getStatusValid, int getStatusInvalid,
-          int getStatusInvalidDB, int validMeta, int invalidMeta, int totalPapeles,
-          int imagenes, String faces) {
-    String campos = new GetCamposFromMetadata(camposSize, getStatusValid,
-            getStatusInvalid, getStatusInvalidDB, validMeta, invalidMeta,
-            totalPapeles, imagenes, faces).toString();
-    return campos;
-  }
-//////////////////////////////////////////
 
   public String getEstadisticasPapelesyCampos() {
     return estadisticasPapelesyCampos;
