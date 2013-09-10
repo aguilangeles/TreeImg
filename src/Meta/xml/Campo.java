@@ -1,4 +1,4 @@
-package Entidades;
+package Meta.xml;
 
 import org.enhydra.xml.XmlHelper;
 import org.w3c.dom.Node;

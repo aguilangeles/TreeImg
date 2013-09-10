@@ -1,4 +1,4 @@
-package Meta;
+package Meta.xml;
 
 import org.enhydra.xml.XmlHelper;
 import org.w3c.dom.NamedNodeMap;
@@ -9,8 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Replica del Meta.xml
- * Date: 10/14/12 Time: 8:58 PM
+ * Replica del Meta.xml Date: 10/14/12 Time: 8:58 PM
  */
 public class Meta {
 

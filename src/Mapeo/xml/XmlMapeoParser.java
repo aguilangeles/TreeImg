@@ -1,8 +1,6 @@
-package Entidades;
+package Mapeo.xml;
 
-import Entidades.ReporteXMLMapeo;
-import Entidades.MapeoList;
-import Entidades.XmlMapeo;
+import Mapeo.xml.XmlMapeo;
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
 import org.enhydra.xml.XmlHelper;
 import java.io.IOException;

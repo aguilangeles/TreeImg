@@ -5,7 +5,7 @@ package Entidades;
  * and open the template in the editor.
  */
 //import Meta.Metadato;
-import Meta.Image;
+import Meta.xml.Image;
 import org.enhydra.xml.XmlHelper;
 import java.text.SimpleDateFormat;
 import java.util.Date;

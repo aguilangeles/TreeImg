@@ -5,10 +5,10 @@
 package VentanaImagenes;
 
 import Entidades.Tif;
-import Entidades.XmlMapeo;
-import Entidades.MapeoList;
-import Entidades.ReporteXMLMapeo;
-import Entidades.XmlMapeoParser;
+import Mapeo.xml.XmlMapeo;
+import Mapeo.xml.MapeoList;
+import Mapeo.xml.ReporteXMLMapeo;
+import Mapeo.xml.XmlMapeoParser;
 import Entidades.FilesNames;
 import Entidades.IDCNombre;
 import helper.RutaParaImagenes;

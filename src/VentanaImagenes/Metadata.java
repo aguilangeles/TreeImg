@@ -4,10 +4,10 @@
  */
 package VentanaImagenes;
 
-import Entidades.XmlMapeo;
-import Meta.MetaParser;
-import Entidades.ReporteXMLMapeo;
-import Meta.ReporteXMLMetas;
+import Mapeo.xml.XmlMapeo;
+import Meta.xml.MetaParser;
+import Mapeo.xml.ReporteXMLMapeo;
+import Meta.xml.ReporteXMLMetas;
 import java.io.IOException;
 import org.xml.sax.SAXException;
 

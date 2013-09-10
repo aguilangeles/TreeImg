@@ -4,7 +4,7 @@
  */
 package VentanaImagenes;
 
-import Meta.ReporteXMLMetas;
+import Meta.xml.ReporteXMLMetas;
 import helper.Porcentaje;
 
 /**

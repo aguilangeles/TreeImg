@@ -1,6 +1,5 @@
-package Meta;
+package Meta.xml;
 
-import Entidades.Campo;
 import org.w3c.dom.NamedNodeMap;
 
 /**
@@ -33,7 +32,6 @@ public class Image {
     return null;
   }
 
-
   public Campo getCampoByValue(String value) {
     for (int i = 0; i < campos.getLength(); i++)
       {
@@ -46,12 +44,12 @@ public class Image {
     return null;
   }
 
-
   public int getCantidadDeCampos() {
     // descuenta el idImagen
     return campos.getLength() - 1;
   }
   //add from metadato
+
   public Campo getCampoByStatus(String status) {
     for (int i = 0; i < campos.getLength(); i++)
       {
@@ -63,6 +61,7 @@ public class Image {
       }
     return null;
   }
+
   public Campo getCampoByIndex(Integer index) {
     Campo ret = new Campo(campos.item(index));
     return ret;

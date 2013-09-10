@@ -1,4 +1,4 @@
-package Meta;
+package Meta.xml;
 
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
 import org.enhydra.xml.XmlHelper;
