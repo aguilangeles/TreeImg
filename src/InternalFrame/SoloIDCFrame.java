@@ -10,6 +10,7 @@ import VentanaImagenes.WorkerIDC;
 import VentanaImagenes.tablaIDC;
 import VentanaImagenes.tablaMetadata;
 import helper.ImagenNoEncontrada;
+import helper.MensajeTxt;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -31,128 +32,140 @@ import javax.swing.tree.TreePath;
  */
 public class SoloIDCFrame extends javax.swing.JFrame {
 
-    private boolean isDirectorio;
-    private LoginRuta input;
-    private WorkerIDC idc;
-    private DefaultMutableTreeNode root;
-    private DefaultTreeModel model;
-    private String rutaInput;
-    private File file;
-    private FileFilter fileFilter;
-    private int zoomImagen;
-    private JLabel informacion;
+  private boolean isDirectorio;
+  private LoginRuta input;
+  private WorkerIDC idc;
+  private DefaultMutableTreeNode root;
+  private DefaultTreeModel model;
+  private String rutaInput;
+  private File file;
+  private FileFilter fileFilter;
+  private int zoomImagen;
+  private JLabel informacion;
 
-    /**
-     * Creates new form VentanaPrincipal
-     */
-    public SoloIDCFrame(boolean isDirectorio, LoginRuta out, String rutaInput, File dir, FileFilter fileFilter, JLabel informacion) {
-        super("Árbol de Imágenes_IDC V_1.0.02");
-        this.isDirectorio = isDirectorio;
-        this.input = out;
-        this.rutaInput = rutaInput;
-        this.file = dir;
-        this.fileFilter = fileFilter;
-        this.zoomImagen=50;
-        this.informacion=informacion;
-        initComponents();
-        crearElArbol();
-    }
+  /**
+   * Creates new form VentanaPrincipal
+   */
+  public SoloIDCFrame(boolean isDirectorio, LoginRuta out, String rutaInput, File dir, FileFilter fileFilter, JLabel informacion) {
+    super("Árbol de Imágenes_IDC V_1.0.02");
+    this.isDirectorio = isDirectorio;
+    this.input = out;
+    this.rutaInput = rutaInput;
+    this.file = dir;
+    this.fileFilter = fileFilter;
+    this.zoomImagen = 50;
+    this.informacion = informacion;
+    initComponents();
+    crearElArbol();
+  }
 
-    public SoloIDCFrame() {
-        initComponents();
-    }
+  public SoloIDCFrame() {
+    initComponents();
+  }
 
-    private void crearElArbol() {
-        root = new DefaultMutableTreeNode(rutaInput, true);
-        model = new DefaultTreeModel(root);
-        jTree1.setModel(model);
-        this.idc = new WorkerIDC(isDirectorio, this, this.input, this.root, this.rutaInput, this.file, this.fileFilter, informacion);
-        this.idc.execute();
-        KeyListener kl = new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                myKeyEvt(e, "keyTyped");
+  private void crearElArbol() {
+    root = new DefaultMutableTreeNode(rutaInput, true);
+    model = new DefaultTreeModel(root);
+    jTree1.setModel(model);
+    this.idc = new WorkerIDC(isDirectorio, this, this.input, this.root, this.rutaInput, this.file, this.fileFilter, informacion);
+    this.idc.execute();
+    KeyListener kl = new KeyAdapter() {
+      @Override
+      public void keyTyped(KeyEvent e) {
+        myKeyEvt(e, "keyTyped");
+      }
+
+      @Override
+      public void keyReleased(KeyEvent e) {
+        myKeyEvt(e, "keyReleased");
+      }
+
+      @Override
+      public void keyPressed(KeyEvent e) {
+        myKeyEvt(e, "keyPressed");
+      }
+
+      private void myKeyEvt(KeyEvent e, String text) {
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_KP_DOWN || key == KeyEvent.VK_DOWN)
+          {
+          mostrarInformacion();
+          } else if (key == KeyEvent.VK_KP_UP || key == KeyEvent.VK_UP)
+          {
+          mostrarInformacion();
+          }
+      }
+    };
+
+
+    MouseListener ml = new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        mostrarInformacion();
+      }
+    };
+    jTree1.addKeyListener(kl);
+    jTree1.addMouseListener(ml);
+  }
+
+  private void mostrarInformacion() {
+
+    TreePath selpath = jTree1.getSelectionPath();
+    if (selpath != null)
+      {
+      DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
+      if (nodoSeleccionado.toString().contains("#"))
+        {
+        tablaMetadata tablaVacia = new tablaMetadata(tablaMetadata1, "");
+        } else if (nodoSeleccionado.toString().endsWith(".tif"))
+        {
+        Tif tif = (Tif) nodoSeleccionado.getUserObject();
+        String imagen = tif.getRuta();
+        if (imagen != null)
+          {
+
+          try
+            {
+            final ImageComponent imageCmp = new ImageComponent(imagen, 2. * getZoomImagen() / jSlider1.getMaximum(), scrollImage);
+            scrollImage.getViewport().add(imageCmp);
+            jSlider1.setValue(zoomImagen);
+            jSlider1.addChangeListener(new ChangeListener() {
+              @Override
+              public void stateChanged(ChangeEvent e) {
+                setZoomImagen(jSlider1.getValue());
+                imageCmp.setZoom(2. * zoomImagen / jSlider1.getMaximum(), scrollImage);
+              }
+            });
+            tablaIDC idc = new tablaIDC(tablaIDC, tif.getCampos());
+            } catch (Exception ex)
+            {
+            String exception = ex.getMessage().toString();
+            String descripcion = "(El sistema no puede encontrar el archivo especificado)";
+            String path = exception.substring(0, exception.length() - descripcion.length());
+            MensajeTxt mstxt = new MensajeTxt(path, descripcion);
+            ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mstxt, scrollImage, jSlider1, zoomImagen, tablaMetadata1);
             }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                myKeyEvt(e, "keyReleased");
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                myKeyEvt(e, "keyPressed");
-            }
-
-            private void myKeyEvt(KeyEvent e, String text) {
-                int key = e.getKeyCode();
-                if (key == KeyEvent.VK_KP_DOWN || key == KeyEvent.VK_DOWN) {
-                    mostrarInformacion();
-                } else if (key == KeyEvent.VK_KP_UP || key == KeyEvent.VK_UP) {
-                    mostrarInformacion();
-                }
-            }
-        };
-
-
-        MouseListener ml = new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                mostrarInformacion();
-            }
-        };
-        jTree1.addKeyListener(kl);
-        jTree1.addMouseListener(ml);
-    }
-
-    private void mostrarInformacion() {
-
-        TreePath selpath = jTree1.getSelectionPath();
-        if (selpath != null) {
-            DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
-            if (nodoSeleccionado.toString().contains("#")) {
-                tablaMetadata tablaVacia = new tablaMetadata(tablaMetadata1, "");
-            } else if (nodoSeleccionado.toString().endsWith(".tif")) {
-                Tif tif = (Tif) nodoSeleccionado.getUserObject();
-                String imagen = tif.getRuta();
-                if (imagen != null) {
-
-                        try {
-                            final ImageComponent imageCmp = new ImageComponent(imagen,2. * getZoomImagen() / jSlider1.getMaximum(), scrollImage );
-                            scrollImage.getViewport().add(imageCmp);
-                            jSlider1.setValue(zoomImagen);
-                        jSlider1.addChangeListener(new ChangeListener() {
-                            @Override
-                            public void stateChanged(ChangeEvent e) {
-                                setZoomImagen(jSlider1.getValue());
-                                imageCmp.setZoom(2. * zoomImagen / jSlider1.getMaximum(), scrollImage);
-                            }
-                        });
-                        tablaIDC idc = new tablaIDC(tablaIDC, tif.getCampos());
-                    } catch (Exception ex) {
-                        String mensaje = ex.getMessage().toString();
-                        ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mensaje, scrollImage, jSlider1, zoomImagen, tablaMetadata1);
-                    }
-                }
-                        tablaMetadata tablaM = new tablaMetadata(tablaMetadata1, tif.getMetadata());
-            }
+          }
+        tablaMetadata tablaM = new tablaMetadata(tablaMetadata1, tif.getMetadata());
         }
+      }
 
-    }
+  }
 
-    public int getZoomImagen() {
-        return zoomImagen;
-    }
+  public int getZoomImagen() {
+    return zoomImagen;
+  }
 
-    public void setZoomImagen(int zoomImagen) {
-        this.zoomImagen = zoomImagen;
-    }
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
+  public void setZoomImagen(int zoomImagen) {
+    this.zoomImagen = zoomImagen;
+  }
+
+  /**
+   * This method is called from within the constructor to initialize the form.
+   * WARNING: Do NOT modify this code. The content of this method is always
+   * regenerated by the Form Editor.
+   */
+  @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -418,12 +431,11 @@ public class SoloIDCFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.exit(0);
+      System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
+  /**
+   * @param args the command line arguments
+   */
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -11,6 +11,7 @@ import Entidades.Tif;
 import VentanaImagenes.tablaIDC;
 import VentanaImagenes.tablaMetadata;
 import helper.ImagenNoEncontrada;
+import helper.MensajeTxt;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -73,7 +74,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     root = new DefaultMutableTreeNode(rutaInput, true);
     model = new DefaultTreeModel(root);
     jTree1.setModel(model);
-    this.nuevoMapa = new MyWorker(this.input,informacion, this, this.root, isDirectorio,
+    this.nuevoMapa = new MyWorker(this.input, informacion, this, this.root, isDirectorio,
             this.rutaInput);
     this.nuevoMapa.execute();
     setEventFromJTree();
@@ -109,9 +110,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             });
             } catch (Exception ex)
             {
-            String mensaje = ex.getMessage().toString();
-            ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mensaje, scrollImage, jSlider1, zoomImage, tablaMetadata1);
-
+            String exception = ex.getMessage().toString();
+            String descripcion = "(El sistema no puede encontrar el archivo especificado)";
+            String path = exception.substring(0, exception.length() - descripcion.length());
+            MensajeTxt mstxt = new MensajeTxt(path, descripcion);
+            ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mstxt, scrollImage, jSlider1, zoomImage, tablaMetadata1);
             }
           }//
         tablaMetadata tablaM = new tablaMetadata(tablaMetadata1, tif.getMetadata());

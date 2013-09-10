@@ -5,9 +5,9 @@
 package VentanaImagenes;
 
 import Entidades.ContenidoTablaIDC;
-import Entidades.Caratula;
-import Entidades.CaratulaParser;
-import Entidades.ReporteXMlCaratula;
+import Caratula.xml.Caratula;
+import Caratula.xml.CaratulaParser;
+import Caratula.xml.ReporteXMlCaratula;
 import Entidades.IDCNombre;
 import Entidades.RutaParaIDC;
 import java.io.IOException;

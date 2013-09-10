@@ -4,6 +4,7 @@
  */
 package txt;
 
+import helper.MensajeTxt;
 import java.io.*;
 import javax.swing.JOptionPane;
 
@@ -13,46 +14,47 @@ import javax.swing.JOptionPane;
  */
 public class Escritor {
 
-    private File file;
-    private String input;
-    private String ubicacion;
-    private int tamanio;
+  private File file;
+  private String output;
 
-    public Escritor(String salida) {
-        this.input = salida;
-    }
+  public Escritor(String output) {
+    this.output = output;
+  }
 
-    public void salida(String info) throws IOException {
-        file = new File(input);
-        FileWriter out = null;
-        BufferedWriter buffSalida = null;
-        try {
-            out = new FileWriter(file, true);
-            buffSalida = new BufferedWriter(out, 3072);
-            buffSalida.write(info);
-            buffSalida.flush();//obliga a limpiar el buffer
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        } finally {
-            try {
-                out.close();
-            } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
-            try {
-                buffSalida.close();
-            } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
+  public void salida(MensajeTxt mesage) {
+    file = new File(output);
+    FileWriter out = null;
+    PrintWriter pw = null;
+    try
+      {
+      out = new FileWriter(file, true);
+      pw = new PrintWriter(out);
+      pw.println("Ruta: " + mesage.getRuta());
+      pw.println("Descripcion: " + mesage.getDescripcion());
+      pw.println("Fecha: " + mesage.getFecha());
+      pw.println("\n");
+      pw.flush();
+      } catch (IOException ex)
+      {
+      JOptionPane.showMessageDialog(null, ex.getMessage());
+      } finally
+      {
+      if (null != out)
+        {
+        try
+          {
+          out.close();
+          pw.close();
+          } catch (IOException e)
+          {
+          JOptionPane.showMessageDialog(null, e.getMessage(), "Error al cerrar archivo txt", JOptionPane.ERROR_MESSAGE);
+          }
+
         }
-    }
+      }
+  }
 
-    public String getUbicacion() {
-        return file.getAbsolutePath();
-    }
-
-    public long getTamanio() {
-        return file.length();
-    }
-
+  public String getUbicacion() {
+    return file.getAbsolutePath();
+  }
 }

@@ -13,10 +13,13 @@ import java.util.TreeMap;
 import javax.swing.JOptionPane;
 
 /**
- * Devuelve un sorted map, que permitira visualizar un mapa ordenado ascendentemente.
+ * Devuelve un sorted map, que permitira visualizar un mapa ordenado
+ * ascendentemente.
+ *
  * @author MUTNPROD003
  */
 public class DirectorioOrdenado {
+
   private SortedMap sortedMap;
   private static int sede;
 
@@ -54,7 +57,8 @@ public class DirectorioOrdenado {
       ret = aString + "/" + URLEncoder.encode(bString, "UTF-8") + "/" + "Carat.xml";
       } catch (UnsupportedEncodingException ex)
       {
-      JOptionPane.showMessageDialog(null, ex.getMessage(), "Error de encoding", JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(null, ex.getMessage(), "Error de encoding",
+              JOptionPane.ERROR_MESSAGE);
       }
     return ret;
   }

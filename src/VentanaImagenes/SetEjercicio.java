@@ -4,7 +4,7 @@
  */
 package VentanaImagenes;
 
-import Entidades.ReporteXMlCaratula;
+import Caratula.xml.ReporteXMlCaratula;
 import helper.Mensajes;
 
 /**

@@ -31,7 +31,8 @@ public class Mensajes {
   private void resultado() {
     try
       {
-      informe.salida(ruta + "\t" + mensaje + "\t" + fecha() + "\n");
+      MensajeTxt msg = new MensajeTxt(ruta, mensaje);
+      informe.salida(msg);
       ubicacion = informe.getUbicacion();
 
       } catch (IOException ex)
