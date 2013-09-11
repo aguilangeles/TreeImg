@@ -8,7 +8,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public final class ImageComponent extends JPanel {
@@ -22,54 +25,30 @@ public final class ImageComponent extends JPanel {
     img = null;
   }
 
-  public ImageComponent(Image image) {
-    img = (BufferedImage) image;
-  }
-
-  public ImageComponent(BufferedImage img) {
-    this.img = img;
-  }
-
-  public ImageComponent(String location, double zoom, JScrollPane scrollPane)
-          throws IOException, Exception {
-    img = (BufferedImage) new ReadImageTif().getImagen(location);
-    //setZoom(zoom, scrollPane);
-  }
 
   public void setOpIndex(int opIndex) {
     this.opIndex = opIndex;
   }
 
-//  public ImageComponent(String location, int zoom, JScrollPane scrollPane)
-//          throws IOException, Exception {
-//    this.zomm = zoom;
-//    img = (BufferedImage) new ReadImageTif().getImagen(location);
-//    //setZoom(zoom, scrollPane);
-//  }
-
-
-
   public void cargarImagen(String location, final JComboBox combo, JScrollPane scrollPane)
-          throws IOException, Exception {
-    img = (BufferedImage) new ReadImageTif().getImagen(location);
-    combo.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        setOpIndex(combo.getSelectedIndex());
+           {
+    try
+      {
+      img = (BufferedImage) new ReadImageTif().getImagen(location);
+      combo.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          setOpIndex(combo.getSelectedIndex());
+        }
+      });
+      } catch (FileNotFoundException ex)
+      {
+      Logger.getLogger(ImageComponent.class.getName()).log(Level.SEVERE, null, ex);
+      } catch (IOException ex)
+      {
+      Logger.getLogger(ImageComponent.class.getName()).log(Level.SEVERE, null, ex);
       }
-    });
   }
-//  public ImageComponent(String location, final JComboBox combo, JScrollPane scrollPane)
-//          throws IOException, Exception {
-//    combo.addActionListener(new ActionListener() {
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//        setOpIndex(combo.getSelectedIndex());
-//      }
-//    });
-//    img = (BufferedImage) new ReadImageTif().getImagen(location);
-//    //setZoom(zoom, scrollPane);
-//  }
 
   @Override
   protected void paintComponent(Graphics g) {
@@ -89,34 +68,6 @@ public final class ImageComponent extends JPanel {
         setImageFourthSize(g2);
         break;
       }
-  }
-//  @Override
-//  protected void paintComponent(Graphics g) {
-//    Graphics2D g2 = (Graphics2D) g;
-//    int w_75 = (int) (img.getWidth() / zomm);
-//    int y_75 = (int) (img.getHeight() / zomm);
-//    setPreferredSize(new Dimension(w_75, y_75));
-//    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-//            RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-//    g2.setBackground(Color.gray);
-//
-//    g2.clearRect(0, 0, getWidth(), getHeight());
-//    g2.drawImage(img,
-//            0, 0, w_75, y_75, /* src area of image */
-//            null);
-//    scrollRectToVisible(new Rectangle(getPreferredSize()));
-//    img.flush();
-//    revalidate();
-//    repaint();
-//  }
-
-  public void setZoom(double zoom, JScrollPane sp) {
-    int w = (int) (1 * img.getWidth());
-    int h = (int) (1 * img.getHeight());
-    setPreferredSize(new Dimension(w, h));
-    revalidate();
-    repaint();
-    sp.getViewport().revalidate();
   }
 
   private void setImageOrininal(Graphics2D g2) {
