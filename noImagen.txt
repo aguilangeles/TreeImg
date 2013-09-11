@@ -25,3 +25,13 @@ Descripcion: (El sistema no puede encontrar el archivo especificado)
 Fecha: 10-09-2013 15:27
 
 
+Ruta: C:\Angeles\201111L06V02\GND#201111L06V02#GEN_00000002#SL000134\Imagenes\SL000134_0002_00012061.tif 
+Descripcion: (El sistema no puede encontrar el archivo especificado)
+Fecha: 11-09-2013 11:18
+
+
+Ruta: C:\Angeles\201111L06V02\GND#201111L06V02#GEN_00000002#SL000134\Imagenes\SL000134_0002_00012061.tif 
+Descripcion: (El sistema no puede encontrar el archivo especificado)
+Fecha: 11-09-2013 11:18
+
+

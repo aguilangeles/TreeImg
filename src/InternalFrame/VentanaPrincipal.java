@@ -61,7 +61,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     this.rutaInput = rutaInput;
     this.file = file;
     this.fileFilter = fileFilter;
-    this.zoomImage = 50;
+    this.zoomImage = 10;
     this.informacion = informacion;
     initComponents();
     VersionEImageIcon vi = new VersionEImageIcon(this, "Ventana Principal");
@@ -100,23 +100,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
           {
           try
             {
-            final ImageComponent imageCmp = new ImageComponent(imagen, 2. * getZoomImage() / jSlider1.getMaximum(), scrollImage);
-            scrollImage.getViewport().add(imageCmp);
-            jSlider1.setValue(zoomImage);
-            jSlider1.addChangeListener(new ChangeListener() {
-              @Override
-              public void stateChanged(ChangeEvent e) {
-                setZoomImage(jSlider1.getValue());
-                imageCmp.setZoom(2. * getZoomImage() / jSlider1.getMaximum(), scrollImage);
-              }
-            });
+            setImage(imagen);
             } catch (Exception ex)
             {
             String exception = ex.getMessage().toString();
             String descripcion = "(El sistema no puede encontrar el archivo especificado)";
             String path = exception.substring(0, exception.length() - descripcion.length());
             MensajeTxt mstxt = new MensajeTxt(path, descripcion);
-            ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mstxt, scrollImage, jSlider1, zoomImage, tablaMetadata1);
+            ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mstxt, scrollImage, zoomImage, tablaMetadata1);
             }
           }//
         SetTablaMetadata tablaM = new SetTablaMetadata(tablaMetadata1, tif.getMetadata());
@@ -149,7 +140,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     jTree1 = new javax.swing.JTree();
     jButton1 = new javax.swing.JButton();
     panelImagen = new javax.swing.JPanel();
-    jSlider1 = new javax.swing.JSlider();
     scrollImage = new javax.swing.JScrollPane();
     panelTablas = new javax.swing.JPanel();
     jLabel3 = new javax.swing.JLabel();
@@ -215,29 +205,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     panelImagen.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-    jSlider1.setMajorTickSpacing(5);
-    jSlider1.setPaintTicks(true);
-    jSlider1.setToolTipText("");
-    jSlider1.setAutoscrolls(true);
-
     javax.swing.GroupLayout panelImagenLayout = new javax.swing.GroupLayout(panelImagen);
     panelImagen.setLayout(panelImagenLayout);
     panelImagenLayout.setHorizontalGroup(
       panelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(panelImagenLayout.createSequentialGroup()
         .addContainerGap()
-        .addGroup(panelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(scrollImage, javax.swing.GroupLayout.Alignment.TRAILING)
-          .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))
+        .addComponent(scrollImage, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
         .addContainerGap())
     );
     panelImagenLayout.setVerticalGroup(
       panelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(panelImagenLayout.createSequentialGroup()
-        .addGap(7, 7, 7)
-        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addComponent(scrollImage)
+        .addGap(49, 49, 49)
+        .addComponent(scrollImage, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
         .addContainerGap())
     );
 
@@ -468,7 +449,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
   private javax.swing.JScrollPane jScrollPane4;
   private javax.swing.JScrollPane jScrollPane5;
   private javax.swing.JScrollPane jScrollPane6;
-  private javax.swing.JSlider jSlider1;
   private javax.swing.JTable jTable1;
   private javax.swing.JTable jTable2;
   private javax.swing.JTree jTree1;
@@ -520,5 +500,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
       }
     };
     jTree1.addMouseListener(ml);
+  }
+
+  private void setImage(String imagen) throws Exception {
+    final ImageComponent imageCmp = new ImageComponent(imagen, 2. * 2. * 10 / 100, scrollImage);
+    scrollImage.getViewport().add(imageCmp);
   }
 }

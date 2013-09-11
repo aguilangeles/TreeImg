@@ -28,7 +28,7 @@ public final class ImagenNoEncontrada {
   private JTable tablaMetadata1;
   private MensajeTxt mensaje;
 
-  public ImagenNoEncontrada(MensajeTxt mstxt, final JScrollPane scrollImage, final JSlider jSlider1, int zoomImage, JTable tablaMetadata1) {
+  public ImagenNoEncontrada(MensajeTxt mstxt, final JScrollPane scrollImage, int zoomImage, JTable tablaMetadata1) {
     this.mensaje = mstxt;
     this.jSlider1 = jSlider1;
     this.zoomImage = zoomImage;
