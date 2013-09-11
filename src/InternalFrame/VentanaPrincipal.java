@@ -13,6 +13,8 @@ import VentanaImagenes.SetTablaMetadata;
 import helper.ImagenNoEncontrada;
 import helper.MensajeTxt;
 import helper.VersionEImageIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -21,9 +23,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -42,7 +45,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
   private File file;
   private FileFilter fileFilter;
   private boolean isDirectorio;
-  private int zoomImage;
+  private int zoomImage = 2;
   private JLabel informacion;
 
   ;
@@ -54,6 +57,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param rutaInput
      * @param file
      * @param fileFilter
+     * @param informacion
      */
     public VentanaPrincipal(boolean isDirectorio, LoginRuta in, String rutaInput, File file, FileFilter fileFilter, JLabel informacion) {
     this.isDirectorio = isDirectorio;
@@ -61,11 +65,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     this.rutaInput = rutaInput;
     this.file = file;
     this.fileFilter = fileFilter;
-    this.zoomImage = 10;
+//    this.zoomImage = 10;
     this.informacion = informacion;
     initComponents();
     VersionEImageIcon vi = new VersionEImageIcon(this, "Ventana Principal");
     PanelPrincipal.setBackground(vi.newColor());
+//    jComboBox1.addActionListener(new ActionListener() {
+//      @Override
+//      public void actionPerformed(ActionEvent e) {
+//        switch (jComboBox1.getSelectedIndex())
+//          {
+//          case 0:
+//            setZoomImage(2);
+//            break;
+//          case 1:
+//            setZoomImage(4);
+//            break;
+//          case 2:
+//            setZoomImage(6);
+//            break;
+//          }
+//      }
+//    });
     crearElArbol();
   }
 
@@ -81,6 +102,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             this.rutaInput);
     this.nuevoMapa.execute();
     setEventFromJTree();
+
   }
 
   private void mostrarInformacion() {
@@ -139,8 +161,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     jScrollPane1 = new javax.swing.JScrollPane();
     jTree1 = new javax.swing.JTree();
     jButton1 = new javax.swing.JButton();
-    panelImagen = new javax.swing.JPanel();
-    scrollImage = new javax.swing.JScrollPane();
     panelTablas = new javax.swing.JPanel();
     jLabel3 = new javax.swing.JLabel();
     scrollIDC = new javax.swing.JScrollPane();
@@ -153,6 +173,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     tablaMetadata = new javax.swing.JScrollPane();
     tablaMetadata1 = new javax.swing.JTable();
     volumen = new javax.swing.JButton();
+    scrollImage = new javax.swing.JScrollPane();
+    Dos = new javax.swing.JButton();
+    cuatro = new javax.swing.JButton();
+    jComboBox1 = new javax.swing.JComboBox();
 
     tablaVolumen1.setModel(new javax.swing.table.DefaultTableModel(
       new Object [][] {
@@ -201,25 +225,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         .addComponent(jButton1)
         .addGap(18, 18, 18)
         .addComponent(jScrollPane1))
-    );
-
-    panelImagen.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-    javax.swing.GroupLayout panelImagenLayout = new javax.swing.GroupLayout(panelImagen);
-    panelImagen.setLayout(panelImagenLayout);
-    panelImagenLayout.setHorizontalGroup(
-      panelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(panelImagenLayout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(scrollImage, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
-        .addContainerGap())
-    );
-    panelImagenLayout.setVerticalGroup(
-      panelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(panelImagenLayout.createSequentialGroup()
-        .addGap(49, 49, 49)
-        .addComponent(scrollImage, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
-        .addContainerGap())
     );
 
     panelTablas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -358,8 +363,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(scrollIDC, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(33, Short.MAX_VALUE))
+        .addContainerGap(38, Short.MAX_VALUE))
     );
+
+    Dos.setText("2");
+    Dos.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        DosActionPerformed(evt);
+      }
+    });
+
+    cuatro.setText("4");
+    cuatro.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        cuatroActionPerformed(evt);
+      }
+    });
+
+    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2", "4", "6", " " }));
 
     javax.swing.GroupLayout PanelPrincipalLayout = new javax.swing.GroupLayout(PanelPrincipal);
     PanelPrincipal.setLayout(PanelPrincipalLayout);
@@ -368,18 +389,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
       .addGroup(PanelPrincipalLayout.createSequentialGroup()
         .addContainerGap()
         .addComponent(panelArbol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addComponent(panelImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(scrollImage)
+          .addGroup(PanelPrincipalLayout.createSequentialGroup()
+            .addComponent(Dos, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(cuatro, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
+            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 163, Short.MAX_VALUE)))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(panelTablas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
     );
     PanelPrincipalLayout.setVerticalGroup(
       PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addComponent(panelTablas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-      .addComponent(panelImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalLayout.createSequentialGroup()
         .addContainerGap()
         .addComponent(panelArbol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalLayout.createSequentialGroup()
+        .addGap(0, 0, Short.MAX_VALUE)
+        .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(Dos)
+          .addComponent(cuatro)
+          .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addComponent(scrollImage, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -406,6 +442,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
       String campos = nuevoMapa.getCampos();
       new Volumenes(campos).setVisible(true);
     }//GEN-LAST:event_volumenActionPerformed
+
+  private void DosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DosActionPerformed
+    // TODO add your handling code here:
+    setZoomImage(2);
+  }//GEN-LAST:event_DosActionPerformed
+
+  private void cuatroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuatroActionPerformed
+    // TODO add your handling code here:
+    setZoomImage(4);
+  }//GEN-LAST:event_cuatroActionPerformed
   /**
    * @param args the command line arguments
    */
@@ -441,8 +487,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 //        });
 //    }
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton Dos;
   private javax.swing.JPanel PanelPrincipal;
+  private javax.swing.JButton cuatro;
   private javax.swing.JButton jButton1;
+  private javax.swing.JComboBox jComboBox1;
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
   private javax.swing.JScrollPane jScrollPane1;
@@ -453,7 +502,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
   private javax.swing.JTable jTable2;
   private javax.swing.JTree jTree1;
   private javax.swing.JPanel panelArbol;
-  private javax.swing.JPanel panelImagen;
   private javax.swing.JPanel panelTablas;
   private javax.swing.JScrollPane scrollIDC;
   private javax.swing.JScrollPane scrollImage;
@@ -503,7 +551,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
   }
 
   private void setImage(String imagen) throws Exception {
-    final ImageComponent imageCmp = new ImageComponent(imagen, 2. * 2. * 10 / 100, scrollImage);
+    final ImageComponent imageCmp = new ImageComponent(imagen, jComboBox1, scrollImage);
     scrollImage.getViewport().add(imageCmp);
   }
 }
