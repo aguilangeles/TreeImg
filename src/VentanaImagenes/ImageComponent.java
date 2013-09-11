@@ -4,25 +4,17 @@
  */
 package VentanaImagenes;
 
-import helper.MensajeTxt;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import txt.Escritor;
 
 public final class ImageComponent extends JPanel {
-
+  private static final String FILENOTFOUND = "(El sistema no puede encontrar el archivo especificado)";
   private BufferedImage img;
-  private Dimension dim;
-  private int zomm;
   private int opIndex;
 
   public ImageComponent() {
@@ -45,10 +37,9 @@ public final class ImageComponent extends JPanel {
       });
       } catch (FileNotFoundException ex)
       {
-      String descripcion = "(El sistema no puede encontrar el archivo especificado)";
-      if (ex.getMessage().contains(descripcion))
+      if (ex.getMessage().contains(FILENOTFOUND))
         {
-        GetFileNotFoundEx fileNotFoundEx = new GetFileNotFoundEx(ex.getMessage(), descripcion);
+        GetFileNotFoundEx fileNotFoundEx = new GetFileNotFoundEx(ex.getMessage(), FILENOTFOUND);
         img = fileNotFoundEx.fileNotFoundImage();
         } else
         {

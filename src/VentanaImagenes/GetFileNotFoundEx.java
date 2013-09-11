@@ -14,14 +14,13 @@ import javax.swing.JOptionPane;
 import txt.Escritor;
 
 /**
- *
+ * Si la imagen no existe, llama a esta clase para escribir en el log
+ * y mostrar una imagen recursiva
  * @author aguilangeles@gmail.com
  */
 class GetFileNotFoundEx {
 
   private static Escritor escritor = new Escritor("noImagen.txt");
-//  private String mensajeException, descripcion;
-  private BufferedImage img;
 
   public GetFileNotFoundEx() {
   }

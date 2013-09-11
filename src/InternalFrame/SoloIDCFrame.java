@@ -4,12 +4,11 @@
  */
 package InternalFrame;
 
-import VentanaImagenes.ImageComponent;
 import Entidades.Tif;
+import VentanaImagenes.ImageComponent;
 import VentanaImagenes.WorkerIDC;
 import VentanaImagenes.setTablaForIDC;
 import VentanaImagenes.SetTablaMetadata;
-//import helper.ImagenNoEncontrada;
 import helper.MensajeTxt;
 import helper.VersionEImageIcon;
 import java.awt.event.KeyAdapter;
@@ -21,8 +20,6 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileFilter;
 import javax.swing.JLabel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -43,6 +40,7 @@ public class SoloIDCFrame extends javax.swing.JFrame {
   private FileFilter fileFilter;
   private int zoomImagen;
   private JLabel informacion;
+  ImageComponent imageComponent = new ImageComponent();
 
   /**
    * Creates new form VentanaPrincipal
@@ -126,33 +124,12 @@ public class SoloIDCFrame extends javax.swing.JFrame {
         String imagen = tif.getRuta();
         if (imagen != null)
           {
-
-          try
-            {
-//            final ImageComponent imageCmp = new ImageComponent(imagen, 2. * getZoomImagen() / jSlider1.getMaximum(), scrollImage);
-//            scrollImage.getViewport().add(imageCmp);
-//            jSlider1.setValue(zoomImagen);
-//            jSlider1.addChangeListener(new ChangeListener() {
-//              @Override
-//              public void stateChanged(ChangeEvent e) {
-//                setZoomImagen(jSlider1.getValue());
-//                imageCmp.setZoom(2. * zoomImagen / jSlider1.getMaximum(), scrollImage);
-//              }
-//            });
-            setTablaForIDC idc = new setTablaForIDC(tablaIDC, tif.getCampos());
-            } catch (Exception ex)
-            {
-            String exception = ex.getMessage().toString();
-            String descripcion = "(El sistema no puede encontrar el archivo especificado)";
-            String path = exception.substring(0, exception.length() - descripcion.length());
-            MensajeTxt mstxt = new MensajeTxt(path, descripcion);
-//            ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mstxt, scrollImage, zoomImagen, tablaMetadata1);
-            }
+          setImage(imagen);
+          setTablaForIDC idctabla = new setTablaForIDC(tablaIDC, tif.getCampos());
           }
         SetTablaMetadata tablaM = new SetTablaMetadata(tablaMetadata1, tif.getMetadata());
         }
       }
-
   }
 
   public int getZoomImagen() {
@@ -179,9 +156,6 @@ public class SoloIDCFrame extends javax.swing.JFrame {
     jScrollPane1 = new javax.swing.JScrollPane();
     jTree1 = new javax.swing.JTree();
     jButton1 = new javax.swing.JButton();
-    panelImagen = new javax.swing.JPanel();
-    jSlider1 = new javax.swing.JSlider();
-    scrollImage = new javax.swing.JScrollPane();
     panelTablas = new javax.swing.JPanel();
     jLabel3 = new javax.swing.JLabel();
     scrollIDC = new javax.swing.JScrollPane();
@@ -193,6 +167,8 @@ public class SoloIDCFrame extends javax.swing.JFrame {
     jLabel2 = new javax.swing.JLabel();
     tablaMetadata = new javax.swing.JScrollPane();
     tablaMetadata1 = new javax.swing.JTable();
+    jComboBox1 = new javax.swing.JComboBox();
+    scrollImage = new javax.swing.JScrollPane();
 
     tablaVolumen1.setModel(new javax.swing.table.DefaultTableModel(
       new Object [][] {
@@ -241,33 +217,6 @@ public class SoloIDCFrame extends javax.swing.JFrame {
         .addComponent(jButton1)
         .addGap(18, 18, 18)
         .addComponent(jScrollPane1))
-    );
-
-    panelImagen.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-    jSlider1.setMajorTickSpacing(5);
-    jSlider1.setPaintTicks(true);
-    jSlider1.setAutoscrolls(true);
-
-    javax.swing.GroupLayout panelImagenLayout = new javax.swing.GroupLayout(panelImagen);
-    panelImagen.setLayout(panelImagenLayout);
-    panelImagenLayout.setHorizontalGroup(
-      panelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(panelImagenLayout.createSequentialGroup()
-        .addContainerGap()
-        .addGroup(panelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(scrollImage)
-          .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE))
-        .addContainerGap())
-    );
-    panelImagenLayout.setVerticalGroup(
-      panelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(panelImagenLayout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addComponent(scrollImage)
-        .addContainerGap())
     );
 
     panelTablas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -398,22 +347,33 @@ public class SoloIDCFrame extends javax.swing.JFrame {
         .addContainerGap())
     );
 
+    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2", "4", "6", " " }));
+
     javax.swing.GroupLayout PanelPrincipalLayout = new javax.swing.GroupLayout(PanelPrincipal);
     PanelPrincipal.setLayout(PanelPrincipalLayout);
     PanelPrincipalLayout.setHorizontalGroup(
       PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(PanelPrincipalLayout.createSequentialGroup()
         .addComponent(panelArbol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(panelImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(PanelPrincipalLayout.createSequentialGroup()
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(123, 123, 123))
+          .addGroup(PanelPrincipalLayout.createSequentialGroup()
+            .addGap(4, 4, 4)
+            .addComponent(scrollImage)
+            .addGap(7, 7, 7)))
         .addComponent(panelTablas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
     );
     PanelPrincipalLayout.setVerticalGroup(
       PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addComponent(panelTablas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-      .addComponent(panelImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
       .addComponent(panelArbol, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalLayout.createSequentialGroup()
+        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(scrollImage))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -474,18 +434,17 @@ public class SoloIDCFrame extends javax.swing.JFrame {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JPanel PanelPrincipal;
   private javax.swing.JButton jButton1;
+  private javax.swing.JComboBox jComboBox1;
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JScrollPane jScrollPane4;
   private javax.swing.JScrollPane jScrollPane5;
   private javax.swing.JScrollPane jScrollPane6;
-  private javax.swing.JSlider jSlider1;
   private javax.swing.JTable jTable1;
   private javax.swing.JTable jTable2;
   private javax.swing.JTree jTree1;
   private javax.swing.JPanel panelArbol;
-  private javax.swing.JPanel panelImagen;
   private javax.swing.JPanel panelTablas;
   private javax.swing.JScrollPane scrollIDC;
   private javax.swing.JScrollPane scrollImage;
@@ -494,4 +453,9 @@ public class SoloIDCFrame extends javax.swing.JFrame {
   private javax.swing.JTable tablaMetadata1;
   private javax.swing.JTable tablaVolumen1;
   // End of variables declaration//GEN-END:variables
+
+  private void setImage(String imagen) {
+    imageComponent.cargarImagen(imagen, jComboBox1, scrollImage);
+    scrollImage.getViewport().add(imageComponent);
+  }
 }

@@ -37,30 +37,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
   private DefaultMutableTreeNode root;
   private DefaultTreeModel model;
   private String rutaInput;
-  private File file;
-  private FileFilter fileFilter;
   private boolean isDirectorio;
-  private int zoomImage = 2;
   private JLabel informacion;
   ImageComponent imageCmp = new ImageComponent();
-
-  ;
 
     /**
      * Creates new form VentanaPrincipal
      * @param isDirectorio
      * @param in
      * @param rutaInput
-     * @param file
-     * @param fileFilter
      * @param informacion
      */
-    public VentanaPrincipal(boolean isDirectorio, LoginRuta in, String rutaInput, File file, FileFilter fileFilter, JLabel informacion) {
+    public VentanaPrincipal(boolean isDirectorio, LoginRuta in, String rutaInput, JLabel informacion) {
     this.isDirectorio = isDirectorio;
     this.input = in;
     this.rutaInput = rutaInput;
-    this.file = file;
-    this.fileFilter = fileFilter;
     this.informacion = informacion;
     initComponents();
     VersionEImageIcon vi = new VersionEImageIcon(this, "Ventana Principal");
@@ -80,7 +71,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             this.rutaInput);
     this.nuevoMapa.execute();
     setEventFromJTree();
-
   }
 
   private void mostrarInformacion() {
@@ -98,29 +88,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         String imagen = tif.getRuta();
         if (imagen != null)
           {
-
-            setImage(imagen);
-//            } catch (Exception ex)
-//            {
-//            String exception = ex.getMessage().toString();
-//            String descripcion = "(El sistema no puede encontrar el archivo especificado)";
-//            String path = exception.substring(0, exception.length() - descripcion.length());
-//            MensajeTxt mstxt = new MensajeTxt(path, descripcion);
-////            ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mstxt, scrollImage, zoomImage, tablaMetadata1);
-//            }
+           setImage(imagen);
           }//
         SetTablaMetadata tablaM = new SetTablaMetadata(tablaMetadata1, tif.getMetadata());
         }
       }
   }
 
-  public int getZoomImage() {
-    return zoomImage;
-  }
-
-  public void setZoomImage(int zoomImage) {
-    this.zoomImage = zoomImage;
-  }
 
   /**
    * This method is called from within the constructor to initialize the form.
@@ -151,8 +125,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     tablaMetadata1 = new javax.swing.JTable();
     volumen = new javax.swing.JButton();
     scrollImage = new javax.swing.JScrollPane();
-    Dos = new javax.swing.JButton();
-    cuatro = new javax.swing.JButton();
     jComboBox1 = new javax.swing.JComboBox();
 
     tablaVolumen1.setModel(new javax.swing.table.DefaultTableModel(
@@ -340,59 +312,38 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(scrollIDC, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(38, Short.MAX_VALUE))
+        .addContainerGap(19, Short.MAX_VALUE))
     );
 
-    Dos.setText("2");
-    Dos.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        DosActionPerformed(evt);
-      }
-    });
-
-    cuatro.setText("4");
-    cuatro.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        cuatroActionPerformed(evt);
-      }
-    });
-
-    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2", "4", "6", " " }));
+    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2", "4", "6", "" }));
 
     javax.swing.GroupLayout PanelPrincipalLayout = new javax.swing.GroupLayout(PanelPrincipal);
     PanelPrincipal.setLayout(PanelPrincipalLayout);
     PanelPrincipalLayout.setHorizontalGroup(
       PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(PanelPrincipalLayout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(panelArbol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(scrollImage)
           .addGroup(PanelPrincipalLayout.createSequentialGroup()
-            .addComponent(Dos, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap()
+            .addComponent(panelArbol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(cuatro, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(0, 163, Short.MAX_VALUE)))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(scrollImage, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalLayout.createSequentialGroup()
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(121, 121, 121)))
         .addComponent(panelTablas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
     );
     PanelPrincipalLayout.setVerticalGroup(
       PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addComponent(panelTablas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalLayout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(panelArbol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalLayout.createSequentialGroup()
-        .addGap(0, 0, Short.MAX_VALUE)
-        .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(Dos)
-          .addComponent(cuatro)
-          .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addComponent(scrollImage, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE))
+      .addGroup(PanelPrincipalLayout.createSequentialGroup()
+        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(panelArbol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(scrollImage)))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -419,16 +370,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
       String campos = nuevoMapa.getCampos();
       new Volumenes(campos).setVisible(true);
     }//GEN-LAST:event_volumenActionPerformed
-
-  private void DosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DosActionPerformed
-    // TODO add your handling code here:
-    setZoomImage(2);
-  }//GEN-LAST:event_DosActionPerformed
-
-  private void cuatroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuatroActionPerformed
-    // TODO add your handling code here:
-    setZoomImage(4);
-  }//GEN-LAST:event_cuatroActionPerformed
   /**
    * @param args the command line arguments
    */
@@ -464,9 +405,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 //        });
 //    }
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JButton Dos;
   private javax.swing.JPanel PanelPrincipal;
-  private javax.swing.JButton cuatro;
   private javax.swing.JButton jButton1;
   private javax.swing.JComboBox jComboBox1;
   private javax.swing.JLabel jLabel2;
