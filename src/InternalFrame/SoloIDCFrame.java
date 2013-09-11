@@ -9,7 +9,6 @@ import VentanaImagenes.ImageComponent;
 import VentanaImagenes.WorkerIDC;
 import VentanaImagenes.setTablaForIDC;
 import VentanaImagenes.SetTablaMetadata;
-import helper.MensajeTxt;
 import helper.VersionEImageIcon;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -38,7 +37,6 @@ public class SoloIDCFrame extends javax.swing.JFrame {
   private String rutaInput;
   private File file;
   private FileFilter fileFilter;
-  private int zoomImagen;
   private JLabel informacion;
   ImageComponent imageComponent = new ImageComponent();
 
@@ -52,7 +50,6 @@ public class SoloIDCFrame extends javax.swing.JFrame {
     this.rutaInput = rutaInput;
     this.file = dir;
     this.fileFilter = fileFilter;
-    this.zoomImagen = 50;
     this.informacion = informacion;
     initComponents();
     VersionEImageIcon vi = new VersionEImageIcon(this, "Solo un IDC");
@@ -132,13 +129,7 @@ public class SoloIDCFrame extends javax.swing.JFrame {
       }
   }
 
-  public int getZoomImagen() {
-    return zoomImagen;
-  }
 
-  public void setZoomImagen(int zoomImagen) {
-    this.zoomImagen = zoomImagen;
-  }
 
   /**
    * This method is called from within the constructor to initialize the form.
