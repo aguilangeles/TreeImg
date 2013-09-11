@@ -47,6 +47,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
   private boolean isDirectorio;
   private int zoomImage = 2;
   private JLabel informacion;
+  ImageComponent imageCmp = new ImageComponent();
+
 
   ;
 
@@ -65,28 +67,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     this.rutaInput = rutaInput;
     this.file = file;
     this.fileFilter = fileFilter;
-//    this.zoomImage = 10;
     this.informacion = informacion;
     initComponents();
     VersionEImageIcon vi = new VersionEImageIcon(this, "Ventana Principal");
     PanelPrincipal.setBackground(vi.newColor());
-//    jComboBox1.addActionListener(new ActionListener() {
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//        switch (jComboBox1.getSelectedIndex())
-//          {
-//          case 0:
-//            setZoomImage(2);
-//            break;
-//          case 1:
-//            setZoomImage(4);
-//            break;
-//          case 2:
-//            setZoomImage(6);
-//            break;
-//          }
-//      }
-//    });
     crearElArbol();
   }
 
@@ -551,7 +535,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
   }
 
   private void setImage(String imagen) throws Exception {
-    final ImageComponent imageCmp = new ImageComponent(imagen, jComboBox1, scrollImage);
+    imageCmp.cargarImagen(imagen, jComboBox1, scrollImage);
     scrollImage.getViewport().add(imageCmp);
   }
 }

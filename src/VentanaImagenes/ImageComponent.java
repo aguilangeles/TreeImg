@@ -13,7 +13,7 @@ import javax.swing.*;
 
 public final class ImageComponent extends JPanel {
 
-  private final BufferedImage img;
+  private  BufferedImage img;
   private Dimension dim;
   private int zomm;
   private int opIndex;
@@ -26,6 +26,10 @@ public final class ImageComponent extends JPanel {
     img = (BufferedImage) image;
   }
 
+  public ImageComponent(BufferedImage img) {
+    this.img = img;
+  }
+
   public ImageComponent(String location, double zoom, JScrollPane scrollPane)
           throws IOException, Exception {
     img = (BufferedImage) new ReadImageTif().getImagen(location);
@@ -36,14 +40,16 @@ public final class ImageComponent extends JPanel {
     this.opIndex = opIndex;
   }
 
-  public ImageComponent(String location, int zoom, JScrollPane scrollPane)
-          throws IOException, Exception {
-    this.zomm = zoom;
-    img = (BufferedImage) new ReadImageTif().getImagen(location);
-    //setZoom(zoom, scrollPane);
-  }
+//  public ImageComponent(String location, int zoom, JScrollPane scrollPane)
+//          throws IOException, Exception {
+//    this.zomm = zoom;
+//    img = (BufferedImage) new ReadImageTif().getImagen(location);
+//    //setZoom(zoom, scrollPane);
+//  }
 
-  public ImageComponent(String location, final JComboBox combo, JScrollPane scrollPane)
+
+
+  public void cargarImagen(String location, final JComboBox combo, JScrollPane scrollPane)
           throws IOException, Exception {
     img = (BufferedImage) new ReadImageTif().getImagen(location);
     combo.addActionListener(new ActionListener() {
@@ -52,8 +58,18 @@ public final class ImageComponent extends JPanel {
         setOpIndex(combo.getSelectedIndex());
       }
     });
-    //setZoom(zoom, scrollPane);
   }
+//  public ImageComponent(String location, final JComboBox combo, JScrollPane scrollPane)
+//          throws IOException, Exception {
+//    combo.addActionListener(new ActionListener() {
+//      @Override
+//      public void actionPerformed(ActionEvent e) {
+//        setOpIndex(combo.getSelectedIndex());
+//      }
+//    });
+//    img = (BufferedImage) new ReadImageTif().getImagen(location);
+//    //setZoom(zoom, scrollPane);
+//  }
 
   @Override
   protected void paintComponent(Graphics g) {
