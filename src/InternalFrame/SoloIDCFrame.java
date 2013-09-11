@@ -9,7 +9,7 @@ import Entidades.Tif;
 import VentanaImagenes.WorkerIDC;
 import VentanaImagenes.setTablaForIDC;
 import VentanaImagenes.SetTablaMetadata;
-import helper.ImagenNoEncontrada;
+//import helper.ImagenNoEncontrada;
 import helper.MensajeTxt;
 import helper.VersionEImageIcon;
 import java.awt.event.KeyAdapter;
@@ -129,16 +129,16 @@ public class SoloIDCFrame extends javax.swing.JFrame {
 
           try
             {
-            final ImageComponent imageCmp = new ImageComponent(imagen, 2. * getZoomImagen() / jSlider1.getMaximum(), scrollImage);
-            scrollImage.getViewport().add(imageCmp);
-            jSlider1.setValue(zoomImagen);
-            jSlider1.addChangeListener(new ChangeListener() {
-              @Override
-              public void stateChanged(ChangeEvent e) {
-                setZoomImagen(jSlider1.getValue());
-                imageCmp.setZoom(2. * zoomImagen / jSlider1.getMaximum(), scrollImage);
-              }
-            });
+//            final ImageComponent imageCmp = new ImageComponent(imagen, 2. * getZoomImagen() / jSlider1.getMaximum(), scrollImage);
+//            scrollImage.getViewport().add(imageCmp);
+//            jSlider1.setValue(zoomImagen);
+//            jSlider1.addChangeListener(new ChangeListener() {
+//              @Override
+//              public void stateChanged(ChangeEvent e) {
+//                setZoomImagen(jSlider1.getValue());
+//                imageCmp.setZoom(2. * zoomImagen / jSlider1.getMaximum(), scrollImage);
+//              }
+//            });
             setTablaForIDC idc = new setTablaForIDC(tablaIDC, tif.getCampos());
             } catch (Exception ex)
             {
@@ -146,7 +146,7 @@ public class SoloIDCFrame extends javax.swing.JFrame {
             String descripcion = "(El sistema no puede encontrar el archivo especificado)";
             String path = exception.substring(0, exception.length() - descripcion.length());
             MensajeTxt mstxt = new MensajeTxt(path, descripcion);
-            ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mstxt, scrollImage, zoomImagen, tablaMetadata1);
+//            ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mstxt, scrollImage, zoomImagen, tablaMetadata1);
             }
           }
         SetTablaMetadata tablaM = new SetTablaMetadata(tablaMetadata1, tif.getMetadata());

@@ -10,11 +10,9 @@ import VentanaImagenes.MyWorker;
 import Entidades.Tif;
 import VentanaImagenes.setTablaForIDC;
 import VentanaImagenes.SetTablaMetadata;
-import helper.ImagenNoEncontrada;
+//import helper.ImagenNoEncontrada;
 import helper.MensajeTxt;
 import helper.VersionEImageIcon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -23,9 +21,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -48,7 +43,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
   private int zoomImage = 2;
   private JLabel informacion;
   ImageComponent imageCmp = new ImageComponent();
-
 
   ;
 
@@ -104,17 +98,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         String imagen = tif.getRuta();
         if (imagen != null)
           {
-          try
-            {
+
             setImage(imagen);
-            } catch (Exception ex)
-            {
-            String exception = ex.getMessage().toString();
-            String descripcion = "(El sistema no puede encontrar el archivo especificado)";
-            String path = exception.substring(0, exception.length() - descripcion.length());
-            MensajeTxt mstxt = new MensajeTxt(path, descripcion);
-            ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mstxt, scrollImage, zoomImage, tablaMetadata1);
-            }
+//            } catch (Exception ex)
+//            {
+//            String exception = ex.getMessage().toString();
+//            String descripcion = "(El sistema no puede encontrar el archivo especificado)";
+//            String path = exception.substring(0, exception.length() - descripcion.length());
+//            MensajeTxt mstxt = new MensajeTxt(path, descripcion);
+////            ImagenNoEncontrada imagenNoEncontrada = new ImagenNoEncontrada(mstxt, scrollImage, zoomImage, tablaMetadata1);
+//            }
           }//
         SetTablaMetadata tablaM = new SetTablaMetadata(tablaMetadata1, tif.getMetadata());
         }
@@ -534,7 +527,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     jTree1.addMouseListener(ml);
   }
 
-  private void setImage(String imagen) throws Exception {
+  private void setImage(String imagen) {
     imageCmp.cargarImagen(imagen, jComboBox1, scrollImage);
     scrollImage.getViewport().add(imageCmp);
   }

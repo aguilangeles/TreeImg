@@ -4,19 +4,23 @@
  */
 package VentanaImagenes;
 
+import helper.MensajeTxt;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import txt.Escritor;
 
 public final class ImageComponent extends JPanel {
 
-  private  BufferedImage img;
+  private BufferedImage img;
   private Dimension dim;
   private int zomm;
   private int opIndex;
@@ -25,13 +29,11 @@ public final class ImageComponent extends JPanel {
     img = null;
   }
 
-
   public void setOpIndex(int opIndex) {
     this.opIndex = opIndex;
   }
 
-  public void cargarImagen(String location, final JComboBox combo, JScrollPane scrollPane)
-           {
+  public void cargarImagen(String location, final JComboBox combo, JScrollPane scrollPane) {
     try
       {
       img = (BufferedImage) new ReadImageTif().getImagen(location);
@@ -43,10 +45,18 @@ public final class ImageComponent extends JPanel {
       });
       } catch (FileNotFoundException ex)
       {
-      Logger.getLogger(ImageComponent.class.getName()).log(Level.SEVERE, null, ex);
+      String descripcion = "(El sistema no puede encontrar el archivo especificado)";
+      if (ex.getMessage().contains(descripcion))
+        {
+        GetFileNotFoundEx fileNotFoundEx = new GetFileNotFoundEx(ex.getMessage(), descripcion);
+        img = fileNotFoundEx.fileNotFoundImage();
+        } else
+        {
+        JOptionPane.showMessageDialog(scrollPane, ex.getMessage(), "Error en lectura imagen ", JOptionPane.ERROR_MESSAGE);
+        }
       } catch (IOException ex)
       {
-      Logger.getLogger(ImageComponent.class.getName()).log(Level.SEVERE, null, ex);
+      JOptionPane.showMessageDialog(scrollPane, ex.getMessage(), "Error en lectura IO imagen ", JOptionPane.ERROR_MESSAGE);
       }
   }
 
@@ -126,7 +136,7 @@ public final class ImageComponent extends JPanel {
   }
 
   private void setImageFourthSize(Graphics2D g2) {
- int wHalf = (int) (img.getWidth() / 6);
+    int wHalf = (int) (img.getWidth() / 6);
     int hHalf = (int) (img.getHeight() / 6);
     setPreferredSize(new Dimension(wHalf, hHalf));
     g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
