@@ -48,7 +48,6 @@ public class NuevoFrame extends javax.swing.JFrame {
           LoginRuta input, String pathIdc,
           JLabel informacion) {
     this.isDirectorio = isDirectorio;
-    System.out.println(isDirectorio);
     this.input = input;
     this.pathIdc = pathIdc;
     this.informacion = informacion;

@@ -27,8 +27,6 @@ class SetMouseListenerAction {
   private JTable jTable2, jTable3;
 
   public SetMouseListenerAction() {
-
-
   }
 
   public SetMouseListenerAction(boolean directorio, ImageComponent imageComponent, JScrollPane scrollImage, JComboBox combo, JTree arbol, JTable jTable2, JTable jTable3) {
@@ -42,9 +40,8 @@ class SetMouseListenerAction {
     addMSL();
   }
 
-
-  private void addMSL(){
-        MouseListener ml = new MouseAdapter() {
+  private void addMSL() {
+    MouseListener ml = new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
         llamarInfo();
@@ -56,6 +53,7 @@ class SetMouseListenerAction {
   private void llamarInfo() {
     if (directorio)
       {
+      new GetInfoForDirectoryInTree(imageComponent, scrollImage, combo, arbol, jTable2, jTable3);
       //llama a la construcion de arbol directorio
       } else
       {

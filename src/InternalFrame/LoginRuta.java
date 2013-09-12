@@ -140,7 +140,6 @@ public class LoginRuta extends javax.swing.JFrame {
     if (file.exists())
       {
       isFile = true;
-
       principal = new VentanaPrincipal(isFile, this, ruta, informacion);
       jButton1.setEnabled(false);
       } else

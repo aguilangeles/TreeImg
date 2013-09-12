@@ -10,7 +10,6 @@ import VentanaImagenes.MyWorker;
 import Entidades.Tif;
 import VentanaImagenes.setTablaForIDC;
 import VentanaImagenes.SetTablaMetadata;
-//import helper.ImagenNoEncontrada;
 import helper.VersionEImageIcon;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -69,29 +68,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             this.rutaInput);
     this.nuevoMapa.execute();
     setEventFromJTree();
+
   }
 
-  private void mostrarInformacion() {
-    TreePath treePath = jTree1.getSelectionPath();
-    if (treePath != null)
-      {
-      DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
-      if (nodoSeleccionado.toString().contains("#"))
-        {
-        ContenidoTablaIDC contenido = (ContenidoTablaIDC) nodoSeleccionado.getUserObject();
-        setTablaForIDC idcTable = new setTablaForIDC(tablaIDC, contenido.getCampos());
-        } else if (nodoSeleccionado.toString().endsWith(".tif"))
-        {
-        Tif tif = (Tif) nodoSeleccionado.getUserObject();
-        String imagen = tif.getRuta();
-        if (imagen != null)
-          {
-           setImage(imagen);
-          }//
-        SetTablaMetadata tablaM = new SetTablaMetadata(tablaMetadata1, tif.getMetadata());
-        }
-      }
-  }
+//  private void mostrarInfoDirectorioEnArbol() {
+////    TreePath treePath = jTree1.getSelectionPath();
+////    if (treePath != null)
+////      {
+////      DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
+////      if (nodoSeleccionado.toString().contains("#"))
+////        {
+////        ContenidoTablaIDC contenido = (ContenidoTablaIDC) nodoSeleccionado.getUserObject();
+////        setTablaForIDC idcTable = new setTablaForIDC(tablaIDC, contenido.getCampos());
+////        } else if (nodoSeleccionado.toString().endsWith(".tif"))
+////        {
+////        Tif tif = (Tif) nodoSeleccionado.getUserObject();
+////        String imagen = tif.getRuta();
+////        if (imagen != null)
+////          {
+////           setImage(imagen);
+////          }//
+////        SetTablaMetadata tablaM = new SetTablaMetadata(tablaMetadata1, tif.getMetadata());
+////        }
+////      }
+//  }
 
 
   /**
@@ -427,45 +427,51 @@ public class VentanaPrincipal extends javax.swing.JFrame {
   // End of variables declaration//GEN-END:variables
 
   private void setEventFromJTree() {
-    KeyListener kl = new KeyAdapter() {
-      @Override
-      public void keyTyped(KeyEvent e) {
-        myKeyEvt(e, "keyTyped");
-      }
 
-      @Override
-      public void keyReleased(KeyEvent e) {
-        myKeyEvt(e, "keyReleased");
-      }
-
-      @Override
-      public void keyPressed(KeyEvent e) {
-        myKeyEvt(e, "keyPressed");
-      }
-
-      private void myKeyEvt(KeyEvent e, String text) {
-        int key = e.getKeyCode();
-        if (key == KeyEvent.VK_KP_DOWN || key == KeyEvent.VK_DOWN)
-          {
-          mostrarInformacion();
-          } else if (key == KeyEvent.VK_KP_UP || key == KeyEvent.VK_UP)
-          {
-          mostrarInformacion();
-          }
-      }
-    };
+    KeyListener kl =  new SetKeyListenerAction(isDirectorio, imageCmp, scrollImage,
+            jComboBox1, jTree1, tablaMetadata1, tablaIDC).setKeyListener();
+ //   = new KeyAdapter() {
+//      @Override
+//      public void keyTyped(KeyEvent e) {
+//        myKeyEvt(e, "keyTyped");
+//      }
+//
+//      @Override
+//      public void keyReleased(KeyEvent e) {
+//        myKeyEvt(e, "keyReleased");
+//      }
+//
+//      @Override
+//      public void keyPressed(KeyEvent e) {
+//        myKeyEvt(e, "keyPressed");
+//      }
+//
+//      private void myKeyEvt(KeyEvent e, String text) {
+//        int key = e.getKeyCode();
+//        if (key == KeyEvent.VK_KP_DOWN || key == KeyEvent.VK_DOWN)
+//          {
+//          mostrarInfoDirectorioEnArbol();
+//          } else if (key == KeyEvent.VK_KP_UP || key == KeyEvent.VK_UP)
+//          {
+//          mostrarInfoDirectorioEnArbol();
+//          }
+//      }
+//    };
     jTree1.addKeyListener(kl);
-    MouseListener ml = new MouseAdapter() {
-      @Override
-      public void mousePressed(MouseEvent e) {
-        mostrarInformacion();
-      }
-    };
-    jTree1.addMouseListener(ml);
+    SetMouseListenerAction setMouseListenerAction =
+            new SetMouseListenerAction(isDirectorio, imageCmp,
+            scrollImage, jComboBox1, jTree1, tablaMetadata1, tablaIDC);
+//    MouseListener ml = new MouseAdapter() {
+//      @Override
+//      public void mousePressed(MouseEvent e) {
+//        mostrarInfoDirectorioEnArbol();
+//      }
+//    };
+//    jTree1.addMouseListener(ml);
   }
 
-  private void setImage(String imagen) {
-    imageCmp.cargarImagen(imagen, jComboBox1, scrollImage);
-    scrollImage.getViewport().add(imageCmp);
-  }
+//  private void setImage(String imagen) {
+//    imageCmp.cargarImagen(imagen, jComboBox1, scrollImage);
+//    scrollImage.getViewport().add(imageCmp);
+//  }
 }

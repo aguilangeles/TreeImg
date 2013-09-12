@@ -75,6 +75,7 @@ class SetKeyListenerAction {
     if (directorio)
       {
       //llama a la construcion de arbol directorio
+      new GetInfoForDirectoryInTree(imageComponent, scrollImage, combo, arbol, jTable2, jTable3);
       } else
       {
       // llama a
