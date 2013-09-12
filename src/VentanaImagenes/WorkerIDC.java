@@ -12,15 +12,12 @@ import helper.GetQuantityImagesInFileSystem;
 import helper.WriteMessage;
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.tree.DefaultMutableTreeNode;
-import txt.Escritor;
 
 /**
  *
@@ -31,7 +28,8 @@ public class WorkerIDC extends SwingWorker<Void, Integer> {
   private boolean isDirectorio;
   private LoginRuta input;
   private JLabel informacion;
-  private SoloIDCFrame secundario;
+  private SoloIDCFrame secundario2;
+  private JFrame secundario;
   private DefaultMutableTreeNode root;
   private String pathIDC;
   private static ImagenesTree imagenes;
@@ -39,6 +37,14 @@ public class WorkerIDC extends SwingWorker<Void, Integer> {
   private static String path;
 
   public WorkerIDC(boolean isDirectorio, SoloIDCFrame secundario, LoginRuta input, DefaultMutableTreeNode root, String pathIdc, JLabel informacion) {
+    this.isDirectorio = isDirectorio;
+    this.secundario = secundario;
+    this.input = input;
+    this.root = root;
+    this.pathIDC = pathIdc;
+    this.informacion = informacion;
+  }
+  public WorkerIDC(boolean isDirectorio, JFrame secundario, LoginRuta input, DefaultMutableTreeNode root, String pathIdc, JLabel informacion) {
     this.isDirectorio = isDirectorio;
     this.secundario = secundario;
     this.input = input;

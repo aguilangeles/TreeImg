@@ -140,6 +140,7 @@ public class LoginRuta extends javax.swing.JFrame {
     if (file.exists())
       {
       isFile = true;
+      
       principal = new VentanaPrincipal(isFile, this, ruta, informacion);
       jButton1.setEnabled(false);
       } else
@@ -158,7 +159,8 @@ public class LoginRuta extends javax.swing.JFrame {
     };
     if (folder.exists())
       {
-      secundario = new SoloIDCFrame(isFile, this, pathIdc, folder, filefilter, informacion);
+      //      secundario = new SoloIDCFrame(isFile, this, pathIdc, folder, filefilter, informacion);
+      NuevoFrame nuevoFrame = new NuevoFrame(isFile, this, pathIdc, informacion);
       //encontrar que mostrar aca
       jTextField1.setText("El proceso puede demorarse unos minutos");
       jButton1.setEnabled(false);

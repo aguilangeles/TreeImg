@@ -40,8 +40,18 @@ public class SoloIDCFrame extends javax.swing.JFrame {
 
   /**
    * Creates new form VentanaPrincipal
+   *
+   * @param isDirectorio
+   * @param out
+   * @param pathIdc
+   * @param dir
+   * @param fileFilter
+   * @param informacion
    */
-  public SoloIDCFrame(boolean isDirectorio, LoginRuta out, String pathIdc, File dir, FileFilter fileFilter, JLabel informacion) {
+  public SoloIDCFrame(boolean isDirectorio,
+          LoginRuta out, String pathIdc,
+          File dir, FileFilter fileFilter,
+          JLabel informacion) {
     this.isDirectorio = isDirectorio;
     this.input = out;
     this.pathIdc = pathIdc;
@@ -51,6 +61,7 @@ public class SoloIDCFrame extends javax.swing.JFrame {
     PanelPrincipal.setBackground(vi.newColor());
     crearElArbol();
   }
+
   public SoloIDCFrame() {
     initComponents();
   }
@@ -313,23 +324,25 @@ public class SoloIDCFrame extends javax.swing.JFrame {
         .addComponent(panelArbol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(PanelPrincipalLayout.createSequentialGroup()
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(123, 123, 123))
+            .addGap(451, 451, 451))
           .addGroup(PanelPrincipalLayout.createSequentialGroup()
             .addGap(4, 4, 4)
             .addComponent(scrollImage)
-            .addGap(7, 7, 7)))
-        .addComponent(panelTablas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(7, 7, 7)
+            .addComponent(panelTablas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
     );
     PanelPrincipalLayout.setVerticalGroup(
       PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(panelTablas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
       .addComponent(panelArbol, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalLayout.createSequentialGroup()
         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(scrollImage))
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalLayout.createSequentialGroup()
+        .addGap(0, 43, Short.MAX_VALUE)
+        .addComponent(panelTablas, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
