@@ -22,8 +22,7 @@ public class LoginRuta extends javax.swing.JFrame {
    */
   public LoginRuta() {
     initComponents();
-    VersionEImageIcon versionEImageIcon = new VersionEImageIcon(this)
-   ;
+    VersionEImageIcon versionEImageIcon = new VersionEImageIcon(this);
     versionEImageIcon.newColor();
     jPanel1.setBackground( versionEImageIcon.newColor());
     jButton1.setEnabled(true);
@@ -136,8 +135,7 @@ public class LoginRuta extends javax.swing.JFrame {
     if (file.exists())
       {
       isFile = true;
-//      principal = new VentanaPrincipal(isFile, this, ruta, informacion);
-      new NuevoFrame(isFile, this, path, informacion);
+      NuevoFrame nuevoFrame = new NuevoFrame(isFile, this, path, informacion);
       jButton1.setEnabled(false);
       } else
       {
@@ -185,7 +183,6 @@ public class LoginRuta extends javax.swing.JFrame {
   }
 
   private String getRuta() {
-    //me aseguro de que no haya espacios en blanco
     return jTextField1.getText().trim();
   }
   /**

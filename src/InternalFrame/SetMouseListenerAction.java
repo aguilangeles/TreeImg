@@ -4,7 +4,7 @@
  */
 package InternalFrame;
 
-import VentanaImagenes.ImageComponent;
+import Image.ImageComponent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -29,7 +29,9 @@ class SetMouseListenerAction {
   public SetMouseListenerAction() {
   }
 
-  public SetMouseListenerAction(boolean directorio, ImageComponent imageComponent, JScrollPane scrollImage, JComboBox combo, JTree arbol, JTable jTable2, JTable jTable3) {
+  public SetMouseListenerAction(boolean directorio, ImageComponent imageComponent,
+          JScrollPane scrollImage, JComboBox combo, JTree arbol, JTable jTable2,
+          JTable jTable3) {
     this.directorio = directorio;
     this.imageComponent = imageComponent;
     this.scrollImage = scrollImage;
@@ -53,12 +55,14 @@ class SetMouseListenerAction {
   private void llamarInfo() {
     if (directorio)
       {
-      new GetInfoForDirectoryInTree(imageComponent, scrollImage, combo, arbol, jTable2, jTable3);
-      //llama a la construcion de arbol directorio
+      GetInfoForDirectoryInTree infoForDirectoryInTree =
+              new GetInfoForDirectoryInTree(imageComponent, scrollImage, combo,
+              arbol, jTable2, jTable3);
       } else
       {
-      // llama a
-      new getInfoForIDCTree(imageComponent, scrollImage, combo, arbol, jTable2, jTable3);
+      getInfoForIDCTree infoForIDCTree =
+              new getInfoForIDCTree(imageComponent, scrollImage, combo, arbol,
+              jTable2, jTable3);
       }
   }
 }

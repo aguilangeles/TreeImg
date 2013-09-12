@@ -2,9 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package txt;
+package helper;
 
-import helper.MensajeTxt;
 import java.io.*;
 import javax.swing.JOptionPane;
 
@@ -21,17 +20,18 @@ public class Escritor {
     this.output = output;
   }
 
-  public void salida(MensajeTxt mesage) {
+  public void salida(MensajeTxt mesage)  {
     file = new File(output);
+
     FileWriter out = null;
     PrintWriter pw = null;
     try
       {
-      out = new FileWriter(file, true);
+      out = new FileWriter(file,true);
       pw = new PrintWriter(out);
+      pw.println("Fecha: " + mesage.getFecha());
       pw.println("Ruta: " + mesage.getRuta());
       pw.println("Descripcion: " + mesage.getDescripcion());
-      pw.println("Fecha: " + mesage.getFecha());
       pw.println("\n");
       pw.flush();
       } catch (IOException ex)

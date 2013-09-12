@@ -6,9 +6,9 @@ package InternalFrame;
 
 import Entidades.ContenidoTablaIDC;
 import Entidades.Tif;
-import VentanaImagenes.ImageComponent;
-import VentanaImagenes.SetTablaMetadata;
-import VentanaImagenes.setTablaForIDC;
+import Image.ImageComponent;
+import Tablas.SetTablaMetadata;
+import Tablas.SetTablaForIDC;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -42,7 +42,6 @@ class GetInfoForDirectoryInTree {
     mostrarInfoDirectorioEnArbol();
   }
 
-
   private void mostrarInfoDirectorioEnArbol() {
     TreePath treePath = arbol.getSelectionPath();
     if (treePath != null)
@@ -51,7 +50,7 @@ class GetInfoForDirectoryInTree {
       if (nodoSeleccionado.toString().contains("#"))
         {
         ContenidoTablaIDC contenido = (ContenidoTablaIDC) nodoSeleccionado.getUserObject();
-        setTablaForIDC idcTable = new setTablaForIDC(jTable3, contenido.getCampos());
+        SetTablaForIDC idcTable = new SetTablaForIDC(jTable3, contenido.getCampos());
         } else if (nodoSeleccionado.toString().endsWith(".tif"))
         {
         Tif tif = (Tif) nodoSeleccionado.getUserObject();

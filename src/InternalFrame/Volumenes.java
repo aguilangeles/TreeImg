@@ -19,7 +19,6 @@ public class Volumenes extends javax.swing.JFrame {
    * Creates new form Volumenes
    */
   public Volumenes(String campos) {
-    super("Valores Finales del Volumen");
     this.campos = campos;
     initComponents();
     VersionEImageIcon vi = new VersionEImageIcon(this, "Valores Finales del Volumen");

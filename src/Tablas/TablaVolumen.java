@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package VentanaImagenes;
+package Tablas;
 
 import javax.swing.JFrame;
 import javax.swing.JTable;
@@ -12,18 +12,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author maria
  */
-public class tablaVolumen extends JFrame {
+public class TablaVolumen extends JFrame {
 
     private JTable tablaIDC;
     private String volumenes;
 
-    public tablaVolumen(JTable tablaIDC, String volumenes) {
+    public TablaVolumen(JTable tablaIDC, String volumenes) {
         this.tablaIDC = tablaIDC;
         this.volumenes = volumenes;
         crearTabla();
     }
 
-    public tablaVolumen() {
+    public TablaVolumen() {
 
     }
 

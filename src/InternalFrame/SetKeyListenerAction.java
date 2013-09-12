@@ -4,7 +4,7 @@
  */
 package InternalFrame;
 
-import VentanaImagenes.ImageComponent;
+import Image.ImageComponent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -29,7 +29,8 @@ class SetKeyListenerAction {
   public SetKeyListenerAction() {
   }
 
-  public SetKeyListenerAction(boolean directorio, ImageComponent imageComponent, JScrollPane scrollImage, JComboBox combo, JTree arbol, JTable jTable2, JTable jTable3) {
+  public SetKeyListenerAction(boolean directorio, ImageComponent imageComponent,
+          JScrollPane scrollImage, JComboBox combo, JTree arbol, JTable jTable2, JTable jTable3) {
     this.directorio = directorio;
     this.imageComponent = imageComponent;
     this.scrollImage = scrollImage;
@@ -74,12 +75,14 @@ class SetKeyListenerAction {
   private void llamarInfo() {
     if (directorio)
       {
-      //llama a la construcion de arbol directorio
-      new GetInfoForDirectoryInTree(imageComponent, scrollImage, combo, arbol, jTable2, jTable3);
+      GetInfoForDirectoryInTree infoForDirectoryInTree =
+              new GetInfoForDirectoryInTree(imageComponent, scrollImage, combo,
+              arbol, jTable2, jTable3);
       } else
       {
-      // llama a
-      new getInfoForIDCTree(imageComponent, scrollImage, combo, arbol, jTable2, jTable3);
+      getInfoForIDCTree infoForIDCTree =
+              new getInfoForIDCTree(imageComponent, scrollImage, combo,
+              arbol, jTable2, jTable3);
       }
   }
 }

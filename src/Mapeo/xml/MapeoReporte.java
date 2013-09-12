@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package VentanaImagenes;
+package Mapeo.xml;
 
 import Entidades.Tif;
 import Mapeo.xml.XmlMapeo;
@@ -11,6 +11,7 @@ import Mapeo.xml.ReporteXMLMapeo;
 import Mapeo.xml.XmlMapeoParser;
 import Entidades.FilesNames;
 import Entidades.IDCNombre;
+import VentanaImagenes.Metadata;
 import helper.RutaParaImagenes;
 import java.io.IOException;
 import java.util.ArrayList;

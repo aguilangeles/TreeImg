@@ -17,7 +17,8 @@ class GetEstadisticasPapelesYCampos {
 
   public GetEstadisticasPapelesYCampos(ReporteXMLMetas reporteMeta, String statusMap,
           int imagenes, int imagenesFileSystem, String face, int papeles, String idce) {
-    this.estadisticas = estadisticaPapelesYCampos(reporteMeta, statusMap, imagenes, imagenesFileSystem, face, papeles, idce);
+    this.estadisticas = estadisticaPapelesYCampos(reporteMeta, statusMap, imagenes,
+            imagenesFileSystem, face, papeles, idce);
   }
 
   private String estadisticaPapelesYCampos(ReporteXMLMetas reporteMeta, String statusMap,

@@ -5,9 +5,9 @@
 package InternalFrame;
 
 import Entidades.Tif;
-import VentanaImagenes.ImageComponent;
-import VentanaImagenes.SetTablaMetadata;
-import VentanaImagenes.setTablaForIDC;
+import Image.ImageComponent;
+import Tablas.SetTablaMetadata;
+import Tablas.SetTablaForIDC;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -30,7 +30,8 @@ class getInfoForIDCTree {
   public getInfoForIDCTree() {
   }
 
-  public getInfoForIDCTree(ImageComponent imageComponent, JScrollPane scrollImage, JComboBox combo, JTree arbol, JTable jTable2, JTable jTable3) {
+  public getInfoForIDCTree(ImageComponent imageComponent, JScrollPane scrollImage,
+          JComboBox combo, JTree arbol, JTable jTable2, JTable jTable3) {
     this.imageComponent = imageComponent;
     this.scrollImage = scrollImage;
     this.combo = combo;
@@ -39,8 +40,6 @@ class getInfoForIDCTree {
     this.jTable3 = jTable3;
     getInfoForIDCTree(arbol, jTable2, jTable3);
   }
-
-
 
   private void getInfoForIDCTree(JTree arbol, JTable jTable2, JTable jTable3) {
 
@@ -58,7 +57,7 @@ class getInfoForIDCTree {
         if (imagen != null)
           {
           setImage(imagen);
-          setTablaForIDC idctabla = new setTablaForIDC(jTable3, tif.getCampos());
+          SetTablaForIDC idctabla = new SetTablaForIDC(jTable3, tif.getCampos());
           }
         SetTablaMetadata tablaM = new SetTablaMetadata(jTable2, tif.getMetadata());
         }

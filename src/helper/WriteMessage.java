@@ -4,8 +4,6 @@
  */
 package helper;
 
-import txt.Escritor;
-
 /**
  * Escribe un mensaje general si el meta no tiene contenido.
  *
@@ -13,7 +11,7 @@ import txt.Escritor;
  */
 public class WriteMessage {
 
-  private Escritor informe = new Escritor("Informe_Errores.txt");
+  private static Escritor informe = new Escritor("Informe_Errores.txt");
   private String ruta;
   private String mensaje;
   private String ubicacion;

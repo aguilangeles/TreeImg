@@ -4,6 +4,7 @@
  */
 package VentanaImagenes;
 
+import Mapeo.xml.MapeoReporte;
 import Entidades.ContenidoTablaIDC;
 import Caratula.xml.Caratula;
 import Caratula.xml.CaratulaParser;

@@ -92,14 +92,9 @@ public class MyWorker extends SwingWorker<Void, Integer> {
   protected void done() {
     if (!isCancelled())
       {
+//      new FindeProceso();
       escribioTXT = imagenesTree.isEscrituraErrores();
-      //botonVolumen.setEnabled(true);
-      String finalizo = "La construcción del Arbol ha finalizado";
-      String aceptar = "Aceptar para mostrar la Ventana Principal\n";
-      String advertencia = (escribioTXT) ? "Datos de errores en: \n" + mensaje.getUbicacion() : "";
-      JOptionPane.showMessageDialog(null, finalizo + "\n" + advertencia + "\n" + aceptar, "Proceso finalizado", JOptionPane.INFORMATION_MESSAGE);
-      //TODO cambiar por un : version 1.0.03
-//            JOptionPane.showConfirmDialog(principal, flag);
+      FindeProceso findeProceso = new FindeProceso(escribioTXT, mensaje);
       logRuta.dispose();
       principal.setVisible(true);
       }

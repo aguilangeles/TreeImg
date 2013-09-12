@@ -89,10 +89,7 @@ public class WorkerIDC extends SwingWorker<Void, Integer> {
     if (!isCancelled())
       {
       boolean escribioTXT = imagenes.isEscrituraErrores();
-      String finalizo = "La construcción del Arbol ha finalizado";
-      String aceptar = "Aceptar para mostrar la Ventana Principal\n";
-      String advertencia = (escribioTXT) ? "Datos de errores en: \n" + mensajes.getUbicacion() : "";
-      JOptionPane.showMessageDialog(null, finalizo + "\n" + advertencia + "\n" + aceptar);
+      FindeProceso findeProceso = new FindeProceso(escribioTXT, mensajes);
       input.dispose();
       secundario.setVisible(true);
       }
