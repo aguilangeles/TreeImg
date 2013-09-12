@@ -56,7 +56,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jTextField1" alignment="1" pref="492" max="32767" attributes="0"/>
+                      <Component id="jTextField1" alignment="1" pref="472" max="32767" attributes="0"/>
                       <Component id="informacion" alignment="1" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="checkIDC" min="-2" pref="102" max="-2" attributes="0"/>
@@ -137,11 +137,13 @@
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder>
-                  <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Informacion Proceso"/>
+                <TitledBorder title="Informaci&#xf3;n del Proceso">
+                  <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                    <LineBorder>
+                      <Color PropertyName="color" blue="66" green="0" red="99" type="rgb"/>
+                    </LineBorder>
                   </Border>
-                  <Color PropertyName="color" blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
+                  <Color PropertyName="color" blue="33" green="0" red="99" type="rgb"/>
                 </TitledBorder>
               </Border>
             </Property>
