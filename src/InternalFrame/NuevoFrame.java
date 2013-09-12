@@ -6,16 +6,20 @@ package InternalFrame;
 
 import Entidades.Tif;
 import VentanaImagenes.ImageComponent;
+import VentanaImagenes.MyWorker;
 import VentanaImagenes.SetTablaMetadata;
 import VentanaImagenes.WorkerIDC;
 import VentanaImagenes.setTablaForIDC;
 import helper.VersionEImageIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.Action;
 import javax.swing.JLabel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -34,6 +38,7 @@ public class NuevoFrame extends javax.swing.JFrame {
   private DefaultTreeModel model;
   private String pathIdc;
   private JLabel informacion;
+  private MyWorker nuevoMapa;
   ImageComponent imageComponent = new ImageComponent();
   VersionEImageIcon vi;
 
@@ -156,11 +161,6 @@ public class NuevoFrame extends javax.swing.JFrame {
 
     informaVolumen.setText("Ver Totales del Volúmen");
     informaVolumen.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(204, 255, 204)));
-    informaVolumen.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        informaVolumenActionPerformed(evt);
-      }
-    });
 
     javax.swing.GroupLayout panelTablasLayout = new javax.swing.GroupLayout(panelTablas);
     panelTablas.setLayout(panelTablasLayout);
@@ -248,10 +248,6 @@ public class NuevoFrame extends javax.swing.JFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void informaVolumenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_informaVolumenActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_informaVolumenActionPerformed
-
   private void cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarActionPerformed
     System.exit(0);
   }//GEN-LAST:event_cerrarActionPerformed
@@ -321,6 +317,12 @@ public class NuevoFrame extends javax.swing.JFrame {
     arbol.setModel(model);
     if (isDirectorio)
       {
+      vi = new VersionEImageIcon(this, "Nueva Ventata principal");
+      infoMeta.setBackground(vi.newColor());
+      this.nuevoMapa = new MyWorker(isDirectorio, this, input, root,
+              pathIdc, informacion);
+      this.nuevoMapa.execute();
+      addActionToJButton();
       } else
       {
       vi = new VersionEImageIcon(this, "Solo un IDC");
@@ -335,6 +337,17 @@ public class NuevoFrame extends javax.swing.JFrame {
     SetMouseListenerAction setMouseListenerAction =
             new SetMouseListenerAction(isDirectorio, imageComponent,
             scrollImage, combo, arbol, jTable2, jTable3);
+  }
+
+  private void addActionToJButton() {
+    informaVolumen.setEnabled(true);
+    informaVolumen.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        String campos = nuevoMapa.getCampos();
+        new Volumenes(campos).setVisible(true);
+      }
+    });
   }
 
   private KeyListener setKeyListener() {

@@ -129,8 +129,8 @@ public class LoginRuta extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       isVolumenorIDC();
     }//GEN-LAST:event_jButton1ActionPerformed
-  private void volumen(String ruta) {
-    File file = new File(ruta);
+  private void volumen(String path) {
+    File file = new File(path);
     FileFilter fileFilter = new FileFilter() {
       @Override
       public boolean accept(File file) {
@@ -140,7 +140,8 @@ public class LoginRuta extends javax.swing.JFrame {
     if (file.exists())
       {
       isFile = true;
-      principal = new VentanaPrincipal(isFile, this, ruta, informacion);
+      //      principal = new VentanaPrincipal(isFile, this, ruta, informacion);
+      NuevoFrame nuevoFrame = new NuevoFrame(isFile, this, path, informacion);
       jButton1.setEnabled(false);
       } else
       {

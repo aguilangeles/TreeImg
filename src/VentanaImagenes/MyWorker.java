@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
@@ -28,7 +29,8 @@ public class MyWorker extends SwingWorker<Void, Integer> {
 
   private LoginRuta logRuta;
   private JLabel informacion;
-  private VentanaPrincipal principal;
+  private VentanaPrincipal principal2;
+  private JFrame principal;
   private DefaultMutableTreeNode raizArbol;
   private boolean isDirectorio;
   //
@@ -42,6 +44,14 @@ public class MyWorker extends SwingWorker<Void, Integer> {
   private static ImagenesTree imagenesTree;
 
   public MyWorker(LoginRuta logRuta, JLabel informacion, VentanaPrincipal principal, DefaultMutableTreeNode root, boolean idrectorio, String path) {
+    this.isDirectorio = idrectorio;
+    this.principal2 = principal;
+    this.logRuta = logRuta;
+    this.raizArbol = root;
+    this.informacion = informacion;
+    directorio = new DirectorioOrdenado(path);
+  }
+  public MyWorker(boolean idrectorio, JFrame principal, LoginRuta logRuta, DefaultMutableTreeNode root, String path, JLabel informacion) {
     this.isDirectorio = idrectorio;
     this.principal = principal;
     this.logRuta = logRuta;
