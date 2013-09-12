@@ -4,7 +4,6 @@
  */
 package InternalFrame;
 
-import VentanaImagenes.WorkerIDC;
 import helper.VersionEImageIcon;
 import java.io.File;
 import java.io.FileFilter;
@@ -23,8 +22,12 @@ public class LoginRuta extends javax.swing.JFrame {
    */
   public LoginRuta() {
     initComponents();
-    VersionEImageIcon versionEImageIcon = new VersionEImageIcon(this);
+    VersionEImageIcon versionEImageIcon = new VersionEImageIcon(this)
+   ;
+    versionEImageIcon.newColor();
+    jPanel1.setBackground( versionEImageIcon.newColor());
     jButton1.setEnabled(true);
+    setResizable(false);
   }
 
   /**
@@ -48,7 +51,6 @@ public class LoginRuta extends javax.swing.JFrame {
     setBackground(new java.awt.Color(255, 255, 255));
     setForeground(new java.awt.Color(255, 255, 255));
 
-    jPanel1.setBackground(new java.awt.Color(200, 245, 245));
     jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
     jLabel1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -60,6 +62,7 @@ public class LoginRuta extends javax.swing.JFrame {
 
     jButton1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
     jButton1.setText("Mostrar");
+    jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(204, 255, 204)));
     jButton1.setEnabled(false);
     jButton1.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,8 +70,8 @@ public class LoginRuta extends javax.swing.JFrame {
       }
     });
 
-    checkIDC.setBackground(new java.awt.Color(200, 245, 245));
     checkIDC.setText("Es un IDC");
+    checkIDC.setOpaque(false);
 
     informacion.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
     informacion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Informacion Proceso"), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.lightGray));
@@ -81,18 +84,13 @@ public class LoginRuta extends javax.swing.JFrame {
       .addGroup(jPanel1Layout.createSequentialGroup()
         .addContainerGap()
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+          .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+          .addComponent(informacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addGroup(jPanel1Layout.createSequentialGroup()
-            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addContainerGap())
-          .addGroup(jPanel1Layout.createSequentialGroup()
-            .addComponent(informacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addContainerGap())
-          .addGroup(jPanel1Layout.createSequentialGroup()
-            .addGap(31, 31, 31)
             .addComponent(checkIDC, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 251, Short.MAX_VALUE)
-            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(30, 30, 30))))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addContainerGap())
     );
     jPanel1Layout.setVerticalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

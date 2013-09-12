@@ -33,14 +33,14 @@ public class NuevoFrame extends javax.swing.JFrame {
 
   private boolean isDirectorio;
   private LoginRuta input;
-  private WorkerIDC idc;
   private DefaultMutableTreeNode root;
   private DefaultTreeModel model;
   private String pathIdc;
   private JLabel informacion;
-  private MyWorker nuevoMapa;
-  ImageComponent imageComponent = new ImageComponent();
-  VersionEImageIcon vi;
+  private static WorkerIDC idc;
+  private static MyWorker nuevoMapa;
+  private static VersionEImageIcon version;
+  private static ImageComponent imageComponent = new ImageComponent();
 
   /**
    * Creates new form NuevoFrame
@@ -60,9 +60,10 @@ public class NuevoFrame extends javax.swing.JFrame {
 
     informaVolumen.setEnabled(false);
     setExtendedState(6);
-    crearElArbol();
+    disenarArbol();
   }
-    private void crearElArbol() {
+
+  private void disenarArbol() {
     root = new DefaultMutableTreeNode(pathIdc, true);
     model = new DefaultTreeModel(root);
     arbol.setModel(model);
@@ -78,7 +79,7 @@ public class NuevoFrame extends javax.swing.JFrame {
     arbol.addKeyListener(kl);
     SetMouseListenerAction setMouseListenerAction =
             new SetMouseListenerAction(isDirectorio, imageComponent,
-            scrollImage, combo, arbol, jTable2, jTable3);
+            scrollImage, combo, arbol, tablaMetadata, tablaIDC);
   }
 
   /**
@@ -90,19 +91,19 @@ public class NuevoFrame extends javax.swing.JFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
-    infoMeta = new javax.swing.JPanel();
+    panelCentral = new javax.swing.JPanel();
     combo = new javax.swing.JComboBox();
     imagenLb = new javax.swing.JLabel();
     scrollImage = new javax.swing.JScrollPane();
     panelTablas = new javax.swing.JPanel();
     cerrar = new javax.swing.JButton();
-    scrollIdc = new javax.swing.JScrollPane();
-    jTable3 = new javax.swing.JTable();
     infoIDC = new javax.swing.JLabel();
     scrollMetadata = new javax.swing.JScrollPane();
-    jTable2 = new javax.swing.JTable();
+    tablaMetadata = new javax.swing.JTable();
     jLabel2 = new javax.swing.JLabel();
     informaVolumen = new javax.swing.JButton();
+    jScrollPane2 = new javax.swing.JScrollPane();
+    tablaIDC = new javax.swing.JTable();
     jLabel1 = new javax.swing.JLabel();
     jScrollPane1 = new javax.swing.JScrollPane();
     arbol = new javax.swing.JTree();
@@ -126,34 +127,12 @@ public class NuevoFrame extends javax.swing.JFrame {
       }
     });
 
-    scrollIdc.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-    jTable3.setModel(new javax.swing.table.DefaultTableModel(
-      new Object [][] {
-
-      },
-      new String [] {
-        "Nombre", "Valor"
-      }
-    ) {
-      boolean[] canEdit = new boolean [] {
-        false, false
-      };
-
-      public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return canEdit [columnIndex];
-      }
-    });
-    scrollIdc.setViewportView(jTable3);
-    jTable3.getColumnModel().getColumn(0).setResizable(false);
-    jTable3.getColumnModel().getColumn(1).setResizable(false);
-
     infoIDC.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     infoIDC.setText("Información del IDC");
 
     scrollMetadata.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-    jTable2.setModel(new javax.swing.table.DefaultTableModel(
+    tablaMetadata.setModel(new javax.swing.table.DefaultTableModel(
       new Object [][] {
 
       },
@@ -169,16 +148,50 @@ public class NuevoFrame extends javax.swing.JFrame {
         return canEdit [columnIndex];
       }
     });
-    scrollMetadata.setViewportView(jTable2);
-    jTable2.getColumnModel().getColumn(0).setResizable(false);
-    jTable2.getColumnModel().getColumn(1).setResizable(false);
-    jTable2.getColumnModel().getColumn(2).setResizable(false);
+    scrollMetadata.setViewportView(tablaMetadata);
+    tablaMetadata.getColumnModel().getColumn(0).setResizable(false);
+    tablaMetadata.getColumnModel().getColumn(1).setResizable(false);
+    tablaMetadata.getColumnModel().getColumn(2).setResizable(false);
 
     jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     jLabel2.setText("Información Metadata");
 
     informaVolumen.setText("Ver Totales del Volúmen");
     informaVolumen.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(204, 255, 204)));
+
+    tablaIDC.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][] {
+        {null, null},
+        {null, null},
+        {null, null},
+        {null, null},
+        {null, null},
+        {null, null},
+        {null, null},
+        {null, null},
+        {null, null},
+        {null, null},
+        {null, null},
+        {null, null},
+        {null, null},
+        {null, null},
+        {null, null}
+      },
+      new String [] {
+        "Nombre", "Valor"
+      }
+    ) {
+      boolean[] canEdit = new boolean [] {
+        false, false
+      };
+
+      public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return canEdit [columnIndex];
+      }
+    });
+    tablaIDC.setAutoscrolls(false);
+    jScrollPane2.setViewportView(tablaIDC);
+    tablaIDC.getColumnModel().getColumn(1).setResizable(false);
 
     javax.swing.GroupLayout panelTablasLayout = new javax.swing.GroupLayout(panelTablas);
     panelTablas.setLayout(panelTablasLayout);
@@ -187,25 +200,25 @@ public class NuevoFrame extends javax.swing.JFrame {
       .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
       .addComponent(scrollMetadata, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
       .addComponent(infoIDC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-      .addComponent(scrollIdc, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+      .addComponent(informaVolumen, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
       .addComponent(cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-      .addComponent(informaVolumen, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+      .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
     );
     panelTablasLayout.setVerticalGroup(
       panelTablasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablasLayout.createSequentialGroup()
-        .addGap(15, 15, 15)
+        .addGap(16, 16, 16)
         .addComponent(jLabel2)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(scrollMetadata, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addComponent(scrollMetadata, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(30, 30, 30)
         .addComponent(informaVolumen, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(18, 18, 18)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(infoIDC)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addComponent(scrollIdc, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addComponent(cerrar)
+        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addContainerGap())
     );
 
@@ -214,21 +227,21 @@ public class NuevoFrame extends javax.swing.JFrame {
 
     jScrollPane1.setViewportView(arbol);
 
-    javax.swing.GroupLayout infoMetaLayout = new javax.swing.GroupLayout(infoMeta);
-    infoMeta.setLayout(infoMetaLayout);
-    infoMetaLayout.setHorizontalGroup(
-      infoMetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(infoMetaLayout.createSequentialGroup()
-        .addGroup(infoMetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(infoMetaLayout.createSequentialGroup()
+    javax.swing.GroupLayout panelCentralLayout = new javax.swing.GroupLayout(panelCentral);
+    panelCentral.setLayout(panelCentralLayout);
+    panelCentralLayout.setHorizontalGroup(
+      panelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelCentralLayout.createSequentialGroup()
+        .addGroup(panelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(panelCentralLayout.createSequentialGroup()
             .addContainerGap()
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(scrollImage))
-          .addGroup(infoMetaLayout.createSequentialGroup()
+          .addGroup(panelCentralLayout.createSequentialGroup()
             .addGap(73, 73, 73)
             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(imagenLb, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(18, 18, 18)
             .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -236,31 +249,31 @@ public class NuevoFrame extends javax.swing.JFrame {
         .addComponent(panelTablas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addContainerGap())
     );
-    infoMetaLayout.setVerticalGroup(
-      infoMetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(panelTablas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-      .addGroup(infoMetaLayout.createSequentialGroup()
+    panelCentralLayout.setVerticalGroup(
+      panelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelCentralLayout.createSequentialGroup()
         .addContainerGap()
-        .addGroup(infoMetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        .addGroup(panelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(imagenLb)
           .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(jLabel1))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(infoMetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(panelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(scrollImage)
-          .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE))
+          .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE))
         .addContainerGap())
+      .addComponent(panelTablas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(infoMeta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+      .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(infoMeta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+      .addComponent(panelCentral, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
 
     pack();
@@ -316,53 +329,51 @@ public class NuevoFrame extends javax.swing.JFrame {
   private javax.swing.JComboBox combo;
   private javax.swing.JLabel imagenLb;
   private javax.swing.JLabel infoIDC;
-  private javax.swing.JPanel infoMeta;
   private javax.swing.JButton informaVolumen;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel2;
   private javax.swing.JScrollPane jScrollPane1;
-  private javax.swing.JTable jTable2;
-  private javax.swing.JTable jTable3;
+  private javax.swing.JScrollPane jScrollPane2;
+  private javax.swing.JPanel panelCentral;
   private javax.swing.JPanel panelTablas;
-  private javax.swing.JScrollPane scrollIdc;
   private javax.swing.JScrollPane scrollImage;
   private javax.swing.JScrollPane scrollMetadata;
+  private javax.swing.JTable tablaIDC;
+  private javax.swing.JTable tablaMetadata;
   // End of variables declaration//GEN-END:variables
 
-
-
-  private void addActionToJButton(){
+  private void addActionToJButton() {
     informaVolumen.setEnabled(true);
     informaVolumen.addActionListener(new ActionListener() {
-
       @Override
       public void actionPerformed(ActionEvent e) {
-       String campos = nuevoMapa.getCampos();
-      new Volumenes(campos).setVisible(true);
+        String campos = nuevoMapa.getCampos();
+        new Volumenes(campos).setVisible(true);
 
       }
     });
   }
+
   private KeyListener setKeyListener() {
     KeyListener kl =
             new SetKeyListenerAction(isDirectorio, imageComponent, scrollImage,
-            combo, arbol, jTable2, jTable3).setKeyListener();
+            combo, arbol, tablaMetadata, tablaIDC).setKeyListener();
     return kl;
   }
 
   private void setVentanaPrincipal() {
-    vi = new VersionEImageIcon(this, "Nueva Ventata principal");
-    infoMeta.setBackground(vi.newColor());
-    this.nuevoMapa = new MyWorker(isDirectorio, this, input, root,
+    version = new VersionEImageIcon(this, "Nueva Ventata principal");
+    panelCentral.setBackground(version.newColor());
+    nuevoMapa = new MyWorker(isDirectorio, this, input, root,
             pathIdc, informacion);
-    this.nuevoMapa.execute();
+    nuevoMapa.execute();
     addActionToJButton();
   }
 
   private void setVentanaSecundaria() {
-    vi = new VersionEImageIcon(this, "Solo un IDC");
-    infoMeta.setBackground(vi.newColor());
-    this.idc = new WorkerIDC(isDirectorio, this, input, root, pathIdc, informacion);
-    this.idc.execute();
+    version = new VersionEImageIcon(this, "Solo un IDC");
+    panelCentral.setBackground(version.newColor());
+    idc = new WorkerIDC(isDirectorio, this, input, root, pathIdc, informacion);
+    idc.execute();
   }
 }
