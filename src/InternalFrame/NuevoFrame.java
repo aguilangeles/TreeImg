@@ -62,6 +62,24 @@ public class NuevoFrame extends javax.swing.JFrame {
     setExtendedState(6);
     crearElArbol();
   }
+    private void crearElArbol() {
+    root = new DefaultMutableTreeNode(pathIdc, true);
+    model = new DefaultTreeModel(root);
+    arbol.setModel(model);
+    if (isDirectorio)
+      {
+      setVentanaPrincipal();
+      } else
+      {
+      setVentanaSecundaria();
+      }
+
+    KeyListener kl = setKeyListener();
+    arbol.addKeyListener(kl);
+    SetMouseListenerAction setMouseListenerAction =
+            new SetMouseListenerAction(isDirectorio, imageComponent,
+            scrollImage, combo, arbol, jTable2, jTable3);
+  }
 
   /**
    * This method is called from within the constructor to initialize the form.
@@ -311,49 +329,40 @@ public class NuevoFrame extends javax.swing.JFrame {
   private javax.swing.JScrollPane scrollMetadata;
   // End of variables declaration//GEN-END:variables
 
-  private void crearElArbol() {
-    root = new DefaultMutableTreeNode(pathIdc, true);
-    model = new DefaultTreeModel(root);
-    arbol.setModel(model);
-    if (isDirectorio)
-      {
-      vi = new VersionEImageIcon(this, "Nueva Ventata principal");
-      infoMeta.setBackground(vi.newColor());
-      this.nuevoMapa = new MyWorker(isDirectorio, this, input, root,
-              pathIdc, informacion);
-      this.nuevoMapa.execute();
-      addActionToJButton();
-      } else
-      {
-      vi = new VersionEImageIcon(this, "Solo un IDC");
-      infoMeta.setBackground(vi.newColor());
-      this.idc = new WorkerIDC(isDirectorio, this, input, root, pathIdc, informacion);
-      this.idc.execute();
 
-      }
 
-    KeyListener kl = setKeyListener();
-    arbol.addKeyListener(kl);
-    SetMouseListenerAction setMouseListenerAction =
-            new SetMouseListenerAction(isDirectorio, imageComponent,
-            scrollImage, combo, arbol, jTable2, jTable3);
-  }
-
-  private void addActionToJButton() {
+  private void addActionToJButton(){
     informaVolumen.setEnabled(true);
     informaVolumen.addActionListener(new ActionListener() {
+
       @Override
       public void actionPerformed(ActionEvent e) {
-        String campos = nuevoMapa.getCampos();
-        new Volumenes(campos).setVisible(true);
+       String campos = nuevoMapa.getCampos();
+      new Volumenes(campos).setVisible(true);
+
       }
     });
   }
-
   private KeyListener setKeyListener() {
     KeyListener kl =
             new SetKeyListenerAction(isDirectorio, imageComponent, scrollImage,
             combo, arbol, jTable2, jTable3).setKeyListener();
     return kl;
+  }
+
+  private void setVentanaPrincipal() {
+    vi = new VersionEImageIcon(this, "Nueva Ventata principal");
+    infoMeta.setBackground(vi.newColor());
+    this.nuevoMapa = new MyWorker(isDirectorio, this, input, root,
+            pathIdc, informacion);
+    this.nuevoMapa.execute();
+    addActionToJButton();
+  }
+
+  private void setVentanaSecundaria() {
+    vi = new VersionEImageIcon(this, "Solo un IDC");
+    infoMeta.setBackground(vi.newColor());
+    this.idc = new WorkerIDC(isDirectorio, this, input, root, pathIdc, informacion);
+    this.idc.execute();
   }
 }

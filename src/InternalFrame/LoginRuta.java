@@ -16,8 +16,6 @@ import javax.swing.JOptionPane;
  */
 public class LoginRuta extends javax.swing.JFrame {
 
-  private VentanaPrincipal principal;
-  private SoloIDCFrame secundario;
   private boolean isFile;
 
   /**
@@ -140,8 +138,8 @@ public class LoginRuta extends javax.swing.JFrame {
     if (file.exists())
       {
       isFile = true;
-      //      principal = new VentanaPrincipal(isFile, this, ruta, informacion);
-      NuevoFrame nuevoFrame = new NuevoFrame(isFile, this, path, informacion);
+//      principal = new VentanaPrincipal(isFile, this, ruta, informacion);
+      new NuevoFrame(isFile, this, path, informacion);
       jButton1.setEnabled(false);
       } else
       {

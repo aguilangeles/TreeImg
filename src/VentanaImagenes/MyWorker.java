@@ -5,7 +5,6 @@
 package VentanaImagenes;
 
 import InternalFrame.LoginRuta;
-import InternalFrame.VentanaPrincipal;
 import Entidades.FilesNames;
 import Entidades.IDCNombre;
 import helper.GetQuantityImagesInFileSystem;
@@ -29,7 +28,6 @@ public class MyWorker extends SwingWorker<Void, Integer> {
 
   private LoginRuta logRuta;
   private JLabel informacion;
-  private VentanaPrincipal principal2;
   private JFrame principal;
   private DefaultMutableTreeNode raizArbol;
   private boolean isDirectorio;
@@ -43,14 +41,6 @@ public class MyWorker extends SwingWorker<Void, Integer> {
   private static int totalEnFileSys;
   private static ImagenesTree imagenesTree;
 
-  public MyWorker(LoginRuta logRuta, JLabel informacion, VentanaPrincipal principal, DefaultMutableTreeNode root, boolean idrectorio, String path) {
-    this.isDirectorio = idrectorio;
-    this.principal2 = principal;
-    this.logRuta = logRuta;
-    this.raizArbol = root;
-    this.informacion = informacion;
-    directorio = new DirectorioOrdenado(path);
-  }
   public MyWorker(boolean idrectorio, JFrame principal, LoginRuta logRuta, DefaultMutableTreeNode root, String path, JLabel informacion) {
     this.isDirectorio = idrectorio;
     this.principal = principal;
