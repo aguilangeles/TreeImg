@@ -47,6 +47,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     public VentanaPrincipal(boolean isDirectorio, LoginRuta in, String rutaInput, JLabel informacion) {
     this.isDirectorio = isDirectorio;
+      System.out.println(isDirectorio);
     this.input = in;
     this.rutaInput = rutaInput;
     this.informacion = informacion;

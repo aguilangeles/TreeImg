@@ -35,6 +35,7 @@ public class NuevoFrame extends javax.swing.JFrame {
   private String pathIdc;
   private JLabel informacion;
   ImageComponent imageComponent = new ImageComponent();
+  VersionEImageIcon vi;
 
   /**
    * Creates new form NuevoFrame
@@ -47,12 +48,12 @@ public class NuevoFrame extends javax.swing.JFrame {
           LoginRuta input, String pathIdc,
           JLabel informacion) {
     this.isDirectorio = isDirectorio;
+    System.out.println(isDirectorio);
     this.input = input;
     this.pathIdc = pathIdc;
     this.informacion = informacion;
     initComponents();
-    VersionEImageIcon vi = new VersionEImageIcon(this, "Solo un IDC");
-    infoMeta.setBackground(vi.newColor());
+
     informaVolumen.setEnabled(false);
     setExtendedState(6);
     crearElArbol();
@@ -319,79 +320,28 @@ public class NuevoFrame extends javax.swing.JFrame {
     root = new DefaultMutableTreeNode(pathIdc, true);
     model = new DefaultTreeModel(root);
     arbol.setModel(model);
-//    this.idc = new WorkerIDC(isDirectorio, this, this.input, this.root, this.pathIdc, informacion);
-    this.idc = new WorkerIDC(isDirectorio, this, input, root, pathIdc, informacion);
-    this.idc.execute();
-    KeyListener kl = setKeyListener();
-    MouseListener ml = new MouseAdapter() {
-      @Override
-      public void mousePressed(MouseEvent e) {
-        getInfoForIDCTree();
+    if (isDirectorio)
+      {
+      } else
+      {
+      vi = new VersionEImageIcon(this, "Solo un IDC");
+      infoMeta.setBackground(vi.newColor());
+      this.idc = new WorkerIDC(isDirectorio, this, input, root, pathIdc, informacion);
+      this.idc.execute();
+
       }
-    };
+
+    KeyListener kl = setKeyListener();
     arbol.addKeyListener(kl);
-    arbol.addMouseListener(ml);
-
-  }
-
-  private void getInfoForIDCTree() {
-    /*ImageComponent imageComponent, JScrollPane scrollImage, JComboBox combo, JTree arbol, JTable jTable2, JTable jTable3*/
-    new getInfoForIDCTree(imageComponent, scrollImage, combo, arbol, jTable2,jTable3);
-
-//    TreePath selpath = arbol.getSelectionPath();
-//    if (selpath != null)
-//      {
-//      DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) arbol.getLastSelectedPathComponent();
-//      if (nodoSeleccionado.toString().contains("#"))
-//        {
-//        SetTablaMetadata tablaVacia = new SetTablaMetadata(jTable2, "");
-//        } else if (nodoSeleccionado.toString().endsWith(".tif"))
-//        {
-//        Tif tif = (Tif) nodoSeleccionado.getUserObject();
-//        String imagen = tif.getRuta();
-//        if (imagen != null)
-//          {
-//          setImage(imagen);
-//          setTablaForIDC idctabla = new setTablaForIDC(jTable3, tif.getCampos());
-//          }
-//        SetTablaMetadata tablaM = new SetTablaMetadata(jTable2, tif.getMetadata());
-//        }
-//      }
-  }
-
-  private void setImage(String imagen) {
-    imageComponent.cargarImagen(imagen, combo, scrollImage);
-    scrollImage.getViewport().add(imageComponent);
+    SetMouseListenerAction setMouseListenerAction =
+            new SetMouseListenerAction(isDirectorio, imageComponent,
+            scrollImage, combo, arbol, jTable2, jTable3);
   }
 
   private KeyListener setKeyListener() {
-    KeyListener kl = new KeyAdapter() {
-      @Override
-      public void keyTyped(KeyEvent e) {
-        myKeyEvt(e, "keyTyped");
-      }
-
-      @Override
-      public void keyReleased(KeyEvent e) {
-        myKeyEvt(e, "keyReleased");
-      }
-
-      @Override
-      public void keyPressed(KeyEvent e) {
-        myKeyEvt(e, "keyPressed");
-      }
-
-      private void myKeyEvt(KeyEvent e, String text) {
-        int key = e.getKeyCode();
-        if (key == KeyEvent.VK_KP_DOWN || key == KeyEvent.VK_DOWN)
-          {
-          getInfoForIDCTree();
-          } else if (key == KeyEvent.VK_KP_UP || key == KeyEvent.VK_UP)
-          {
-          getInfoForIDCTree();
-          }
-      }
-    };
+    KeyListener kl =
+            new SetKeyListenerAction(isDirectorio, imageComponent, scrollImage,
+            combo, arbol, jTable2, jTable3).setKeyListener();
     return kl;
   }
 }

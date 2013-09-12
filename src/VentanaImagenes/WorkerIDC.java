@@ -36,7 +36,8 @@ public class WorkerIDC extends SwingWorker<Void, Integer> {
   private static WriteMessage mensajes;
   private static String path;
 
-  public WorkerIDC(boolean isDirectorio, SoloIDCFrame secundario, LoginRuta input, DefaultMutableTreeNode root, String pathIdc, JLabel informacion) {
+  public WorkerIDC(boolean isDirectorio, SoloIDCFrame secundario, LoginRuta input,
+          DefaultMutableTreeNode root, String pathIdc, JLabel informacion) {
     this.isDirectorio = isDirectorio;
     this.secundario = secundario;
     this.input = input;
@@ -44,7 +45,8 @@ public class WorkerIDC extends SwingWorker<Void, Integer> {
     this.pathIDC = pathIdc;
     this.informacion = informacion;
   }
-  public WorkerIDC(boolean isDirectorio, JFrame secundario, LoginRuta input, DefaultMutableTreeNode root, String pathIdc, JLabel informacion) {
+  public WorkerIDC(boolean isDirectorio, JFrame secundario, LoginRuta input,
+          DefaultMutableTreeNode root, String pathIdc, JLabel informacion) {
     this.isDirectorio = isDirectorio;
     this.secundario = secundario;
     this.input = input;
