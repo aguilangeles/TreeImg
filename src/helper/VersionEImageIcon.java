@@ -32,8 +32,8 @@ public final class VersionEImageIcon extends JFrame {
   }
 
   public Color newColor() {
-    Color color = new Color(255, 255, 204);
-//    Color color = new Color(200, 245, 245);
+//    Color color = new Color(255, 255, 204);
+    Color color = new Color(200, 245, 245);
     return color;
   }
 

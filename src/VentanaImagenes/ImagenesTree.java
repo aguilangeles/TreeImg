@@ -56,7 +56,6 @@ public final class ImagenesTree extends JFrame {
   public ImagenesTree(boolean directorio, DefaultMutableTreeNode raiz, String rutaProcesada, int imgFileSystem) {
     this.isDirectorio = directorio;
     this.raiz = raiz;
-    //this.rutaProcesada = rutaProcesada;
     this.imgFileSystem = imgFileSystem;
     mostrarIDC(rutaProcesada);
   }

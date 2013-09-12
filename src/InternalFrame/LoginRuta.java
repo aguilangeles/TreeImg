@@ -5,6 +5,7 @@
 package InternalFrame;
 
 import helper.VersionEImageIcon;
+import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileFilter;
 import javax.swing.JOptionPane;
@@ -143,14 +144,12 @@ public class LoginRuta extends javax.swing.JFrame {
       jButton1.setEnabled(false);
       } else
       {
-      String mensaje = "La ruta especificada no es válida.\nVerifique la escritura de la misma";
-      JOptionPane.showMessageDialog(null, mensaje, "Error en la escritura de la ruta", JOptionPane.ERROR_MESSAGE);
-      jTextField1.setText("");
+      setMensajeFileNotFound();
       }
   }
 
-  private void idc(String ruta) {
-    File folder = new File(ruta);
+  private void idc(String pathIdc) {
+    File folder = new File(pathIdc);
     FileFilter filefilter = new FileFilter() {
       @Override
       public boolean accept(File file) {
@@ -159,16 +158,14 @@ public class LoginRuta extends javax.swing.JFrame {
     };
     if (folder.exists())
       {
-      secundario = new SoloIDCFrame(isFile, this, ruta, folder, filefilter, informacion);
+      secundario = new SoloIDCFrame(isFile, this, pathIdc, folder, filefilter, informacion);
       //encontrar que mostrar aca
       jTextField1.setText("El proceso puede demorarse unos minutos");
       jButton1.setEnabled(false);
       isFile = false;
       } else
       {
-      String mensaje = "La ruta especificada no es válida.\nVerifique la escritura de la misma";
-      JOptionPane.showMessageDialog(null, mensaje, "Error en la escritura de la ruta", JOptionPane.ERROR_MESSAGE);
-      jTextField1.setText("");
+      setMensajeFileNotFound();
       }
 
   }
@@ -239,4 +236,12 @@ public class LoginRuta extends javax.swing.JFrame {
   private javax.swing.JPanel jPanel1;
   private javax.swing.JTextField jTextField1;
   // End of variables declaration//GEN-END:variables
+
+  private void setMensajeFileNotFound() {
+    String mensaje = "La ruta especificada no es válida.\nVerifique la escritura de la misma";
+    JOptionPane.showMessageDialog(null, mensaje, "Error en la escritura de la ruta", JOptionPane.ERROR_MESSAGE);
+    jTextField1.setText("");
+  }
+
+
 }

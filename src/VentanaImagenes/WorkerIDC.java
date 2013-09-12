@@ -29,27 +29,21 @@ import txt.Escritor;
 public class WorkerIDC extends SwingWorker<Void, Integer> {
 
   private boolean isDirectorio;
-  private SoloIDCFrame secundario;
   private LoginRuta input;
-  private String campos;
-  private DefaultMutableTreeNode root;
-  private String rutaInput;
-  private File file;
-  private FileFilter fileFilter;
-  private String path;
-  private ImagenesTree imagenes;
-  private int sede;
-  private WriteMessage mensajes;
   private JLabel informacion;
+  private SoloIDCFrame secundario;
+  private DefaultMutableTreeNode root;
+  private String pathIDC;
+  private static ImagenesTree imagenes;
+  private static WriteMessage mensajes;
+  private static String path;
 
-  public WorkerIDC(boolean isDirectorio, SoloIDCFrame secundario, LoginRuta input, DefaultMutableTreeNode root, String rutaInput, File dir, FileFilter fileFilter, JLabel informacion) {
+  public WorkerIDC(boolean isDirectorio, SoloIDCFrame secundario, LoginRuta input, DefaultMutableTreeNode root, String pathIdc, JLabel informacion) {
     this.isDirectorio = isDirectorio;
     this.secundario = secundario;
     this.input = input;
     this.root = root;
-    this.rutaInput = rutaInput;
-    this.file = dir;
-    this.fileFilter = fileFilter;
+    this.pathIDC = pathIdc;
     this.informacion = informacion;
   }
 
@@ -58,54 +52,39 @@ public class WorkerIDC extends SwingWorker<Void, Integer> {
 
   @Override
   protected Void doInBackground() {
-    String name = "";
-    int totalImagenes;
-    GetQuantityImagesInFileSystem ci;
+    int totalImagesFileSystem;
+    GetQuantityImagesInFileSystem quantityFlSys;
     int contador = 0;
-
-    File[] dirs = file.listFiles(fileFilter);
-
+    File folder = new File(pathIDC);
+    FileFilter filefilter = new FileFilter() {
+      @Override
+      public boolean accept(File file) {
+        return file.isFile();
+      }
+    };
+    File[] dirs = folder.listFiles(filefilter);
     if (dirs != null)
       {
-      for (File d : dirs)
+      for (File files : dirs)
         {
-        path = d.getPath();
+        path = files.getPath();
         if (path.endsWith("Carat.xml"))
           {
           contador++;
-          ci = new GetQuantityImagesInFileSystem(path, contador);
-          informacion.setText("Procesando imagen " + contador);
+          quantityFlSys = new GetQuantityImagesInFileSystem(path, contador);//cantidad imagenes filesystem
           String reemplazo = path.replace("#", "%23");
-          totalImagenes = (ci.getListaFileSystem().get(contador));
-          imagenes = new ImagenesTree(isDirectorio, root, reemplazo, totalImagenes);//borrar todo lo de Escritor txt
-          IDCNombre idcnombre = imagenes.getIdcnombre();
-          List<FilesNames> lista = idcnombre.getListaFiles();
-          List<String> listaFiles = ci.getFilenameList();
-          for (FilesNames flm : lista)
-            {
-            String nombrefl = flm.toString();
-            if (!listaFiles.contains(nombrefl))
-              {
-                {
-                String noFile = nombrefl;
-                imagenes.setEscrituraErrores(true);
-                String ruta = reemplazo.replace("Carat.xml", "Imagenes/") + noFile;
-                mensajes = new WriteMessage(ruta, "El sistema no encontro el archivo en el Idc ");
-                }
-              }
-            }
-          } else
-          {
-          System.out.println("!");
+          totalImagesFileSystem = (quantityFlSys.getListaFileSystem().get(contador));
 
+          imagenes = new ImagenesTree(isDirectorio, root, reemplazo, totalImagesFileSystem);//borrar todo lo de Escritor txt
+
+          IDCNombre idcnombre = imagenes.getIdcnombre();
+
+          List<FilesNames> lista = idcnombre.getListaFiles();
+          setListaFiles(quantityFlSys, lista, reemplazo);
           }
         }
       }
-        return null;
-  }
-
-  public String getCampos() {
-    return campos;
+    return null;
   }
 
   @Override
@@ -120,5 +99,26 @@ public class WorkerIDC extends SwingWorker<Void, Integer> {
       input.dispose();
       secundario.setVisible(true);
       }
+  }
+
+  private void setListaFiles(GetQuantityImagesInFileSystem quantityFlSys, List<FilesNames> lista, String reemplazo) {
+    List<String> listaFiles = quantityFlSys.getFilenameList();
+    for (FilesNames filesnames : lista)
+      {
+      String nombreFile = filesnames.toString();
+      if (!listaFiles.contains(nombreFile))
+        {
+          {
+          String fileNotFound = nombreFile;
+          imagenes.setEscrituraErrores(true);
+          String ruta = reemplazo.replace("Carat.xml", "Imagenes/") + fileNotFound;
+          mensajes = new WriteMessage(ruta, "El sistema no encontro el archivo en el Idc ");
+          }
+        } else
+        {
+        informacion.setText(nombreFile);
+
+        }
+      }//for
   }
 }

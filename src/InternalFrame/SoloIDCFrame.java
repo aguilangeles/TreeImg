@@ -34,68 +34,34 @@ public class SoloIDCFrame extends javax.swing.JFrame {
   private WorkerIDC idc;
   private DefaultMutableTreeNode root;
   private DefaultTreeModel model;
-  private String rutaInput;
-  private File file;
-  private FileFilter fileFilter;
+  private String pathIdc;
   private JLabel informacion;
   ImageComponent imageComponent = new ImageComponent();
 
   /**
    * Creates new form VentanaPrincipal
    */
-  public SoloIDCFrame(boolean isDirectorio, LoginRuta out, String rutaInput, File dir, FileFilter fileFilter, JLabel informacion) {
-    super("Árbol de Imágenes_IDC V_1.0.02");
+  public SoloIDCFrame(boolean isDirectorio, LoginRuta out, String pathIdc, File dir, FileFilter fileFilter, JLabel informacion) {
     this.isDirectorio = isDirectorio;
     this.input = out;
-    this.rutaInput = rutaInput;
-    this.file = dir;
-    this.fileFilter = fileFilter;
+    this.pathIdc = pathIdc;
     this.informacion = informacion;
     initComponents();
     VersionEImageIcon vi = new VersionEImageIcon(this, "Solo un IDC");
     PanelPrincipal.setBackground(vi.newColor());
     crearElArbol();
   }
-
   public SoloIDCFrame() {
     initComponents();
   }
 
   private void crearElArbol() {
-    root = new DefaultMutableTreeNode(rutaInput, true);
+    root = new DefaultMutableTreeNode(pathIdc, true);
     model = new DefaultTreeModel(root);
     jTree1.setModel(model);
-    this.idc = new WorkerIDC(isDirectorio, this, this.input, this.root, this.rutaInput, this.file, this.fileFilter, informacion);
+    this.idc = new WorkerIDC(isDirectorio, this, this.input, this.root, this.pathIdc, informacion);
     this.idc.execute();
-    KeyListener kl = new KeyAdapter() {
-      @Override
-      public void keyTyped(KeyEvent e) {
-        myKeyEvt(e, "keyTyped");
-      }
-
-      @Override
-      public void keyReleased(KeyEvent e) {
-        myKeyEvt(e, "keyReleased");
-      }
-
-      @Override
-      public void keyPressed(KeyEvent e) {
-        myKeyEvt(e, "keyPressed");
-      }
-
-      private void myKeyEvt(KeyEvent e, String text) {
-        int key = e.getKeyCode();
-        if (key == KeyEvent.VK_KP_DOWN || key == KeyEvent.VK_DOWN)
-          {
-          mostrarInformacion();
-          } else if (key == KeyEvent.VK_KP_UP || key == KeyEvent.VK_UP)
-          {
-          mostrarInformacion();
-          }
-      }
-    };
-
-
+    KeyListener kl = setKeyListener();
     MouseListener ml = new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
@@ -128,8 +94,6 @@ public class SoloIDCFrame extends javax.swing.JFrame {
         }
       }
   }
-
-
 
   /**
    * This method is called from within the constructor to initialize the form.
@@ -217,6 +181,7 @@ public class SoloIDCFrame extends javax.swing.JFrame {
 
     scrollIDC.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
     scrollIDC.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+    scrollIDC.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
     tablaIDC.setModel(new javax.swing.table.DefaultTableModel(
       new Object [][] {
@@ -448,5 +413,36 @@ public class SoloIDCFrame extends javax.swing.JFrame {
   private void setImage(String imagen) {
     imageComponent.cargarImagen(imagen, jComboBox1, scrollImage);
     scrollImage.getViewport().add(imageComponent);
+  }
+
+  private KeyListener setKeyListener() {
+    KeyListener kl = new KeyAdapter() {
+      @Override
+      public void keyTyped(KeyEvent e) {
+        myKeyEvt(e, "keyTyped");
+      }
+
+      @Override
+      public void keyReleased(KeyEvent e) {
+        myKeyEvt(e, "keyReleased");
+      }
+
+      @Override
+      public void keyPressed(KeyEvent e) {
+        myKeyEvt(e, "keyPressed");
+      }
+
+      private void myKeyEvt(KeyEvent e, String text) {
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_KP_DOWN || key == KeyEvent.VK_DOWN)
+          {
+          mostrarInformacion();
+          } else if (key == KeyEvent.VK_KP_UP || key == KeyEvent.VK_UP)
+          {
+          mostrarInformacion();
+          }
+      }
+    };
+    return kl;
   }
 }
