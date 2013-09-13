@@ -39,7 +39,7 @@ public class GetFileNotFoundEx {
     BufferedImage image = null;
     try
       {
-      image = (BufferedImage) new ReadImageTif().getImagen("ImagenNoEncontrada.tif");
+      image = (BufferedImage) new ReadImageTif().getImagen("imagen-no-encontrada.jpg");
       } catch (FileNotFoundException ex)
       {
       JOptionPane.showMessageDialog(null, ex.getMessage(), "Imagen recursiva no encontrada", JOptionPane.ERROR_MESSAGE);
