@@ -2,11 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/C:/Users/MUTNPROD003/Documents/GitHub/ArbolPorImagenes1.0.07/src/VentanaImagenes/FaceMapeo.java</file>
-        <file>file:/C:/Users/MUTNPROD003/Documents/GitHub/ArbolPorImagenes1.0.07/src/Tablas/SetTablaForIDC.java</file>
         <file>file:/C:/Users/MUTNPROD003/Documents/GitHub/ArbolPorImagenes1.0.07/src/helper/WriteMessage.java</file>
-        <file>file:/C:/Users/MUTNPROD003/Documents/GitHub/ArbolPorImagenes1.0.07/src/helper/Escritor.java</file>
+        <file>file:/C:/Users/MUTNPROD003/Documents/GitHub/ArbolPorImagenes1.0.07/src/VentanaImagenes/MyWorker.java</file>
+        <file>file:/C:/Users/MUTNPROD003/Documents/GitHub/ArbolPorImagenes1.0.07/src/VentanaImagenes/SetEjercicio.java</file>
+        <file>file:/C:/Users/MUTNPROD003/Documents/GitHub/ArbolPorImagenes1.0.07/src/VentanaImagenes/SetTotalArbol.java</file>
+        <file>file:/C:/Users/MUTNPROD003/Documents/GitHub/ArbolPorImagenes1.0.07/src/VentanaImagenes/WorkerIDC.java</file>
         <file>file:/C:/Users/MUTNPROD003/Documents/GitHub/ArbolPorImagenes1.0.07/src/VentanaImagenes/GetFileNotFoundEx.java</file>
-        <file>file:/C:/Users/MUTNPROD003/Documents/GitHub/ArbolPorImagenes1.0.07/src/VentanaImagenes/FindeProceso.java</file>
+        <file>file:/C:/Users/MUTNPROD003/Documents/GitHub/ArbolPorImagenes1.0.07/src/InternalFrame/LoginRuta.java</file>
+        <file>file:/C:/Users/MUTNPROD003/Documents/GitHub/ArbolPorImagenes1.0.07/src/InternalFrame/NuevoFrame.java</file>
     </open-files>
 </project-private>
