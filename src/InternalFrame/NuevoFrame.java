@@ -100,7 +100,7 @@ public class NuevoFrame extends javax.swing.JFrame {
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-    combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tamanio Original", "Visible en Pantalla", "50%", "25%", " " }));
+    combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tamanio Original", "Visible en Pantalla", "50%", "25%" }));
 
     imagenLb.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     imagenLb.setText("Visualizar imagen a:");
