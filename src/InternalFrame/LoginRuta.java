@@ -57,7 +57,6 @@ public class LoginRuta extends javax.swing.JFrame {
     jLabel1.setText("Ingrese Ruta del Volumen");
 
     jTextField1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-    jTextField1.setText("C:\\Angeles\\201111L06V02\\GND#201111L06V02#GEN_00000002#SL000187");
 
     jButton1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
     jButton1.setText("Mostrar");
