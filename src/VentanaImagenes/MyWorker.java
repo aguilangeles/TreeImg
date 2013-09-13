@@ -4,28 +4,20 @@
  */
 package VentanaImagenes;
 
-import InternalFrame.InputRuta;
-import InternalFrame.VentanaPrincipal;
-import Recursos.FilesNames;
-import Recursos.IDCNombre;
-import helper.ContarImagenes;
+import InternalFrame.LoginRuta;
+import Entidades.FilesNames;
+import Entidades.IDCNombre;
+import helper.GetQuantityImagesInFileSystem;
 import helper.DirectorioOrdenado;
-import helper.Mensajes;
-import helper.Porcentaje;
-import java.io.File;
-import java.io.FileFilter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import helper.WriteMessage;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.SortedMap;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.SwingWorker;
 import javax.swing.tree.DefaultMutableTreeNode;
-import txt.Escritor;
 
 /**
  *
@@ -33,151 +25,102 @@ import txt.Escritor;
  */
 public class MyWorker extends SwingWorker<Void, Integer> {
 
-    private boolean escribioTXT;
-    private DefaultMutableTreeNode raizArbol;
-    private boolean isDirectorio;
-    private VentanaPrincipal principal;
-    private InputRuta frameInput;
-    private JButton botonVolumen;
-    private String camposVolumen;
-    private Porcentaje porcentaje;
-    private String rutaInput;
-    private String noImagen;
-    private File file;
-    private FileFilter fileFilter;
-    private int img = 0, papeles = 0, ppV = 0, ppI = 0, an = 0, rev = 0, cm = 0,
-            cmV = 0, cmI = 0, cmIB = 0;
-    private float validosPorcentaje;
-    private String noFilename;
+  private LoginRuta logRuta;
+  private JLabel informacion;
+  private JFrame principal;
+  private DefaultMutableTreeNode raizArbol;
+  private boolean isDirectorio;
+  //
+  private static boolean escribioTXT;
+  private static String noFilename;
+  private static WriteMessage mensaje;
+  private static SetTotalArbol setTotalArbol;
+  private static String camposVolumen;
+  private static DirectorioOrdenado directorio;
+  private static int totalEnFileSys;
+  private static ImagenesTree imagenesTree;
 
-    private ImagenesTree imagenes;
-private IDCNombre idcnombre ;
-    private Mensajes mensaje;
-    private  String txtUbicacion ;
-    public MyWorker(boolean valor, VentanaPrincipal principal, InputRuta input,
-            DefaultMutableTreeNode root, String rutaInput,
-            File dir, FileFilter fileFilter, JButton botonVolumen, String noImagen) {
-        this.isDirectorio = valor;
-        this.principal = principal;
-        this.frameInput = input;
-        this.raizArbol = root;
-        this.rutaInput = rutaInput;
-        this.file = dir;
-        this.fileFilter = fileFilter;
-        this.botonVolumen = botonVolumen;
-        this.noImagen=noImagen;
-    }
+  public MyWorker(boolean idrectorio, JFrame principal, LoginRuta logRuta, DefaultMutableTreeNode root, String path, JLabel informacion) {
+    this.isDirectorio = idrectorio;
+    this.principal = principal;
+    this.logRuta = logRuta;
+    this.raizArbol = root;
+    this.informacion = informacion;
+    directorio = new DirectorioOrdenado(path);
+  }
 
-    public MyWorker() {
-    }
+  public MyWorker() {
+  }
 
-    @Override
-    protected Void doInBackground() throws Exception {
-        DirectorioOrdenado dir = new DirectorioOrdenado(rutaInput, file, fileFilter);
-        int sede = dir.getSede();
-        SortedMap mapa = dir.getSortedMap();
-                int tf =0;
-        Iterator it = mapa.keySet().iterator();
-        int p=0;
-            int totFS=0;
-        while (it.hasNext()) {
-            Object key = it.next();
-            String rutaProcesada = (String) mapa.get(key);
-            int r = (Integer) key;
-            ContarImagenes ci = new ContarImagenes(rutaProcesada, r);
-            Iterator m = ci.getListaFileSystem().entrySet().iterator();
-            while (m.hasNext()) {
-                Map.Entry l = (Map.Entry) m.next();
-                p = (Integer) l.getValue();
-               totFS+=p;
-            }
-
-            imagenes = new ImagenesTree(isDirectorio, raizArbol, rutaProcesada,  escribioTXT, sede, p);
-            idcnombre = imagenes.getIdcnombre();
-            List<FilesNames> lista = idcnombre.getListaFiles();
-            List<String> listaF = ci.getFilenames();
-            for (FilesNames flm : lista) {
-                String nombrefln = flm.toString();
-                if (!listaF.contains(nombrefln)) {
-                    noFilename = (nombrefln);
-                    imagenes.setEscrituraErrores(true);
-                    String ruta = rutaProcesada.replace("Carat.xml", "Imagenes") + "/" + noFilename;
-                    mensaje = new Mensajes(ruta, "El sistema no puede encontrar el archivo");
-                }
-            }
-
-            try {
-                for (TotalArbol l : imagenes.getLista()) {
-                    papeles += l.getPapeles();
-                    ppV += l.getP_validos();
-                    ppI += l.getP_invalidos();
-                    float porcentajeVlidos = 0;
-                    porcentajeVlidos += (float) ppV * 100 / (float) papeles;
-                    boolean isNan = Float.isNaN(porcentajeVlidos);
-                    validosPorcentaje = (!isNan) ? porcentajeVlidos : 0;
-                    an += l.getAnversos();
-                    rev += l.getReversos();
-                    img += l.getImagenes();
-                    cm += l.getCampos();
-                    cmV += l.getC_valid();
-                    cmI += l.getC_invalid();
-                    cmIB += l.getC_invalidDB();
-                }
-            } catch (Exception l) {
-                String ruta = rutaProcesada.replace("/Carat.xml", "");
-                mensaje = new Mensajes(ruta, "El xml 'Meta' no se encuentra");
-            }
+  @Override
+  protected Void doInBackground() throws Exception {
+    int imgFileSys = 0;
+    int totalImgInFileSystem = 0;
+    int idSede = directorio.getSede();
+    SortedMap mapa = directorio.getSortedMap();
+    Iterator it = mapa.keySet().iterator();
+    while (it.hasNext())
+      {
+      Object key = it.next();
+      String newPath = (String) mapa.get(key);
+      informacion.setText(newPath);
+      int rutaKey = (Integer) key;
+      GetQuantityImagesInFileSystem quantity = new GetQuantityImagesInFileSystem(newPath, rutaKey);
+      for (Map.Entry map : quantity.getListaFileSystem().entrySet())
+        {
+        imgFileSys = (Integer) map.getValue();
+        totalEnFileSys += imgFileSys;
         }
+      imagenesTree = new ImagenesTree(isDirectorio, raizArbol, newPath, escribioTXT, idSede, imgFileSys);
+      setListaFiles(quantity, newPath);
+      setTotalesArbol(newPath);
+      }
+    setCamposVolumen(getTotalEnFileSys());
+    return null;
+  }
 
-        Porcentaje validos = new Porcentaje(cmV, cm);
-        Porcentaje invalido = new Porcentaje(cmI, cm);
-        Porcentaje invalidoDB = new Porcentaje(cmIB, cm);
-        camposVolumen = img
-                + ", " + totFS
-                + ", " + an
-                + ", " + rev
-                + ", " + papeles
-                + ", " + ppV
-                + ", " + ppI
-                + ", " + validosPorcentaje
-                + ", " + cm
-                + ", " + cmV
-                + ", " + cmI
-                + ", " + cmIB
-                + ", " + validos
-                + ", " + invalido
-                + ", " + invalidoDB
-                + "\n";
-        return null;
+  public static int getTotalEnFileSys() {
+    return totalEnFileSys;
+  }
 
-    }
+  public String getCampos() {
+    return camposVolumen;
+  }
 
-    public String getCampos() {
-        return camposVolumen;
-    }
+  @Override
+  protected void done() {
+    if (!isCancelled())
+      {
+//      new FindeProceso();
+      escribioTXT = imagenesTree.isEscrituraErrores();
+      FindeProceso findeProceso = new FindeProceso(escribioTXT, mensaje);
+      logRuta.dispose();
+      principal.setVisible(true);
+      }
+  }
 
-    private String fecha() {
-        String fecha = "";
-        SimpleDateFormat format = new SimpleDateFormat("dd'-'MM'-'yyyy HH:mm", Locale.ENGLISH);
-        Date date = new Date();
-        fecha = format.format(date);
-        return fecha;
-    }
+  private void setTotalesArbol(String rutaProcesada) {
+    setTotalArbol = new SetTotalArbol(imagenesTree, rutaProcesada);
+  }
 
-    @Override
-    protected void done() {
-        if (!isCancelled()) {
-            escribioTXT = imagenes.isEscrituraErrores();
-            botonVolumen.setEnabled(true);
+  private void setCamposVolumen(int total) {
+    camposVolumen = (setTotalArbol.setCamposVolumen(total));
+  }
 
-            String finalizo = "La construcción del Arbol ha finalizado";
-            String aceptar = "Aceptar para mostrar la Ventana Principal\n";
-            String advertencia = (escribioTXT) ? "Datos de errores en: \n" + mensaje.getUbicacion() : "";
-            JOptionPane.showMessageDialog(null, finalizo + "\n" + advertencia + "\n" + aceptar, "Proceso finalizado", JOptionPane.INFORMATION_MESSAGE);
-            //TODO cambiar por un : version 1.0.03
-//            JOptionPane.showConfirmDialog(principal, flag);
-            frameInput.dispose();
-            principal.setVisible(true);
+  private void setListaFiles(GetQuantityImagesInFileSystem cantidadImg, String rutaProcesada) {
+    IDCNombre idcnombre = imagenesTree.getIdcnombre();
+    List<FilesNames> listaFiles = idcnombre.getListaFiles();
+    List<String> listaFilenames = cantidadImg.getFilenameList();
+    for (FilesNames flm : listaFiles)
+      {
+      String nombrefln = flm.toString();
+      if (!listaFilenames.contains(nombrefln))
+        {
+        noFilename = (nombrefln);
+        imagenesTree.setEscrituraErrores(true);
+        String ruta = rutaProcesada.replace("Carat.xml", "Imagenes") + "/" + noFilename;
+        mensaje = new WriteMessage(ruta, "El sistema no puede encontrar el archivo");
         }
-    }
+      }
+  }
 }
