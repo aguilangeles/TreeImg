@@ -5,24 +5,23 @@
 package VentanaImagenes;
 
 import Image.ReadImageTif;
-import helper.MensajeTxt;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import helper.Escritor;
+import helper.WriteMessage;
 
 /**
- * Si la imagen no existe, llama a esta clase para escribir en el log
- * y mostrar una imagen recursiva
+ * Si la imagen no existe, llama a esta clase para escribir en el log y mostrar
+ * una imagen recursiva
+ *
  * @author aguilangeles@gmail.com
  */
 public class GetFileNotFoundEx {
 
-  private static Escritor escritor = new Escritor("noImagen.txt");
-
+//  private static Escritor escritor = new Escritor("noImagen.txt");
   public GetFileNotFoundEx() {
   }
 
@@ -32,8 +31,8 @@ public class GetFileNotFoundEx {
 
   private void escribirLog(String mensajeException, String descripcion) {
     String path = mensajeException.substring(0, mensajeException.length() - descripcion.length());
-    MensajeTxt mstxt = new MensajeTxt(path, descripcion);
-    escritor.salida(mstxt);
+    WriteMessage wm = new WriteMessage();
+    wm.writeNewLog("noImagen.txt", path, descripcion);
   }
 
   public BufferedImage fileNotFoundImage() {

@@ -44,5 +44,5 @@ public class SetEjercicio {
   public boolean isEjercicio() {
     return ejercicio;
   }
-  
+
 }

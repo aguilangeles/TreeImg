@@ -10,22 +10,34 @@ package helper;
  * @author MUTNPROD003
  */
 public class WriteMessage {
-
-  private static Escritor informe = new Escritor("Informe_Errores.txt");
   private String ruta;
   private String mensaje;
   private String ubicacion;
 
+
   public WriteMessage(String ruta, String mensaje) {
     this.ruta = ruta;
     this.mensaje = mensaje;
-    write();
+    Escritor informe = new Escritor("Describe_errores.txt");
+    write(informe);
   }
 
-  private void write() {
+  public WriteMessage() {
+  }
+
+
+  private void write(Escritor informe) {
     MensajeTxt msg = new MensajeTxt(ruta, mensaje);
     informe.salida(msg);
     ubicacion = informe.getUbicacion();
+  }
+
+  public void writeNewLog(String pathFile,String ruta, String mensaje) {
+    Escritor escritor = new Escritor(pathFile);
+    MensajeTxt msg = new MensajeTxt(ruta, mensaje);
+    escritor.salida(msg);
+    ubicacion = escritor.getUbicacion();
+
   }
 
   public String getUbicacion() {
