@@ -150,12 +150,13 @@ public class ReporteXMLMetas {
             {
             status = meta.getStatus();
             ret += campo.toString();
+              System.out.println(ret);
             }
           }
         }
       }
     String retEstado = "";
-    retEstado = (!status.equals("")) ? "Estado, " + status + ", " : "";
+    retEstado = (!status.equals("")) ? "Estado; " + status + "; " : "";
     return retEstado + "\n" + ret;
   }
 
