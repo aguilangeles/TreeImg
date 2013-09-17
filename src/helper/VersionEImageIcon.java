@@ -14,7 +14,7 @@ import javax.swing.JFrame;
  */
 public final class VersionEImageIcon extends JFrame {
 
-  public static final String VERSION = "TreeImg 1.0.07";
+  public static final String VERSION = "TreeImg 1.0.08";
 
   public VersionEImageIcon() {
   }

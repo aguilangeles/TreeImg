@@ -150,7 +150,6 @@ public class ReporteXMLMetas {
             {
             status = meta.getStatus();
             ret += campo.toString();
-              System.out.println(ret);
             }
           }
         }
