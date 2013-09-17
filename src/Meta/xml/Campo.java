@@ -51,7 +51,7 @@ public class Campo {
 
     @Override
     public String toString() {
-        return name +", "+ value + ", "+ 
+        return name +"; "+ value + "; "+
                 ((!"".equals(status))? status:' ') +"\n";
     }
 }

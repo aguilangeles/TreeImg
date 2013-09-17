@@ -99,7 +99,7 @@ public final class MapeoReporte {
   }
 
   private String getInfoForTablaMetadata(int orden, String tfaces, String estadoMeta) {
-    String ret = "Orden, " + orden + "\n" + "Face, " + tfaces + ", \n" + estadoMeta;
+    String ret = "Orden; " + orden + "\n" + "Face; " + tfaces + "; \n" + estadoMeta;
     return ret;
   }
 
@@ -114,6 +114,7 @@ public final class MapeoReporte {
 
       } catch (IOException em)
       {
+      System.out.println(em.getMessage());
       //System.out.println("algo");
       //TODO colocar algo
       }
