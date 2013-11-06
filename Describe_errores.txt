@@ -1,0 +1,140 @@
+Fecha: 06-11-2013 11:43
+Ruta: c:/angeles/testeo/gnd7/GND%23V201103V010002%23GEN01_00002440%232462
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 11:54
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_000000001%235
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 11:54
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_000000001%236
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 11:55
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000012%2315
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 11:55
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000012%2317
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 11:55
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000012%2319
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 11:56
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000012%2321
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 11:59
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_000000001%235
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 11:59
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_000000001%236
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:00
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000012%2315
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:00
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000012%2317
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:00
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000012%2319
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:01
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000012%2321
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:01
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000023%2324
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:01
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000023%2326
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:02
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000023%2331
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:02
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000033%2334
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:03
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000033%2336
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:03
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000033%2338
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:03
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000040%2341
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:03
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000040%2343
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:04
+Ruta: \\Gnanas001\gna\Ideceados\Linea 00\V201012V0000001/GND%23V201012V0000001%23GEN00_00000040%2345
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:08
+Ruta: c:/angeles/testeo/gnd2/GND%23V201105V030002%23GEN03_00000927%23945
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:08
+Ruta: c:/angeles/testeo/gnd2/GND%23V201105V030002%23GEN03_00000927%23948
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:08
+Ruta: c:/angeles/testeo/gnd2/GND%23V201105V030002%23GEN03_00000927%23952
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:08
+Ruta: c:/angeles/testeo/gnd2/GND%23V201105V030002%23GEN03_00000927%23955
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:09
+Ruta: c:/angeles/testeo/gnd7/GND%23V201103V010002%23GEN01_00002440%232462
+Descripcion: Tipo de documento: EJERCICIO
+
+
+Fecha: 06-11-2013 12:10
+Ruta: c:/angeles/testeo/gnd6/GND%23201203L06V05%23GEN_0000024%23SL007333
+Descripcion: Tipo de documento: EJERCICIO
+
+

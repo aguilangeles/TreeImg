@@ -10,10 +10,14 @@ import Entidades.IDCNombre;
 import helper.GetQuantityImagesInFileSystem;
 import helper.DirectorioOrdenado;
 import helper.WriteMessage;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingWorker;
@@ -63,7 +67,8 @@ public class MyWorker extends SwingWorker<Void, Integer> {
       {
       Object key = it.next();
       String newPath = (String) mapa.get(key);
-      informacion.setText(newPath);
+      String dec = (decoder(newPath));
+      informacion.setText(dec);
       int rutaKey = (Integer) key;
       GetQuantityImagesInFileSystem quantity = new GetQuantityImagesInFileSystem(newPath, rutaKey);
       for (Map.Entry map : quantity.getListaFileSystem().entrySet())
@@ -77,6 +82,18 @@ public class MyWorker extends SwingWorker<Void, Integer> {
       }
     setCamposVolumen(getTotalEnFileSys());
     return null;
+  }
+
+  private String decoder(String astring) {
+    String ret = "";
+    try
+      {
+      ret = URLDecoder.decode(astring, "UTF-8");
+      } catch (UnsupportedEncodingException ex)
+      {
+      Logger.getLogger(MyWorker.class.getName()).log(Level.SEVERE, null, ex);
+      }
+    return ret;
   }
 
   public static int getTotalEnFileSys() {

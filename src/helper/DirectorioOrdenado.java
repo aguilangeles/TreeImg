@@ -43,11 +43,26 @@ public class DirectorioOrdenado {
       for (File file : listOfFiles)
         {
         String stringSortedMap = rutaDecoder(ruta, file.getName());
+
+
+//        numeroSublote = ignoreLetters(file.getName());
         numeroSublote = setNumeroSubLote(file, numeroSublote);
         sortedMap1.put(numeroSublote, stringSortedMap);
         }
       }
     return (SortedMap) sortedMap1;
+  }
+
+  private int ignoreLetters(String astring) {
+    String rt = "";
+    for (int i = 0; i < astring.length(); i++)
+      {
+      if (!Character.isLetter(astring.charAt(i)))
+        {
+        rt += astring.charAt(i);
+        }
+      }
+    return Integer.parseInt(rt);
   }
 
   private String rutaDecoder(String aString, String bString) {
@@ -78,12 +93,14 @@ public class DirectorioOrdenado {
     String finCadena = split[3];
     if (getName.contains("OSN"))
       {
-      numeroSublote = Integer.parseInt(finCadena);
+      numeroSublote = ignoreLetters(finCadena);
+//      numeroSublote = Integer.parseInt(finCadena);
       sede = 2;
       } else if (getName.contains("GND"))
       {
-      String sinSl = finCadena.substring(2);
-      numeroSublote = Integer.parseInt(sinSl);
+     // String sinSl = finCadena.substring(2);
+      numeroSublote = ignoreLetters(finCadena);
+//      numeroSublote = Integer.parseInt(sinSl);
       sede = 1;
       }
     return numeroSublote;
